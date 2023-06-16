@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SUCODER</title>
+    <style>
+    .progress-bar {
+      width: 400px;
+      height: 20px;
+      background-color: #f2f2f2;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      background-color: #4CAF50;
+      border-radius: 4px;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<H1>SUCODER</H1>
+<h2>Java Code Generator</h2>
+
+<div class="progress-bar">
+    <div class="progress" id="progress"></div>
+</div>
+
+<form id="codeGeneratorForm">
+    <div class="form-step active" id="step1">
+        <h3>Paso 1: Estructura de Control</h3><hr>
+        <h3>1. Seleccionar Estructura</h3>
+        <label>
+            <input type="radio" name="structure" value="if"> SI
+        </label><br>
+        <label>
+            <input type="radio" name="structure" value="while"> MIENTRAS
+        </label><br>
+        <label>
+            <input type="radio" name="structure" value="do"> HACER
+        </label><br><br><br>
+        <button type="button" onclick="nextStep()">Siguiente</button>
+    </div>
+
+
+
+    <div class="form-step" id="step2">
+        <h3>Paso 2: Atributos </h3><hr>
+        <h3>2. Atributo 1</h3>
+        <label for="attribute1Name">2.1 Nombre:</label><br>
+        <input type="text" id="attribute1Name" name="attribute1Name" required><br><br>
+        <label for="attribute1Value">2.2 Valor:</label><br>
+        <input type="text" id="attribute1Value" name="attribute1Value" required><br><br>
+        <label for="attribute1Type">2.3 Tipo:</label><br>
+        <input type="text" id="attribute1Type" name="attribute1Type" required><br><br>
+
+        <h3>3. Atributo 2</h3>
+        <label for="attribute2Name">3.1 Nombre:</label><br>
+        <input type="text" id="attribute2Name" name="attribute2Name" required><br><br>
+        <label for="attribute2Value">3.2 Valor:</label><br>
+        <input type="text" id="attribute2Value" name="attribute2Value" required><br><br>
+        <label for="attribute2Type">3.3 Tipo:</label><br>
+        <input type="text" id="attribute2Type" name="attribute2Type" required><br><br>
+
+        <h3>4. Operador de Comparador</h3>
+        <select id="comparisonOperator" name="comparisonOperator">
+            <option value="==">Igual (==)</option>
+            <option value="!=">Distinto (!=)</option>
+            <option value="&gt;">Es Mayor (>)</option>
+            <option value="&lt;">Es Menor (<)</option>
+            <option value="&gt;=">Mayor o Igual (>=)</option>
+            <option value="&lt;=">Menor o Igual (<=)</option>
+        </select><br><br><br><br>
+
+        <button type="button" onclick="previousStep()">Anterior</button>
+        <button type="button" onclick="nextStep()">Siguiente</button>
+    </div>
+
+    <div class="form-step" id="step3">
+        <h3>Paso 3: Definir Mensaje</h3><hr>
+        <h3>5. ¿La Condición es Verdadera?</h3>
+
+        <div class="input-group">
+            <label>
+                <input id="radioButton1" type="radio" name="messageOption" onclick="toggleInputFields()"> Si
+            </label>
+        </div>
+
+        <div class="input-group">
+            <label>
+                <input id="radioButton2" type="radio" name="messageOption" onclick="toggleInputFields()"> No
+            </label>
+        </div><br>
+
+        <div class="input-group">
+            <label for="trueMessage" id="label1" style="display:none;">Mensaje: </label>
+            <input type="text" id="trueMessage" name="trueMessage" style="display:none;"><br><br>
+        </div>
+
+        <div class="input-group">
+            <label for="elseMessage" id="label2" style="display:none;">Mensaje si la Condición no es Verdadera:</label>
+            <input type="text" id="elseMessage" name="elseMessage" style="display:none;"><br><br>
+        </div>
+
+        <button type="button" onclick="previousStep()">Anterior</button>
+        <button type="button" onclick="nextStep()">Siguiente</button>
+    </div>
+
+    <div class="form-step" id="step4">
+        <h3>Paso 4: Detalles Finales</h3><hr>
+
+        <p>Al hacer click en el botón "Generar Código", se desplegará una nueva ventana, mostrando el código JAVA definido por el usuario.
+        </p><br>
+
+        <button type="button" onclick="previousStep()">Anterior</button>
+        <button type="submit">Generar Código</button>
+    </div>
+
+</form>
+
+<script>
+    let currentStep = 1;
+    const progressBar = document.getElementById('progress');
+
+    function nextStep() {
+      document.getElementById(`step${currentStep}`).classList.remove('active');
+      currentStep++;
+      document.getElementById(`step${currentStep}`).classList.add('active');
+      updateProgressBar();
+    }
+
+    function previousStep() {
+      document.getElementById(`step${currentStep}`).classList.remove('active');
+      currentStep--;
+      document.getElementById(`step${currentStep}`).classList.add('active');
+      updateProgressBar();
+    }
+
+    function updateProgressBar() {
+      progressBar.style.width = `${(currentStep - 1) * 33.33}%`;
+    }
+
+    function toggleInputFields() {
+      var trueMessage = document.getElementById("trueMessage");
+      var elseMessage = document.getElementById("elseMessage");
+      var radioButton1 = document.getElementById("radioButton1");
+
+      if (radioButton1.checked) {
+        label1.style.display = "block";
+        trueMessage.style.display = "block";
+        label2.style.display = "none";
+        elseMessage.style.display = "none";
+      } else {
+        label1.style.display = "none";
+        trueMessage.style.display = "none";
+        label2.style.display = "block";
+        elseMessage.style.display = "block";
+      }
+    }
+
+    // Submit the form using AJAX when the "Generar Código" button is clicked
+        const form = document.getElementById('codeGeneratorForm');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const data = new FormData(form);
+            const url = 'http://localhost:8080/generate-code'; // Specify the endpoint URL
+
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(data)),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the response from the backend
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error(error);
+            });
+        });
+
+  </script>
+</body>
+</html>
