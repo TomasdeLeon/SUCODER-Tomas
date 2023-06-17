@@ -20,7 +20,7 @@ public class CodeGeneratorController {
         }
 
         // Generate the Java code based on the "if" structure
-        StringBuilder codeBuilder = new StringBuilder();
+        StringBuilder codeBuilder = new StringBuilder() ;
         codeBuilder.append("if (condition) {\n");
         codeBuilder.append("    System.out.println(\"").append(trueMessage).append("\");\n");
         codeBuilder.append("} else {\n");
