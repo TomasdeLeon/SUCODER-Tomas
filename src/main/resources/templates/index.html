@@ -123,7 +123,12 @@
         </p><br>
 
         <button type="button" onclick="previousStep()">Anterior</button>
-        <button type="submit">Generar Código</button>
+        <button type="button" onclick="generateCode()">Generar Código</button>
+
+        <!-- Add a textarea for displaying the generated code -->
+        <textarea id="generatedCode" rows="10" cols="50" readonly></textarea>
+    </div>
+
     </div>
 
 </form>
@@ -168,31 +173,34 @@
       }
     }
 
-    // Submit the form using AJAX when the "Generar Código" button is clicked
-        const form = document.getElementById('codeGeneratorForm');
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the default form submission
+        function generateCode() {
+  // Retrieve the selected values from the form
+  const structure = document.querySelector('input[name="structure"]:checked').value;
+  const attribute1Name = document.getElementById('attribute1Name').value;
+  const attribute1Value = document.getElementById('attribute1Value').value;
+  const attribute1Type = document.getElementById('attribute1Type').value;
+  const attribute2Name = document.getElementById('attribute2Name').value;
+  const attribute2Value = document.getElementById('attribute2Value').value;
+  const attribute2Type = document.getElementById('attribute2Type').value;
+  const comparisonOperator = document.getElementById('comparisonOperator').value;
+  const trueMessage = document.getElementById('trueMessage').value;
+  const elseMessage = document.getElementById('elseMessage').value;
 
-            const data = new FormData(form);
-            const url = 'http://localhost:8080/generate-code'; // Specify the endpoint URL
+  // Generate the Java code based on the selected values
+  let javaCode = "";
 
-            fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(Object.fromEntries(data)),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Handle the response from the backend
-                console.log(data);
-            })
-            .catch(error => {
-                // Handle any errors
-                console.error(error);
-            });
-        });
+  if (structure === "if") {
+    javaCode += "if (" + attribute1Value + " " + comparisonOperator + " " + attribute2Value + ") {\n";
+    javaCode += "    System.out.println(\"" + trueMessage + "\");\n";
+    javaCode += "} else {\n";
+    javaCode += "    System.out.println(\"" + elseMessage + "\");\n";
+    javaCode += "}";
+  }
+
+  // Update the value of the textarea with the generated code
+  const generatedCodeTextarea = document.getElementById('generatedCode');
+  generatedCodeTextarea.value = javaCode;
+}
 
   </script>
 </body>
