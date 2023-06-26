@@ -2,37 +2,6 @@ package com.sucoder.beta.controller;
 
 
 import com.sucoder.beta.request.CodeGenerationRequest;
-/*import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class CodeGeneratorController {
-
-    /*@PostMapping("/generate-code")
-    public String generateCode(@RequestBody CodeGenerationRequest request) {
-        String structure = request.getStructure();
-        String trueMessage = request.getTrueMessage();
-        String elseMessage = request.getElseMessage();
-
-        if (!"if".equalsIgnoreCase(structure)) {
-            return "Unsupported structure: " + structure;
-        }
-
-        // Generate the Java code based on the "if" structure
-        StringBuilder codeBuilder = new StringBuilder() ;
-        codeBuilder.append("if (condition) {\n");
-        codeBuilder.append("    System.out.println(\"").append(trueMessage).append("\");\n");
-        codeBuilder.append("} else {\n");
-        codeBuilder.append("    System.out.println(\"").append(elseMessage).append("\");\n");
-        codeBuilder.append("}");
-
-        // You can use the generated code as per your requirements
-        String generatedCode = codeBuilder.toString();
-        System.out.println("Generated Java code:\n" + generatedCode);
-
-        return generatedCode;
-    }*/
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +22,7 @@ public class CodeGeneratorController {
     String trueMessage = request.getTrueMessage();
     String elseMessage = request.getElseMessage();
 
-    // Generate the Java code based on the received values
+    // Generar el código Java en base a los valores recibidos
     String javaCode = generateJavaCode(structure, attribute1Name, attribute1Value, attribute1Type,
         attribute2Name, attribute2Value, attribute2Type, comparisonOperator, trueMessage, elseMessage);
 
@@ -74,8 +43,6 @@ public class CodeGeneratorController {
 
       return javaCode.toString();
     }
-
-    // Handle other structures here if needed
 
     return "";
   }

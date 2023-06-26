@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>SUCODER</title>
@@ -27,16 +27,22 @@
       display: block;
     }
   </style>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
+<div class="container">
 <H1>SUCODER</H1>
 <h2>Java Code Generator</h2>
 
 <div class="progress-bar">
     <div class="progress" id="progress"></div>
 </div>
-
+</div>
 <form id="codeGeneratorForm">
+    <div class="container">
     <div class="form-step active" id="step1">
         <h3>Paso 1: Estructura de Control</h3><hr>
         <h3>1. Seleccionar Estructura</h3>
@@ -125,12 +131,12 @@
         <button type="button" onclick="previousStep()">Anterior</button>
         <button type="button" onclick="generateCode()">Generar Código</button>
 
-        <!-- Add a textarea for displaying the generated code -->
+        <!-- Agrega un área de texto para mostrar el código generado. -->
         <textarea id="generatedCode" rows="10" cols="50" readonly></textarea>
     </div>
 
     </div>
-
+    </div>
 </form>
 
 <script>
@@ -174,7 +180,8 @@
     }
 
         function generateCode() {
-  // Retrieve the selected values from the form
+  // Recuperar los valores seleccionados del formulario
+
   const structure = document.querySelector('input[name="structure"]:checked').value;
   const attribute1Name = document.getElementById('attribute1Name').value;
   const attribute1Value = document.getElementById('attribute1Value').value;
@@ -186,7 +193,8 @@
   const trueMessage = document.getElementById('trueMessage').value;
   const elseMessage = document.getElementById('elseMessage').value;
 
-  // Generate the Java code based on the selected values
+  // Genera el código Java basado en los valores seleccionados
+
   let javaCode = "";
 
   if (structure === "if") {
@@ -197,7 +205,7 @@
     javaCode += "}";
   }
 
-  // Update the value of the textarea with the generated code
+  // Actualiza el valor del área de texto con el código generado
   const generatedCodeTextarea = document.getElementById('generatedCode');
   generatedCodeTextarea.value = javaCode;
 }

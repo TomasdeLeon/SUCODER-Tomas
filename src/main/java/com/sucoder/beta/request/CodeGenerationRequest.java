@@ -1,10 +1,6 @@
 package com.sucoder.beta.request;
 
 public class CodeGenerationRequest {
-    /*private String structure;
-    private String trueMessage;
-    private String elseMessage;*/
-
     private String structure;
     private String attribute1Name;
     private String attribute1Value;
