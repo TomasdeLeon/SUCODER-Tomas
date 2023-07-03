@@ -1,214 +1,269 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>SUCODER</title>
     <style>
-    .progress-bar {
+    .container {
       width: 400px;
-      height: 20px;
-      background-color: #f2f2f2;
-      border-radius: 4px;
-      margin-bottom: 20px;
+      margin: 0 auto;
     }
-
-    .progress {
-      height: 100%;
-      width: 0;
-      background-color: #4CAF50;
-      border-radius: 4px;
+    .form-group {
+      margin-bottom: 10px;
     }
-
-    .form-step {
-      display: none;
-    }
-
-    .form-step.active {
+    label {
       display: block;
+      font-weight: bold;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .step-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .progress-bar {
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      height: 15px;
+    }
+    .progress {
+      background-color: #4CAF50;
+      height: 100%;
+      border-radius: 5px;
     }
   </style>
 
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-
 </head>
 <body>
+
 <div class="container">
-<H1>SUCODER</H1>
-<h2>Java Code Generator</h2>
+    <h2>Java Code Generator</h2>
+    <div class="progress-bar">
+        <div id="progress" class="progress" style="width: 0%"></div>
+    </div>
+    <form id="codeGeneratorForm">
 
-<div class="progress-bar">
-    <div class="progress" id="progress"></div>
+        <!--VENTANA 1-->
+        <div id="firstStep">
+            <div class="form-group">
+                <label for="procedureName">Procedure Name:</label>
+                <input type="text" id="procedureName" name="procedureName" required>
+            </div>
+            <div class="form-group">
+                <label for="variableName">Variable Name:</label>
+                <input type="text" id="variableName" name="variableName" required>
+            </div>
+            <div class="form-group">
+                <label for="variableType">Variable Type:</label>
+                <select id="variableType" name="variableType">
+                    <option value="int">int</option>
+                    <option value="double">double</option>
+                    <option value="String">String</option>
+                    <!-- Add more options if needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="variableValue">Variable Value:</label>
+                <input type="text" id="variableValue" name="variableValue" required>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn" onclick="saveVariables()">Save Variables</button>
+            </div>
+            <div class="form-group">
+                <label for="savedVariables">Saved Variables:</label>
+                <textarea id="savedVariables" readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label>Structure:</label>
+                <input type="radio" id="ifStructure" name="structure" value="if" checked>
+                <label for="ifStructure">if</label>
+                <input type="radio" id="whileStructure" name="structure" value="while">
+                <label for="whileStructure">while</label>
+            </div>
+            <div class="step-navigation">
+                <button type="button" class="btn" onclick="showSecondStep()">Next</button>
+            </div>
+        </div>
+
+        <!--VENTANA 2-->
+        <div id="secondStep" style="display: none;">
+            <hr>
+            <h3>Second Step</h3>
+            <div class="form-group">
+                <label for="attribute1">Attribute 1:</label>
+                <select id="attribute1" name="attribute1">
+                    <!-- Dropdown options will be dynamically added here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="attribute2">Attribute 2:</label>
+                <select id="attribute2" name="attribute2">
+                    <!-- Dropdown options will be dynamically added here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comparisonOperation">Comparison Operation:</label>
+                <select id="comparisonOperation" name="comparisonOperation">
+                    <option value="==">==</option>
+                    <option value="!=">!=</option>
+                    <option value=">">></option>
+                    <option value="<"><</option>
+                    <option value=">=">>=</option>
+                    <option value="<="><=</option>
+                    <!-- Add more options if needed -->
+                </select>
+            </div>
+            <div class="step-navigation">
+                <button type="button" class="btn" onclick="showFirstStep()">Previous</button>
+                <button type="button" class="btn" onclick="showThirdStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- VENTANA 3 -->
+        <div id="thirdStep" style="display: none;">
+            <hr>
+            <h3>Third Step</h3>
+            <div class="form-group">
+                <label for="trueConditionStatements">True Condition Statements:</label>
+                <textarea id="trueConditionStatements" name="trueConditionStatements"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="falseConditionStatements">False Condition Statements:</label>
+                <textarea id="falseConditionStatements" name="falseConditionStatements"></textarea>
+            </div>
+            <div class="step-navigation">
+                <button type="button" class="btn" onclick="showSecondStep()">Previous</button>
+                <button type="button" class="btn" onclick="generateCode()">Generate Code</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="generatedCode">Generated Code:</label>
+            <textarea id="generatedCode" readonly></textarea>
+        </div>
+    </form>
 </div>
-</div>
-<form id="codeGeneratorForm">
-    <div class="container">
-    <div class="form-step active" id="step1">
-        <h3>Paso 1: Estructura de Control</h3><hr>
-        <h3>1. Seleccionar Estructura</h3>
-        <label>
-            <input type="radio" name="structure" value="if"> SI
-        </label><br>
-        <label>
-            <input type="radio" name="structure" value="while"> MIENTRAS
-        </label><br>
-        <label>
-            <input type="radio" name="structure" value="do"> HACER
-        </label><br><br><br>
-        <button type="button" onclick="nextStep()">Siguiente</button>
-    </div>
-
-
-
-    <div class="form-step" id="step2">
-        <h3>Paso 2: Atributos </h3><hr>
-        <h3>2. Atributo 1</h3>
-        <label for="attribute1Name">2.1 Nombre:</label><br>
-        <input type="text" id="attribute1Name" name="attribute1Name" required><br><br>
-        <label for="attribute1Value">2.2 Valor:</label><br>
-        <input type="text" id="attribute1Value" name="attribute1Value" required><br><br>
-        <label for="attribute1Type">2.3 Tipo:</label><br>
-        <input type="text" id="attribute1Type" name="attribute1Type" required><br><br>
-
-        <h3>3. Atributo 2</h3>
-        <label for="attribute2Name">3.1 Nombre:</label><br>
-        <input type="text" id="attribute2Name" name="attribute2Name" required><br><br>
-        <label for="attribute2Value">3.2 Valor:</label><br>
-        <input type="text" id="attribute2Value" name="attribute2Value" required><br><br>
-        <label for="attribute2Type">3.3 Tipo:</label><br>
-        <input type="text" id="attribute2Type" name="attribute2Type" required><br><br>
-
-        <h3>4. Operador de Comparador</h3>
-        <select id="comparisonOperator" name="comparisonOperator">
-            <option value="==">Igual (==)</option>
-            <option value="!=">Distinto (!=)</option>
-            <option value="&gt;">Es Mayor (>)</option>
-            <option value="&lt;">Es Menor (<)</option>
-            <option value="&gt;=">Mayor o Igual (>=)</option>
-            <option value="&lt;=">Menor o Igual (<=)</option>
-        </select><br><br><br><br>
-
-        <button type="button" onclick="previousStep()">Anterior</button>
-        <button type="button" onclick="nextStep()">Siguiente</button>
-    </div>
-
-    <div class="form-step" id="step3">
-        <h3>Paso 3: Definir Mensaje</h3><hr>
-        <h3>5. ¿La Condición es Verdadera?</h3>
-
-        <div class="input-group">
-            <label>
-                <input id="radioButton1" type="radio" name="messageOption" onclick="toggleInputFields()"> Si
-            </label>
-        </div>
-
-        <div class="input-group">
-            <label>
-                <input id="radioButton2" type="radio" name="messageOption" onclick="toggleInputFields()"> No
-            </label>
-        </div><br>
-
-        <div class="input-group">
-            <label for="trueMessage" id="label1" style="display:none;">Mensaje: </label>
-            <input type="text" id="trueMessage" name="trueMessage" style="display:none;"><br><br>
-        </div>
-
-        <div class="input-group">
-            <label for="elseMessage" id="label2" style="display:none;">Mensaje si la Condición no es Verdadera:</label>
-            <input type="text" id="elseMessage" name="elseMessage" style="display:none;"><br><br>
-        </div>
-
-        <button type="button" onclick="previousStep()">Anterior</button>
-        <button type="button" onclick="nextStep()">Siguiente</button>
-    </div>
-
-    <div class="form-step" id="step4">
-        <h3>Paso 4: Detalles Finales</h3><hr>
-
-        <p>Al hacer click en el botón "Generar Código", se desplegará una nueva ventana, mostrando el código JAVA definido por el usuario.
-        </p><br>
-
-        <button type="button" onclick="previousStep()">Anterior</button>
-        <button type="button" onclick="generateCode()">Generar Código</button>
-
-        <!-- Agrega un área de texto para mostrar el código generado. -->
-        <textarea id="generatedCode" rows="10" cols="50" readonly></textarea>
-    </div>
-
-    </div>
-    </div>
-</form>
 
 <script>
-    let currentStep = 1;
-    const progressBar = document.getElementById('progress');
+    var variables = []; // Array to store the variables
+    var savedVariables = ""; // String to store the saved variables
 
-    function nextStep() {
-      document.getElementById(`step${currentStep}`).classList.remove('active');
-      currentStep++;
-      document.getElementById(`step${currentStep}`).classList.add('active');
-      updateProgressBar();
+function updateProgressBar() {
+  var progressBar = document.getElementById('progress');
+  var progress = ((currentStep - 1) / 2) * 100; // Assuming 2 steps in total
+  progressBar.style.width = progress + '%';
+}
+
+function saveVariables() {
+  var variableName = document.getElementById('variableName').value;
+  var variableType = document.getElementById('variableType').value;
+  var variableValue = document.getElementById('variableValue').value;
+
+  var savedVariablesTextarea = document.getElementById('savedVariables');
+  var existingVariables = savedVariablesTextarea.value;
+  var newVariable = variableType + ' ' + variableName + ' = ' + variableValue + ';';
+  var updatedVariables = existingVariables + '\n' + newVariable;
+
+  savedVariablesTextarea.value = updatedVariables;
+
+  // Clear input fields after saving
+  document.getElementById('variableName').value = '';
+  document.getElementById('variableType').value = 'int';
+  document.getElementById('variableValue').value = '';
+}
+
+
+function showFirstStep() {
+  document.getElementById('secondStep').style.display = 'none';
+  document.getElementById('firstStep').style.display = 'block';
+  currentStep = 1;
+  updateProgressBar();
+}
+
+
+function showSecondStep() {
+  // Retrieve saved variables from the textarea
+  var savedVariablesTextarea = document.getElementById('savedVariables');
+  var savedVariables = savedVariablesTextarea.value.split('\n');
+
+  // Clear previous options from dropdowns
+  var attribute1Dropdown = document.getElementById('attribute1');
+  var attribute2Dropdown = document.getElementById('attribute2');
+  attribute1Dropdown.innerHTML = '';
+  attribute2Dropdown.innerHTML = '';
+
+  // Populate dropdowns with saved variables
+  for (var i = 0; i < savedVariables.length; i++) {
+    var variable = savedVariables[i].trim();
+    if (variable !== '') {
+      var variableName = variable.split(' ')[1];
+      var option = document.createElement('option');
+      option.value = variableName;
+      option.text = variableName;
+      attribute1Dropdown.add(option);
+
+      option = document.createElement('option');
+      option.value = variableName;
+      option.text = variableName;
+      attribute2Dropdown.add(option);
     }
-
-    function previousStep() {
-      document.getElementById(`step${currentStep}`).classList.remove('active');
-      currentStep--;
-      document.getElementById(`step${currentStep}`).classList.add('active');
-      updateProgressBar();
-    }
-
-    function updateProgressBar() {
-      progressBar.style.width = `${(currentStep - 1) * 33.33}%`;
-    }
-
-    function toggleInputFields() {
-      var trueMessage = document.getElementById("trueMessage");
-      var elseMessage = document.getElementById("elseMessage");
-      var radioButton1 = document.getElementById("radioButton1");
-
-      if (radioButton1.checked) {
-        label1.style.display = "block";
-        trueMessage.style.display = "block";
-        label2.style.display = "none";
-        elseMessage.style.display = "none";
-      } else {
-        label1.style.display = "none";
-        trueMessage.style.display = "none";
-        label2.style.display = "block";
-        elseMessage.style.display = "block";
-      }
-    }
-
-        function generateCode() {
-  // Recuperar los valores seleccionados del formulario
-
-  const structure = document.querySelector('input[name="structure"]:checked').value;
-  const attribute1Name = document.getElementById('attribute1Name').value;
-  const attribute1Value = document.getElementById('attribute1Value').value;
-  const attribute1Type = document.getElementById('attribute1Type').value;
-  const attribute2Name = document.getElementById('attribute2Name').value;
-  const attribute2Value = document.getElementById('attribute2Value').value;
-  const attribute2Type = document.getElementById('attribute2Type').value;
-  const comparisonOperator = document.getElementById('comparisonOperator').value;
-  const trueMessage = document.getElementById('trueMessage').value;
-  const elseMessage = document.getElementById('elseMessage').value;
-
-  // Genera el código Java basado en los valores seleccionados
-
-  let javaCode = "";
-
-  if (structure === "if") {
-    javaCode += "if (" + attribute1Value + " " + comparisonOperator + " " + attribute2Value + ") {\n";
-    javaCode += "    System.out.println(\"" + trueMessage + "\");\n";
-    javaCode += "} else {\n";
-    javaCode += "    System.out.println(\"" + elseMessage + "\");\n";
-    javaCode += "}";
   }
 
-  // Actualiza el valor del área de texto con el código generado
-  const generatedCodeTextarea = document.getElementById('generatedCode');
-  generatedCodeTextarea.value = javaCode;
+  // Show the second step
+  document.getElementById('firstStep').style.display = 'none';
+  document.getElementById('secondStep').style.display = 'block';
+  document.getElementById('thirdStep').style.display = 'none';
+  currentStep = 2;
+  updateProgressBar();
 }
+
+function showThirdStep() {
+  // Retrieve selected options and comparison operation
+  var attribute1 = document.getElementById('attribute1').value;
+  var attribute2 = document.getElementById('attribute2').value;
+  var comparisonOperation = document.getElementById('comparisonOperation').value;
+
+  // Construct the condition
+  var condition = attribute1 + ' ' + comparisonOperation + ' ' + attribute2;
+
+  // Retrieve selected structure
+  var structure = document.querySelector('input[name="structure"]:checked').value;
+
+  // Show the condition statements based on the selected structure
+  if (structure === 'if') {
+    document.getElementById('trueConditionStatements').value = 'if (' + condition + ') {\n  // Write your true condition statements here\n}';
+    document.getElementById('falseConditionStatements').value = 'else {\n  // Write your false condition statements here\n}';
+  } else if (structure === 'while') {
+    document.getElementById('trueConditionStatements').value = 'while (' + condition + ') {\n  // Write your true condition statements here\n}';
+    document.getElementById('falseConditionStatements').value = '';
+  }
+
+  // Show the third step
+  document.getElementById('secondStep').style.display = 'none';
+  document.getElementById('thirdStep').style.display = 'block';
+}
+
 
   </script>
 </body>
