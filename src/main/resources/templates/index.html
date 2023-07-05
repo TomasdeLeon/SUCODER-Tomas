@@ -58,10 +58,12 @@
 <body>
 
 <div class="container">
+    <h1>SUCODER</h1>
     <h2>Java Code Generator</h2>
     <div class="progress-bar">
         <div id="progress" class="progress" style="width: 0%"></div>
     </div>
+    <br><hr><br>
     <form id="codeGeneratorForm">
 
         <!--VENTANA 1-->
@@ -96,10 +98,8 @@
             </div>
             <div class="form-group">
                 <label>Structure:</label>
-                <input type="radio" id="ifStructure" name="structure" value="if" checked>
-                <label for="ifStructure">if</label>
-                <input type="radio" id="whileStructure" name="structure" value="while">
-                <label for="whileStructure">while</label>
+                <input type="radio" id="ifStructure" name="structure" value="if" checked> SI
+                <input type="radio" id="whileStructure" name="structure" value="while"> MIENTRAS
             </div>
             <div class="step-navigation">
                 <button type="button" class="btn" onclick="showSecondStep()">Next</button>
@@ -154,14 +154,11 @@
             </div>
             <div class="step-navigation">
                 <button type="button" class="btn" onclick="showSecondStep()">Previous</button>
-                <button type="button" class="btn" onclick="generateCode()">Generate Code</button>
+                <button type="button" class="btn" onclick="saveProcedure()">Define Procedure</button>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="generatedCode">Generated Code:</label>
-            <textarea id="generatedCode" readonly></textarea>
-        </div>
+
     </form>
 </div>
 
@@ -171,8 +168,8 @@
 
 function updateProgressBar() {
   var progressBar = document.getElementById('progress');
-  var progress = ((currentStep - 1) / 2) * 100; // Assuming 2 steps in total
-  progressBar.style.width = progress + '%';
+      var progress = ((currentStep - 1) / 2) * 100; // Assuming 3 steps in total
+      progressBar.style.width = progress + '%';
 }
 
 function saveVariables() {
@@ -195,10 +192,11 @@ function saveVariables() {
 
 
 function showFirstStep() {
-  document.getElementById('secondStep').style.display = 'none';
-  document.getElementById('firstStep').style.display = 'block';
   currentStep = 1;
-  updateProgressBar();
+      document.getElementById('secondStep').style.display = 'none';
+      document.getElementById('thirdStep').style.display = 'none';
+      document.getElementById('firstStep').style.display = 'block';
+      updateProgressBar();
 }
 
 
@@ -230,12 +228,11 @@ function showSecondStep() {
     }
   }
 
-  // Show the second step
-  document.getElementById('firstStep').style.display = 'none';
-  document.getElementById('secondStep').style.display = 'block';
-  document.getElementById('thirdStep').style.display = 'none';
   currentStep = 2;
-  updateProgressBar();
+      document.getElementById('firstStep').style.display = 'none';
+      document.getElementById('thirdStep').style.display = 'none';
+      document.getElementById('secondStep').style.display = 'block';
+      updateProgressBar();
 }
 
 function showThirdStep() {
@@ -259,11 +256,24 @@ function showThirdStep() {
     document.getElementById('falseConditionStatements').value = '';
   }
 
-  // Show the third step
-  document.getElementById('secondStep').style.display = 'none';
-  document.getElementById('thirdStep').style.display = 'block';
+  currentStep = 3;
+      document.getElementById('firstStep').style.display = 'none';
+      document.getElementById('secondStep').style.display = 'none';
+      document.getElementById('thirdStep').style.display = 'block';
+      updateProgressBar();
 }
 
+function saveProcedure() {
+  var procedureName = document.getElementById('procedureName').value;
+  var trueConditionStatements = document.getElementById('trueConditionStatements').value;
+  var falseConditionStatements = document.getElementById('falseConditionStatements').value;
+
+  // Implement your code here to save the procedure using the entered values
+  // You can use the procedureName, trueConditionStatements, and falseConditionStatements variables to store and process the procedure data
+
+  // Show a confirmation message
+  alert('Procedure saved: ' + procedureName);
+}
 
   </script>
 </body>
