@@ -1,13 +1,24 @@
 package com.sucoder.beta.controller;
 
-
 import com.sucoder.beta.request.CodeGenerationRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 public class CodeGeneratorController {
+
+  @GetMapping("/redirectToProcedimiento")
+  public String redirectToProcedimiento() {
+    return "Procedimiento";
+  }
+
+  @GetMapping("/redirectToCodigo")
+  public String redirectToCodigo() {
+    return "Codigo";
+  }
 
   @PostMapping("/generate-code")
   public String generateCode(@RequestBody CodeGenerationRequest request) {

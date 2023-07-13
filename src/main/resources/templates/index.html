@@ -1,290 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>SUCODER</title>
-    <style>
-    body {
-            background-image: url('images/SUCODER.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-    }
-
-    .container {
-      width: 400px;
-      margin: 0 auto;
-    }
-    .form-group {
-      margin-bottom: 10px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-    }
-    input[type="text"],
-    select {
-      width: 100%;
-      padding: 5px;
-      border: 1px solid #ccc;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      padding: 5px;
-      border: 1px solid #ccc;
-    }
-    .step-navigation {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    .progress-bar {
-      background-color: #f2f2f2;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      height: 15px;
-    }
-    .progress {
-      background-color: #4CAF50;
-      height: 100%;
-      border-radius: 5px;
-    }
-  </style>
-
+    <title>SUCODER - Java Code Generator</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        body {
+      background-image: url(/images/SUCODER.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    </style>
 
 </head>
 <body>
-
+<header>
+    <br>
+    <h1 align="center" style="color:white">Bienvenido a SUCODER</h1>
+</header>
 <div class="container">
-    <h1>SUCODER</h1>
-    <h2>Java Code Generator</h2>
-    <div class="progress-bar">
-        <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-    </div>
-    <br><hr><br>
-    <form id="codeGeneratorForm">
 
-        <!--VENTANA 1-->
-        <div id="firstStep">
-            <div class="form-group">
-                <label for="procedureName">Procedure Name:</label>
-                <input type="text" id="procedureName" name="procedureName" required>
+    <hr><br>
+    <div class="row align-items-stretch g-4 py-5">
+    <form action="/redirectToProcedimiento" method="get">
+            <div class="col">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <button class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" type="submit">Crear Procedimiento</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="variableName">Variable Name:</label>
-                <input type="text" id="variableName" name="variableName" required>
-            </div>
-            <div class="form-group">
-                <label for="variableType">Variable Type:</label>
-                <select id="variableType" name="variableType">
-                    <option value="int">int</option>
-                    <option value="double">double</option>
-                    <option value="String">String</option>
-                    <!-- Add more options if needed -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="variableValue">Variable Value:</label>
-                <input type="text" id="variableValue" name="variableValue" required>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn" onclick="saveVariables()">Save Variables</button>
-            </div>
-            <div class="form-group">
-                <label for="savedVariables">Saved Variables:</label>
-                <textarea id="savedVariables" readonly></textarea>
-            </div>
-            <div class="form-group">
-                <label>Structure:</label>
-                <input type="radio" id="ifStructure" name="structure" value="if" checked> SI
-                <input type="radio" id="whileStructure" name="structure" value="while"> MIENTRAS
-            </div>
-            <div class="step-navigation">
-                <button type="button" class="btn" onclick="showSecondStep()">Next</button>
+    </form><br>
+    <form action="/redirectToCodigo" method="get">
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <button class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" type="submit">Crear Código Principal</button>
+                </div>
             </div>
         </div>
-
-        <!--VENTANA 2-->
-        <div id="secondStep" style="display: none;">
-            <hr>
-            <h3>Second Step</h3>
-            <div class="form-group">
-                <label for="attribute1">Attribute 1:</label>
-                <select id="attribute1" name="attribute1">
-                    <!-- Dropdown options will be dynamically added here -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="attribute2">Attribute 2:</label>
-                <select id="attribute2" name="attribute2">
-                    <!-- Dropdown options will be dynamically added here -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="comparisonOperation">Comparison Operation:</label>
-                <select id="comparisonOperation" name="comparisonOperation">
-                    <option value="==">==</option>
-                    <option value="!=">!=</option>
-                    <option value=">">></option>
-                    <option value="<"><</option>
-                    <option value=">=">>=</option>
-                    <option value="<="><=</option>
-                    <!-- Add more options if needed -->
-                </select>
-            </div>
-            <div class="step-navigation">
-                <button type="button" class="btn" onclick="showFirstStep()">Previous</button>
-                <button type="button" class="btn" onclick="showThirdStep()">Next</button>
-            </div>
-        </div>
-
-        <!-- VENTANA 3 -->
-        <div id="thirdStep" style="display: none;">
-            <hr>
-            <h3>Third Step</h3>
-            <div class="form-group">
-                <label for="trueConditionStatements">True Condition Statements:</label>
-                <textarea id="trueConditionStatements" name="trueConditionStatements"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="falseConditionStatements">False Condition Statements:</label>
-                <textarea id="falseConditionStatements" name="falseConditionStatements"></textarea>
-            </div>
-            <div class="step-navigation">
-                <button type="button" class="btn" onclick="showSecondStep()">Previous</button>
-                <button type="button" class="btn" onclick="saveProcedure()">Define Procedure</button>
-            </div>
-        </div>
-
 
     </form>
+</div>
 </div>
 
 <script src="js/bootstrap.min.js"></script>
 
-<script>
-    var variables = []; // Array to store the variables
-    var savedVariables = ""; // String to store the saved variables
-
-function updateProgressBar() {
-  var progressBar = document.getElementById('progress');
-      var progress = ((currentStep - 1) / 2) * 100; // Assuming 3 steps in total
-      progressBar.style.width = progress + '%';
-}
-
-function saveVariables() {
-  var variableName = document.getElementById('variableName').value;
-  var variableType = document.getElementById('variableType').value;
-  var variableValue = document.getElementById('variableValue').value;
-
-  var savedVariablesTextarea = document.getElementById('savedVariables');
-  var existingVariables = savedVariablesTextarea.value;
-  var newVariable = variableType + ' ' + variableName + ' = ' + variableValue + ';';
-  var updatedVariables = existingVariables + '\n' + newVariable;
-
-  savedVariablesTextarea.value = updatedVariables;
-
-  // Clear input fields after saving
-  document.getElementById('variableName').value = '';
-  document.getElementById('variableType').value = 'int';
-  document.getElementById('variableValue').value = '';
-}
-
-
-function showFirstStep() {
-  currentStep = 1;
-      document.getElementById('secondStep').style.display = 'none';
-      document.getElementById('thirdStep').style.display = 'none';
-      document.getElementById('firstStep').style.display = 'block';
-      updateProgressBar();
-}
-
-
-function showSecondStep() {
-  // Retrieve saved variables from the textarea
-  var savedVariablesTextarea = document.getElementById('savedVariables');
-  var savedVariables = savedVariablesTextarea.value.split('\n');
-
-  // Clear previous options from dropdowns
-  var attribute1Dropdown = document.getElementById('attribute1');
-  var attribute2Dropdown = document.getElementById('attribute2');
-  attribute1Dropdown.innerHTML = '';
-  attribute2Dropdown.innerHTML = '';
-
-  // Populate dropdowns with saved variables
-  for (var i = 0; i < savedVariables.length; i++) {
-    var variable = savedVariables[i].trim();
-    if (variable !== '') {
-      var variableName = variable.split(' ')[1];
-      var option = document.createElement('option');
-      option.value = variableName;
-      option.text = variableName;
-      attribute1Dropdown.add(option);
-
-      option = document.createElement('option');
-      option.value = variableName;
-      option.text = variableName;
-      attribute2Dropdown.add(option);
-    }
-  }
-
-  currentStep = 2;
-      document.getElementById('firstStep').style.display = 'none';
-      document.getElementById('thirdStep').style.display = 'none';
-      document.getElementById('secondStep').style.display = 'block';
-      updateProgressBar();
-}
-
-function showThirdStep() {
-  // Retrieve selected options and comparison operation
-  var attribute1 = document.getElementById('attribute1').value;
-  var attribute2 = document.getElementById('attribute2').value;
-  var comparisonOperation = document.getElementById('comparisonOperation').value;
-
-  // Construct the condition
-  var condition = attribute1 + ' ' + comparisonOperation + ' ' + attribute2;
-
-  // Retrieve selected structure
-  var structure = document.querySelector('input[name="structure"]:checked').value;
-
-  // Show the condition statements based on the selected structure
-  if (structure === 'if') {
-    document.getElementById('trueConditionStatements').value = 'if (' + condition + ') {\n  // Write your true condition statements here\n}';
-    document.getElementById('falseConditionStatements').value = 'else {\n  // Write your false condition statements here\n}';
-  } else if (structure === 'while') {
-    document.getElementById('trueConditionStatements').value = 'while (' + condition + ') {\n  // Write your true condition statements here\n}';
-    document.getElementById('falseConditionStatements').value = '';
-  }
-
-  currentStep = 3;
-      document.getElementById('firstStep').style.display = 'none';
-      document.getElementById('secondStep').style.display = 'none';
-      document.getElementById('thirdStep').style.display = 'block';
-      updateProgressBar();
-}
-
-function saveProcedure() {
-  var procedureName = document.getElementById('procedureName').value;
-  var trueConditionStatements = document.getElementById('trueConditionStatements').value;
-  var falseConditionStatements = document.getElementById('falseConditionStatements').value;
-
-  // Implement your code here to save the procedure using the entered values
-  // You can use the procedureName, trueConditionStatements, and falseConditionStatements variables to store and process the procedure data
-
-  // Show a confirmation message
-  alert('Procedure saved: ' + procedureName);
-}
-
-  </script>
 </body>
 </html>
