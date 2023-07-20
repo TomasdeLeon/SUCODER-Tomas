@@ -71,95 +71,315 @@
 
     <!--VENTANA 1-->
     <div id="firstStep">
-      <h3>Paso 1: Definir Estructura de Control y Variables</h3><hr>
+      <h3>Crear Procedimiento</h3><hr>
       <h3>1. Nombre Procedimiento</h3>
       <div class="form-group">
-        <!--<label for="procedureName">Nombre:</label>-->
         <input type="text" id="procedureName" name="procedureName" required>
       </div><br>
-      <h3>2. Variables</h3>
-      <div class="form-group">
-        <label for="variableNombre">2.1 Nombre:</label>
-        <input type="text" id="variableNombre" name="variableNombre" required>
-      </div>
-      <div class="form-group">
-        <label for="variableTipo">2.2 Tipo:</label>
-        <select id="variableTipo" name="variableTipo">
-          <option value="int">Número (int)</option>
-          <option value="double">Número decimal (double)</option>
-          <option value="String">Texto (String)</option>
-          <!-- Add more options if needed -->
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="variableValor">2.3 Valor:</label>
-        <input type="text" id="variableValor" name="variableValor" required>
-      </div><br>
-      <div class="form-group">
-        <button type="button" class="btn btn-success" onclick="guardarVariables()">Guardar Variables</button>
-      </div><br>
-      <div class="form-group">
-        <label for="variablesGuardados">2.4 Variables Guardados:</label>
-        <textarea id="variablesGuardados" readonly></textarea>
-      </div><br>
-      <div class="form-group">
-        <h3>3. Estructura de Control</h3>
-        <input class="form-check-input" type="radio" id="ifStructure" name="structure" value="if" checked> SI <br>
-        <input class="form-check-input" type="radio" id="whileStructure" name="structure" value="while"> MIENTRAS
-      </div><br>
-      <div class="step-navigation">
-        <button type="button" class="btn btn-primary" onclick="showSecondStep()">Siguiente</button>
-      </div>
-    </div>
+      <button id="variablesButton" type="button" data-toggle="modal" data-target="#variablesModal">VARIABLES</button>
+      <button id="siButton" type="button" data-toggle="modal" data-target="#siModal">SI</button>
+      <button id="mientrasButton" type="button" data-toggle="modal" data-target="#mientrasModal">MIENTRAS</button>
+      <button id="imprimirButton" type="button" data-toggle="modal" data-target="#imprimirModal">IMPRIMIR</button>
+      <button id="comentarButton" type="button" data-toggle="modal" data-target="#comentarModal">COMENTARIO</button>
 
-    <!--VENTANA 2-->
-    <div id="secondStep" style="display: none;">
-      <h3>Paso 2: Definir Variables </h3><hr>
-      <div class="form-group">
-        <h3>4. Variable 1</h3>
-        <select id="attribute1" name="attribute1">
-          <!-- Dropdown options will be dynamically added here -->
-        </select>
-      </div><br>
-      <div class="form-group">
-        <h3>5. Variable 2</h3>
-        <select id="attribute2" name="attribute2">
-          <!-- Dropdown options will be dynamically added here -->
-        </select>
-      </div><br>
-      <div class="form-group">
-        <h3>6. Operador de Comparación</h3>
-        <select id="comparisonOperation" name="comparisonOperation">
-          <option value="==">Igual (==)</option>
-          <option value="!=">Distinto (!=)</option>
-          <option value=">">Es Mayor (>)</option>
-          <option value="<">Es Menor (<)</option>
-          <option value=">=">Mayor o Igual (>=)</option>
-          <option value="<=">Menor o Igual (<=)</option>
-          <!-- Add more options if needed -->
-        </select>
-      </div><br>
-      <div class="step-navigation">
-        <button type="button" class="btn btn-primary" onclick="showFirstStep()" style="margin-right: 5px;">Anterior</button>
-        <button type="button" class="btn btn-primary" onclick="showThirdStep()" style="margin-left: 5px;">Siguiente</button>
-      </div>
-    </div>
+      <!-- Variables Modal -->
+      <div class="modal fade" id="variablesModal" tabindex="-1" role="dialog" aria-labelledby="variablesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="variablesModalLabel">Variables</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="variableNombre">Nombre:</label>
+                  <input type="text" id="variableNombre" name="variableNombre" required>
+                </div>
+                <div class="form-group">
+                  <label for="variableTipo">Tipo:</label>
+                  <select id="variableTipo" name="variableTipo">
+                    <option value="int">Número (int)</option>
+                    <option value="double">Número decimal (double)</option>
+                    <option value="String">Texto (String)</option>
+                    Add more options if needed
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="variableValor">Valor:</label>
+                  <input type="text" id="variableValor" name="variableValor" required>
+                </div><br>
+                <div class="form-group">
+                  <button type="button" class="btn btn-success" onclick="guardarVariables()">Cargar Variables</button>
+                </div><br>
+                <div class="form-group">
+                  <label for="variablesGuardados">Variables Guardados:</label>
+                  <textarea id="variablesGuardados" readonly></textarea>
+                </div>
 
-    <!-- VENTANA 3 -->
-    <div id="thirdStep" style="display: none;">
-      <h3>Paso 3: Sentencias para condición verdadera y falsa </h3><hr>
-      <div class="form-group">
-        <h3>7. Condición Verdadera</h3>
-        <textarea id="trueConditionStatements" name="trueConditionStatements"></textarea>
-      </div><br>
-      <div class="form-group">
-        <h3>8. Condición Falsa</h3>
-        <textarea id="falseConditionStatements" name="falseConditionStatements"></textarea>
-      </div><br>
-      <div class="step-navigation">
-        <button type="button" class="btn btn-primary" onclick="showSecondStep()" style="margin-right: 5px;">Anterior</button>
-        <button type="button" class="btn btn-primary" onclick="saveProcedure()" style="margin-left: 5px;">Guardar Procedimiento</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Guardar Variables</button>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- SI Modal -->
+      <div class="modal fade" id="siModal" tabindex="-1" role="dialog" aria-labelledby="siModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="siModalLabel">SI</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="attribute1">Variable 1</label>
+                <select id="attribute1" name="attribute1" onchange="toggleOtherInputIf('attribute1')">
+                  <option value="-">-</option>
+                  <option value="other">Otro Valor...</option>
+                  <!-- Dropdown options will be dynamically added here -->
+                </select>
+              </div>
+              <div class="form-group" id="attribute1InputContainer" style="display: none;">
+                <label for="attribute1Input">Valor</label>
+                <input type="text" id="attribute1Input" name="attribute1Input">
+              </div><br>
+              <div class="form-group">
+                <label for="attribute2">Variable 2</label>
+                <select id="attribute2" name="attribute2" onchange="toggleOtherInputIf('attribute2')">
+                  <option value="-">-</option>
+                  <option value="other">Otro Valor...</option>
+                  <!-- Dropdown options will be dynamically added here -->
+                </select>
+              </div>
+              <div class="form-group" id="attribute2InputContainer" style="display: none;">
+                <label for="attribute2Input">Valor</label>
+                <input type="text" id="attribute2Input" name="attribute2Input">
+              </div><br>
+              <div class="form-group">
+                <label for="comparisonOperation">Operador de Comparación</label>
+                <select id="comparisonOperation" name="comparisonOperation">
+                  <option value="==">Igual (==)</option>
+                  <option value="!=">Distinto (!=)</option>
+                  <option value=">">Es Mayor (>)</option>
+                  <option value="<">Es Menor (<)</option>
+                  <option value=">=">Mayor o Igual (>=)</option>
+                  <option value="<=">Menor o Igual (<=)</option>
+                  <!-- Add more options if needed -->
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel2">Condiciones</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Verdadera</label>
+                <button class="btn btn-primary" data-bs-target="#modalVerdadero" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+              </div><br>
+              <div class="form-group">
+                <label>Falsa</label>
+                <button class="btn btn-primary" data-bs-target="#modalFalso" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-target="#siModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+              <button type="button" class="btn btn-primary">Guardar Condición "SI"</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalVerdadero" aria-hidden="true" aria-labelledby="modalVerdadero" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Imprimir Mensaje</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="trueConditionStatements">Mensaje si es Verdadero:</label>
+                <input type="text" id="trueConditionStatements" name="trueConditionStatements" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalFalso" aria-hidden="true" aria-labelledby="modalFalso" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Imprimir Mensaje</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="trueConditionStatements">Mensaje si es Falso:</label>
+                <input type="text" id="falseConditionStatements" name="falseConditionStatements" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPRIMIR Modal -->
+      <div class="modal fade" id="imprimirModal" tabindex="-1" role="dialog" aria-labelledby="imprimirModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="imprimirModalLabel">Imprimir Mensaje</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="imprimirMensaje">Mensaje:</label>
+                <input type="text" id="imprimirMensaje" name="imprimirMensaje" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Guardar Mensaje</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIENTRAS Modal -->
+      <div class="modal fade" id="mientrasModal" tabindex="-1" role="dialog" aria-labelledby="mientrasModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="mientrasModalLabel">MIENTRAS</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="attribute1While">Variable 1</label>
+                <select id="attribute1While" name="attribute1While" onchange="toggleOtherInputWhile('attribute1While', 'attribute1InputContainer2'); checkConditionsAndShowNextButton();">
+                  <option value="-">-</option>
+                  <option value="other">Otro Valor...</option>
+                  <!-- Dropdown options will be dynamically added here -->
+                </select>
+              </div>
+              <div class="form-group" id="attribute1InputContainer2" style="display: none;">
+                <label for="attribute1Input">Valor</label>
+                <input type="text" id="attribute1InputWhile" name="attribute1Input" onchange="checkConditionsAndShowNextButton();">
+              </div><br>
+              <div class="form-group">
+                <label for="attribute2">Variable 2</label>
+                <select id="attribute2While" name="attribute2" onchange="toggleOtherInputWhile('attribute2While', 'attribute2InputContainer2'); checkConditionsAndShowNextButton();">
+                  <option value="-">-</option>
+                  <option value="other">Otro Valor...</option>
+                  <!-- Dropdown options will be dynamically added here -->
+                </select>
+              </div>
+              <div class="form-group" id="attribute2InputContainer2" style="display: none;">
+                <label for="attribute2InputWhile">Valor</label>
+                <input type="text" id="attribute2InputWhile" name="attribute2InputWhile" onchange="checkConditionsAndShowNextButton();">
+              </div><br>
+              <div class="form-group">
+                <label for="comparisonOperation2">Operador de Comparación</label>
+                <select id="comparisonOperation2" name="comparisonOperation2" onchange="checkConditionsAndShowNextButton();">
+                  <option value="-">-</option>
+                  <option value="==">Igual (==)</option>
+                  <option value="!=">Distinto (!=)</option>
+                  <option value=">">Es Mayor (>)</option>
+                  <option value="<">Es Menor (<)</option>
+                  <option value=">=">Mayor o Igual (>=)</option>
+                  <option value="<=">Menor o Igual (<=)</option>
+                  <!-- Add more options if needed -->
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <!-- The "SIGUIENTE" button initially hidden -->
+              <button class="btn btn-primary" id="siguienteButton" style="display: none;" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="condicionWhileModal" aria-hidden="true" aria-labelledby="condicionWhileModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Condición</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <button class="btn btn-primary" data-bs-target="#modalMensajeWhile" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+              </div><br>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-target="#mientrasModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+              <button type="button" class="btn btn-primary">Guardar Condición "MIENTRAS"</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalMensajeWhile" aria-hidden="true" aria-labelledby="modalMensajeWhile" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Imprimir Mensaje</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="messageWhile">Mensaje:</label>
+                <input type="text" id="messageWhile" name="messageWhile" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMENTAR Modal -->
+      <div class="modal fade" id="comentarModal" tabindex="-1" role="dialog" aria-labelledby="comentarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="comentarModalLabel">Comentario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="mensajeComentado">Mensaje:</label>
+                <input type="text" id="mensajeComentado" name="mensajeComentado" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Guardar Comentario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <textarea id="textarea" readonly></textarea>
+
+
     </div>
 
   </form>
@@ -171,14 +391,52 @@
 <script src="/js/sweetalert.min.js"></script>
 
 <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Button click event handlers
+        var variablesButton = document.getElementById('variablesButton');
+variablesButton.addEventListener('click', function() {
+    // Open the VARIABLES modal here
+    var variablesModal = document.getElementById('variablesModal');
+    var modal = new bootstrap.Modal(variablesModal);
+    modal.show();
+});
+        var siButton = document.getElementById('siButton');
+        siButton.addEventListener('click', function() {
+            // Open the SI modal here
+            var siModal = document.getElementById('siModal');
+            var modal = new bootstrap.Modal(siModal);
+            modal.show();
+        });
+
+        var imprimirButton = document.getElementById('imprimirButton');
+        imprimirButton.addEventListener('click', function() {
+            // Open the IMPRIMIR modal here
+            var imprimirModal = document.getElementById('imprimirModal');
+            var modal = new bootstrap.Modal(imprimirModal);
+            modal.show();
+        });
+
+        var mientrasButton = document.getElementById('mientrasButton');
+        mientrasButton.addEventListener('click', function() {
+            // Open the MIENTRAS modal here
+            var mientrasModal = document.getElementById('mientrasModal');
+            var modal = new bootstrap.Modal(mientrasModal);
+            modal.show();
+        });
+
+        var comentarButton = document.getElementById('comentarButton');
+        comentarButton.addEventListener('click', function() {
+            // Open the COMENTAR modal here
+            var comentarModal = document.getElementById('comentarModal');
+            var modal = new bootstrap.Modal(comentarModal);
+            modal.show();
+        });
+    });
+
+
     var variables = []; // Array to store the variables
     var variablesGuardados = ""; // String to store the saved variables
-
-function updateProgressBar() {
-  var progressBar = document.getElementById('progress');
-      var progress = ((currentStep - 1) / 2) * 100; // Assuming 3 steps in total
-      progressBar.style.width = progress + '%';
-}
 
 function guardarVariables() {
   var variableNombre = document.getElementById('variableNombre').value;
@@ -198,108 +456,93 @@ function guardarVariables() {
   document.getElementById('variableValor').value = '';
 }
 
+function toggleOtherInputIf(attributeId) {
+  var attributeSelect = document.getElementById(attributeId);
+  var inputContainerId = attributeId + "InputContainer";
+  var inputContainer = document.getElementById(inputContainerId);
+  var inputField = inputContainer.querySelector("input");
 
-function showFirstStep() {
-  currentStep = 1;
-      document.getElementById('secondStep').style.display = 'none';
-      document.getElementById('thirdStep').style.display = 'none';
-      document.getElementById('firstStep').style.display = 'block';
-      updateProgressBar();
+  if (attributeSelect.value === "other") {
+    inputContainer.style.display = "block";
+    inputField.required = true;
+  } else {
+    inputContainer.style.display = "none";
+    inputField.required = false;
+  }
 }
 
+function toggleOtherInputWhile(attributeId, inputContainerId) {
+  var attributeSelect = document.getElementById(attributeId);
+  var inputContainer = document.getElementById(inputContainerId);
+  var inputField = inputContainer.querySelector("input");
 
-function showSecondStep() {
-  // Retrieve saved variables from the textarea
-  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
-  var savedVariables = variablesGuardadosTextarea.value.split('\n');
+  if (attributeSelect.value === "other") {
+    inputContainer.style.display = "block";
+    inputField.required = true;
+  } else {
+    inputContainer.style.display = "none";
+    inputField.required = false;
+  }
+}
 
-  // Clear previous options from dropdowns
-  var attribute1Dropdown = document.getElementById('attribute1');
-  var attribute2Dropdown = document.getElementById('attribute2');
-  attribute1Dropdown.innerHTML = '';
-  attribute2Dropdown.innerHTML = '';
+function checkConditionsAndShowNextButton() {
+    const attribute1Value = document.getElementById('attribute1While').value;
+    const attribute2Value = document.getElementById('attribute2While').value;
+    const comparisonOperation = document.getElementById('comparisonOperation2').value;
 
-  // Populate dropdowns with saved variables
-  for (var i = 0; i < savedVariables.length; i++) {
-    var variable = savedVariables[i].trim();
-    if (variable !== '') {
-      var variableName = variable.split(' ')[1];
-      var option = document.createElement('option');
-      option.value = variableName;
-      option.text = variableName;
-      attribute1Dropdown.add(option);
+    // Check if both variables and the comparison operator have selected values
+    const isAttribute1Selected = attribute1Value !== '-';
+    const isAttribute2Selected = attribute2Value !== '-';
+    const isComparisonOperationSelected = comparisonOperation !== '-';
 
-      option = document.createElement('option');
-      option.value = variableName;
-      option.text = variableName;
-      attribute2Dropdown.add(option);
+    // Evaluate the condition based on the selected comparison operation and the values of the variables
+    let conditionMet = false;
+    if (isAttribute1Selected && isAttribute2Selected && isComparisonOperationSelected) {
+      // Convert attribute1Value and attribute2Value to numbers if necessary
+      // This step is important if you want to compare numeric values correctly
+      // If your variables are already numbers, you can skip this step
+      const numAttribute1 = parseFloat(attribute1Value);
+      const numAttribute2 = parseFloat(attribute2Value);
+
+      switch (comparisonOperation) {
+        case '==':
+          conditionMet = (numAttribute1 === numAttribute2);
+          break;
+        case '!=':
+          conditionMet = (numAttribute1 !== numAttribute2);
+          break;
+        case '>':
+          conditionMet = (numAttribute1 > numAttribute2);
+          break;
+        case '<':
+          conditionMet = (numAttribute1 < numAttribute2);
+          break;
+        case '>=':
+          conditionMet = (numAttribute1 >= numAttribute2);
+          break;
+        case '<=':
+          conditionMet = (numAttribute1 <= numAttribute2);
+          break;
+        default:
+          // If an invalid comparison operation is selected, return early
+          return;
+      }
+    }
+
+    // Get the "SIGUIENTE" button element
+    const siguienteButton = document.getElementById('siguienteButton');
+
+    // Show or hide the "SIGUIENTE" button based on the conditions
+    if (isAttribute1Selected && isAttribute2Selected && isComparisonOperationSelected) {
+      if (conditionMet) {
+        siguienteButton.style.display = 'inline-block';
+      } else {
+        siguienteButton.style.display = 'none';
+      }
+    } else {
+      siguienteButton.style.display = 'none';
     }
   }
-
-  currentStep = 2;
-      document.getElementById('firstStep').style.display = 'none';
-      document.getElementById('thirdStep').style.display = 'none';
-      document.getElementById('secondStep').style.display = 'block';
-      updateProgressBar();
-}
-
-function showThirdStep() {
-  // Retrieve selected options and comparison operation
-  var attribute1 = document.getElementById('attribute1').value;
-  var attribute2 = document.getElementById('attribute2').value;
-  var comparisonOperation = document.getElementById('comparisonOperation').value;
-
-  // Construct the condition
-  var condition = attribute1 + ' ' + comparisonOperation + ' ' + attribute2;
-
-  // Retrieve selected structure
-  var structure = document.querySelector('input[name="structure"]:checked').value;
-
-  // Show the condition statements based on the selected structure
-  if (structure === 'if') {
-    document.getElementById('trueConditionStatements').value = 'if (' + condition + ') {\n  // Código\n}';
-    document.getElementById('falseConditionStatements').value = 'if (' + condition + ') {\n  // Código\n} else {\n  // Código\n}';
-  } else if (structure === 'while') {
-    document.getElementById('trueConditionStatements').value = 'while (' + condition + ') {\n  // Código\n}';
-    document.getElementById('falseConditionStatements').value = '';
-  }
-
-  currentStep = 3;
-      document.getElementById('firstStep').style.display = 'none';
-      document.getElementById('secondStep').style.display = 'none';
-      document.getElementById('thirdStep').style.display = 'block';
-      updateProgressBar();
-}
-
-function saveProcedure() {
-  var procedureName = document.getElementById('procedureName').value;
-  var trueConditionStatements = document.getElementById('trueConditionStatements').value;
-  var falseConditionStatements = document.getElementById('falseConditionStatements').value;
-
-  // Implement your code here to save the procedure using the entered values
-  // You can use the procedureName, trueConditionStatements, and falseConditionStatements variables to store and process the procedure data
-
-  // Show a confirmation message using swal
-    swal({
-        title: 'Confirmación',
-        text: 'Estás seguro de que quieres guardar el procedimiento: ' + procedureName + '?',
-        icon: 'warning',
-        buttons: ['Cancelar', 'Guardar'],
-        dangerMode: true,
-    }).then(function (confirmed) {
-        if (confirmed) {
-            // Save the procedure
-            swal('Procedimiento guardado: ' + procedureName, {
-                icon: 'success',
-            });
-        } else {
-            // Cancelled
-            swal('Procedimiento no guardado.', {
-                icon: 'error',
-            });
-        }
-    });
-}
 
   </script>
 </body>
