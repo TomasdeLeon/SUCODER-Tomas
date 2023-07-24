@@ -1,51 +1,616 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SUCODER - Java Code Generator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <meta charset="UTF-8">
+    <title>SUCODER</title>
     <style>
-        body {
+
+    .container {
+      width: 400px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #0000FF;
+      color: blue;
+      border: none;
+      cursor: pointer;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .step-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    body {
       background-image: url(/images/SUCODER.png);
       background-repeat: no-repeat;
       background-size: cover;
       background-attachment: fixed;
     }
-    </style>
+
+  </style>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
 </head>
 <body>
-<header>
-    <br>
-    <h1 align="center" style="color:white">Bienvenido a SUCODER</h1>
-</header>
+
 <div class="container">
+    <br>
+    <h1 align="center" style="color:white">SUCODER</h1>
+    <h2 align="center" style="color:white">Java Code Generator</h2><br>
+    <div class="progress">
+        <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+    </div>
+    <br><hr><br>
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="width:102%; background-color: white;">
+        <div class="p-3 p-lg-5 pt-lg-3">
+            <form id="codeGeneratorForm">
 
-    <hr><br>
-    <div class="row align-items-stretch g-4 py-5">
-    <form action="/redirectToProcedimiento" method="get">
-            <div class="col">
-                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                        <button class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" type="submit">Crear Procedimiento</button>
+                <!--VENTANA 1-->
+                <div id="firstStep">
+                    <h3>Crear Procedimiento</h3><hr>
+                    <h3>1. Nombre Procedimiento</h3>
+                    <div class="form-group">
+                        <input type="text" id="procedureName" name="procedureName" required>
+                    </div><br>
+                    <button id="variablesButton" type="button" data-toggle="modal" data-target="#variablesModal">VARIABLES</button>
+                    <button id="siButton" type="button" data-toggle="modal" data-target="#siModal">SI</button>
+                    <button id="mientrasButton" type="button" data-toggle="modal" data-target="#mientrasModal">MIENTRAS</button>
+                    <button id="imprimirButton" type="button" data-toggle="modal" data-target="#imprimirModal">IMPRIMIR</button>
+                    <button id="comentarButton" type="button" data-toggle="modal" data-target="#comentarModal">COMENTARIO</button>
+
+                    <!-- Variables Modal -->
+                    <div class="modal fade" id="variablesModal" tabindex="-1" role="dialog" aria-labelledby="variablesModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="variablesModalLabel">Variables</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="variableNombre">Nombre:</label>
+                                            <input type="text" id="variableNombre" name="variableNombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="variableTipo">Tipo:</label>
+                                            <select id="variableTipo" name="variableTipo">
+                                                <option value="int">Número (int)</option>
+                                                <option value="double">Número decimal (double)</option>
+                                                <option value="String">Texto (String)</option>
+                                                Add more options if needed
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="variableValor">Valor:</label>
+                                            <input type="text" id="variableValor" name="variableValor" required>
+                                        </div><br>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success" onclick="cargarVariables()">Cargar Variables</button>
+                                        </div><br>
+                                        <div class="form-group">
+                                            <label for="variablesGuardados">Variables Guardados:</label>
+                                            <textarea id="variablesGuardados" readonly></textarea>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Guardar Variables</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-    </form><br>
-    <form action="/redirectToCodigo" method="get">
-        <div class="col">
-            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <button class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" type="submit">Crear Código Principal</button>
-                </div>
-            </div>
-        </div>
 
-    </form>
-</div>
+                    <!-- SI Modal -->
+                    <div class="modal fade" id="siModal" tabindex="-1" role="dialog" aria-labelledby="siModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="siModalLabel">SI</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="attribute1">Variable 1</label>
+                                        <select id="attribute1" name="attribute1" onchange="toggleOtherInputIf('attribute1')">
+                                            <option value="-">-</option>
+                                            <option value="other">Otro Valor...</option>
+                                            <!-- Dropdown options will be dynamically added here -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="attribute1InputContainer" style="display: none;">
+                                        <label for="attribute1Input">Valor</label>
+                                        <input type="text" id="attribute1Input" name="attribute1Input">
+                                    </div><br>
+                                    <div class="form-group">
+                                        <label for="attribute2">Variable 2</label>
+                                        <select id="attribute2" name="attribute2" onchange="toggleOtherInputIf('attribute2')">
+                                            <option value="-">-</option>
+                                            <option value="other">Otro Valor...</option>
+                                            <!-- Dropdown options will be dynamically added here -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="attribute2InputContainer" style="display: none;">
+                                        <label for="attribute2Input">Valor</label>
+                                        <input type="text" id="attribute2Input" name="attribute2Input">
+                                    </div><br>
+                                    <div class="form-group">
+                                        <label for="comparisonOperation">Operador de Comparación</label>
+                                        <select id="comparisonOperation" name="comparisonOperation">
+                                            <option value="==">Igual (==)</option>
+                                            <option value="!=">Distinto (!=)</option>
+                                            <option value=">">Es Mayor (>)</option>
+                                            <option value="<">Es Menor (<)</option>
+                                            <option value=">=">Mayor o Igual (>=)</option>
+                                            <option value="<=">Menor o Igual (<=)</option>
+                                            <!-- Add more options if needed -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel2">Condiciones</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Verdadera</label>
+                                        <button class="btn btn-primary" data-bs-target="#modalVerdadero" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                                    </div><br>
+                                    <div class="form-group">
+                                        <label>Falsa</label>
+                                        <button class="btn btn-primary" data-bs-target="#modalFalso" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-target="#siModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+                                    <button type="button" class="btn btn-primary">Guardar Condición "SI"</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="modalVerdadero" aria-hidden="true" aria-labelledby="modalVerdadero" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Imprimir Mensaje</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="trueConditionStatements">Mensaje si es Verdadero:</label>
+                                        <input type="text" id="trueConditionStatements" name="trueConditionStatements" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modalFalso" aria-hidden="true" aria-labelledby="modalFalso" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Imprimir Mensaje</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="trueConditionStatements">Mensaje si es Falso:</label>
+                                        <input type="text" id="falseConditionStatements" name="falseConditionStatements" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IMPRIMIR Modal -->
+                    <div class="modal fade" id="imprimirModal" tabindex="-1" role="dialog" aria-labelledby="imprimirModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="imprimirModalLabel">Imprimir Mensaje</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="imprimirMensaje">Mensaje:</label>
+                                        <input type="text" id="imprimirMensaje" name="imprimirMensaje" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Guardar Mensaje</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MIENTRAS Modal -->
+                    <div class="modal fade" id="mientrasModal" tabindex="-1" role="dialog" aria-labelledby="mientrasModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="mientrasModalLabel">MIENTRAS</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="attribute1While">Variable 1</label>
+                                        <select id="attribute1While" name="attribute1While" onchange="toggleOtherInputWhile('attribute1While', 'attribute1InputContainer2'); checkConditionsAndShowNextButton();">
+                                            <option value="-">-</option>
+                                            <option value="other">Otro Valor...</option>
+                                            <!-- Dropdown options will be dynamically added here -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="attribute1InputContainer2" style="display: none;">
+                                        <label for="attribute1Input">Valor</label>
+                                        <input type="text" id="attribute1InputWhile" name="attribute1Input" onchange="checkConditionsAndShowNextButton();">
+                                    </div><br>
+                                    <div class="form-group">
+                                        <label for="attribute2">Variable 2</label>
+                                        <select id="attribute2While" name="attribute2" onchange="toggleOtherInputWhile('attribute2While', 'attribute2InputContainer2'); checkConditionsAndShowNextButton();">
+                                            <option value="-">-</option>
+                                            <option value="other">Otro Valor...</option>
+                                            <!-- Dropdown options will be dynamically added here -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="attribute2InputContainer2" style="display: none;">
+                                        <label for="attribute2InputWhile">Valor</label>
+                                        <input type="text" id="attribute2InputWhile" name="attribute2InputWhile" onchange="checkConditionsAndShowNextButton();">
+                                    </div><br>
+                                    <div class="form-group">
+                                        <label for="comparisonOperation2">Operador de Comparación</label>
+                                        <select id="comparisonOperation2" name="comparisonOperation2" onchange="checkConditionsAndShowNextButton();">
+                                            <option value="-">-</option>
+                                            <option value="==">Igual (==)</option>
+                                            <option value="!=">Distinto (!=)</option>
+                                            <option value=">">Es Mayor (>)</option>
+                                            <option value="<">Es Menor (<)</option>
+                                            <option value=">=">Mayor o Igual (>=)</option>
+                                            <option value="<=">Menor o Igual (<=)</option>
+                                            <!-- Add more options if needed -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- The "SIGUIENTE" button initially hidden -->
+                                    <button class="btn btn-primary" id="siguienteButton" style="display: none;" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="condicionWhileModal" aria-hidden="true" aria-labelledby="condicionWhileModal" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Condición</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" data-bs-target="#modalMensajeWhile" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                                    </div><br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-target="#mientrasModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+                                    <button type="button" class="btn btn-primary">Guardar Condición "MIENTRAS"</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="modalMensajeWhile" aria-hidden="true" aria-labelledby="modalMensajeWhile" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Imprimir Mensaje</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="messageWhile">Mensaje:</label>
+                                        <input type="text" id="messageWhile" name="messageWhile" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMENTAR Modal -->
+                    <div class="modal fade" id="comentarModal" tabindex="-1" role="dialog" aria-labelledby="comentarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="comentarModalLabel">Comentario</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="mensajeComentado">Mensaje:</label>
+                                        <input type="text" id="mensajeComentado" name="mensajeComentado" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Guardar Comentario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <textarea id="maintextarea" rows="10" cols="50" readonly></textarea><br><br>
+                    <button type="button" class="btn btn-primary">Guardar Procedimiento</button>
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="js/bootstrap.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
 
+<script>
+
+  // Global variable to store the current procedure code
+  let currentProcedureCode = '';
+
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Button click event handlers
+        var variablesButton = document.getElementById('variablesButton');
+variablesButton.addEventListener('click', function() {
+    // Open the VARIABLES modal here
+    var variablesModal = document.getElementById('variablesModal');
+    var modal = new bootstrap.Modal(variablesModal);
+    modal.show();
+});
+
+function guardarVariables() {
+    var variableNombre = document.getElementById('variableNombre').value;
+    var variableTipo = document.getElementById('variableTipo').value;
+    var variableValor = document.getElementById('variableValor').value;
+
+    var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
+    var existingVariables = variablesGuardadosTextarea.value;
+    var newVariable = variableTipo + ' ' + variableNombre + ' = ' + variableValor + ';';
+    var updatedVariables = existingVariables + '\n' + newVariable;
+
+    variablesGuardadosTextarea.value = updatedVariables;
+
+    // Clear input fields after saving
+    document.getElementById('variableNombre').value = '';
+    document.getElementById('variableTipo').value = 'int';
+    document.getElementById('variableValor').value = '';
+  }
+
+  // Function to save variables and update the main text box
+  function guardarVariablesAndUpdateMainTextbox() {
+    guardarVariables(); // Call the existing guardarVariables() function to save the variables
+
+    // Append the saved variables to the main text box with proper formatting
+    var mainTextarea = document.getElementById('mainTextarea');
+    mainTextarea.value += `\n${document.getElementById('variablesGuardados').value}\n`;
+  }
+
+
+
+
+
+
+
+
+
+        var siButton = document.getElementById('siButton');
+        siButton.addEventListener('click', function() {
+            // Open the SI modal here
+            var siModal = document.getElementById('siModal');
+            var modal = new bootstrap.Modal(siModal);
+            modal.show();
+        });
+
+        var imprimirButton = document.getElementById('imprimirButton');
+        imprimirButton.addEventListener('click', function() {
+            // Open the IMPRIMIR modal here
+            var imprimirModal = document.getElementById('imprimirModal');
+            var modal = new bootstrap.Modal(imprimirModal);
+            modal.show();
+        });
+
+        var mientrasButton = document.getElementById('mientrasButton');
+        mientrasButton.addEventListener('click', function() {
+            // Open the MIENTRAS modal here
+            var mientrasModal = document.getElementById('mientrasModal');
+            var modal = new bootstrap.Modal(mientrasModal);
+            modal.show();
+        });
+
+        var comentarButton = document.getElementById('comentarButton');
+        comentarButton.addEventListener('click', function() {
+            // Open the COMENTAR modal here
+            var comentarModal = document.getElementById('comentarModal');
+            var modal = new bootstrap.Modal(comentarModal);
+            modal.show();
+        });
+    });
+
+
+    var variables = []; // Array to store the variables
+    var variablesGuardados = ""; // String to store the saved variables
+
+function cargarVariables() {
+  var variableNombre = document.getElementById('variableNombre').value;
+  var variableTipo = document.getElementById('variableTipo').value;
+  var variableValor = document.getElementById('variableValor').value;
+
+  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
+  var existingVariables = variablesGuardadosTextarea.value;
+  var newVariable = variableTipo + ' ' + variableNombre + ' = ' + variableValor + ';';
+  var updatedVariables = existingVariables + '\n' + newVariable;
+
+  variablesGuardadosTextarea.value = updatedVariables;
+
+  // Clear input fields after saving
+  document.getElementById('variableNombre').value = '';
+  document.getElementById('variableTipo').value = 'int';
+  document.getElementById('variableValor').value = '';
+}
+
+function toggleOtherInputIf(attributeId) {
+  var attributeSelect = document.getElementById(attributeId);
+  var inputContainerId = attributeId + "InputContainer";
+  var inputContainer = document.getElementById(inputContainerId);
+  var inputField = inputContainer.querySelector("input");
+
+  if (attributeSelect.value === "other") {
+    inputContainer.style.display = "block";
+    inputField.required = true;
+  } else {
+    inputContainer.style.display = "none";
+    inputField.required = false;
+  }
+}
+
+function toggleOtherInputWhile(attributeId, inputContainerId) {
+  var attributeSelect = document.getElementById(attributeId);
+  var inputContainer = document.getElementById(inputContainerId);
+  var inputField = inputContainer.querySelector("input");
+
+  if (attributeSelect.value === "other") {
+    inputContainer.style.display = "block";
+    inputField.required = true;
+  } else {
+    inputContainer.style.display = "none";
+    inputField.required = false;
+  }
+}
+
+function checkConditionsAndShowNextButton() {
+    const attribute1Value = document.getElementById('attribute1While').value;
+    const attribute2Value = document.getElementById('attribute2While').value;
+    const comparisonOperation = document.getElementById('comparisonOperation2').value;
+
+    // Check if both variables and the comparison operator have selected values
+    const isAttribute1Selected = attribute1Value !== '-';
+    const isAttribute2Selected = attribute2Value !== '-';
+    const isComparisonOperationSelected = comparisonOperation !== '-';
+
+    // Evaluate the condition based on the selected comparison operation and the values of the variables
+    let conditionMet = false;
+    if (isAttribute1Selected && isAttribute2Selected && isComparisonOperationSelected) {
+      // Convert attribute1Value and attribute2Value to numbers if necessary
+      // This step is important if you want to compare numeric values correctly
+      // If your variables are already numbers, you can skip this step
+      const numAttribute1 = parseFloat(attribute1Value);
+      const numAttribute2 = parseFloat(attribute2Value);
+
+      switch (comparisonOperation) {
+        case '==':
+          conditionMet = (numAttribute1 === numAttribute2);
+          break;
+        case '!=':
+          conditionMet = (numAttribute1 !== numAttribute2);
+          break;
+        case '>':
+          conditionMet = (numAttribute1 > numAttribute2);
+          break;
+        case '<':
+          conditionMet = (numAttribute1 < numAttribute2);
+          break;
+        case '>=':
+          conditionMet = (numAttribute1 >= numAttribute2);
+          break;
+        case '<=':
+          conditionMet = (numAttribute1 <= numAttribute2);
+          break;
+        default:
+          // If an invalid comparison operation is selected, return early
+          return;
+      }
+    }
+
+    // Get the "SIGUIENTE" button element
+    const siguienteButton = document.getElementById('siguienteButton');
+
+    // Show or hide the "SIGUIENTE" button based on the conditions
+    if (isAttribute1Selected && isAttribute2Selected && isComparisonOperationSelected) {
+      if (conditionMet) {
+        siguienteButton.style.display = 'inline-block';
+      } else {
+        siguienteButton.style.display = 'none';
+      }
+    } else {
+      siguienteButton.style.display = 'none';
+    }
+  }
+
+  // JavaScript code to send the user input and get the generated Java code
+      const userInput = {
+        procedureName: document.getElementById('procedureName').value,
+        variableNombre: document.getElementById('variableNombre').value,
+        variableTipo: document.getElementById('variableTipo').value,
+        variableValor: document.getElementById('variableValor').value,
+        // Add more properties as needed for other input fields
+      };
+
+      fetch('/generate-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userInput)
+      })
+      .then(response => response.text())
+      .then(generatedCode => {
+        // Handle the generated Java code here, e.g., display it on the page or in a textarea
+        console.log(generatedCode);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the request
+        console.error('Error:', error);
+      });
+
+</script>
 </body>
 </html>
