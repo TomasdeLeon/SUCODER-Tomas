@@ -110,7 +110,7 @@
                                             <input type="text" id="variableValor" name="variableValor" required>
                                         </div><br>
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-success" onclick="cargarVariables()">Cargar Variables</button>
+                                            <button id="cargarVariablesBtn" type="button" class="btn btn-success">Cargar Variables</button>
                                         </div><br>
                                         <div class="form-group">
                                             <label for="variablesGuardados">Variables Guardados:</label>
@@ -120,7 +120,7 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Guardar Variables</button>
+                                    <button id="guardarVariablesBtn" type="button" class="btn btn-primary">Guardar Variables</button>
                                 </div>
                             </div>
                         </div>
@@ -407,32 +407,91 @@ variablesButton.addEventListener('click', function() {
     modal.show();
 });
 
+
+// Define global variables to store the procedure name, variables, and the main textarea element
+var procedureName = '';
+var variables = [];
+var mainTextarea = document.getElementById('maintextarea');
+
+// Add event listener to the input element for the procedure name
+document.getElementById('procedureName').addEventListener('input', function() {
+  procedureName = this.value;
+  updateMainTextarea();
+});
+
+function cargarVariables() {
+  var variableNombre = document.getElementById('variableNombre').value;
+  var variableTipo = document.getElementById('variableTipo').value;
+  var variableValor = document.getElementById('variableValor').value;
+
+  var newVariable = variableTipo + ' ' + variableNombre + ' = ' + variableValor + ';';
+  variables.push(newVariable);
+
+  // Clear input fields after saving
+  document.getElementById('variableNombre').value = '';
+  document.getElementById('variableTipo').value = 'int';
+  document.getElementById('variableValor').value = '';
+
+  updateVariablesTextarea();
+}
+
+function updateVariablesTextarea() {
+  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
+  variablesGuardadosTextarea.value = variables.join('\n');
+}
+
 function guardarVariables() {
-    var variableNombre = document.getElementById('variableNombre').value;
-    var variableTipo = document.getElementById('variableTipo').value;
-    var variableValor = document.getElementById('variableValor').value;
+  // Clear the main textarea
+  mainTextarea.value = '';
 
-    var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
-    var existingVariables = variablesGuardadosTextarea.value;
-    var newVariable = variableTipo + ' ' + variableNombre + ' = ' + variableValor + ';';
-    var updatedVariables = existingVariables + '\n' + newVariable;
+  // Generate the Java-like procedure structure and display it in the main textarea
+  updateMainTextarea();
 
-    variablesGuardadosTextarea.value = updatedVariables;
+  // Manually close the modal after saving
+  var variablesModal = new bootstrap.Modal(document.getElementById('variablesModal'));
+  variablesModal.hide();
+}
 
-    // Clear input fields after saving
-    document.getElementById('variableNombre').value = '';
-    document.getElementById('variableTipo').value = 'int';
-    document.getElementById('variableValor').value = '';
+// Add event listener to the "Cargar Variables" button in the modal
+document.getElementById('cargarVariablesBtn').addEventListener('click', function() {
+  cargarVariables();
+});
+
+// Add event listener to the "Guardar Variables" button in the modal
+document.getElementById('guardarVariablesBtn').addEventListener('click', function() {
+  guardarVariables();
+});
+
+// When the modal is shown, update the modal textarea with the saved variables
+document.getElementById('variablesModal').addEventListener('shown.bs.modal', function() {
+  var savedVariables = localStorage.getItem('savedVariables');
+  if (savedVariables) {
+    variables = JSON.parse(savedVariables);
+    updateVariablesTextarea();
+  } else {
+    variables = [];
+    updateVariablesTextarea();
   }
+});
 
-  // Function to save variables and update the main text box
-  function guardarVariablesAndUpdateMainTextbox() {
-    guardarVariables(); // Call the existing guardarVariables() function to save the variables
+// When the modal is hidden, clear the modal textarea
+document.getElementById('variablesModal').addEventListener('hidden.bs.modal', function() {
+  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
+  variablesGuardadosTextarea.value = '';
+});
 
-    // Append the saved variables to the main text box with proper formatting
-    var mainTextarea = document.getElementById('mainTextarea');
-    mainTextarea.value += `\n${document.getElementById('variablesGuardados').value}\n`;
+// Function to update the main textarea with the procedure name and variables
+function updateMainTextarea() {
+  var procedureCode = 'procedure ' + procedureName + ' {';
+  if (variables.length > 0) {
+    procedureCode += '\n  ';
+    procedureCode += variables.join('\n  ');
+    procedureCode += '\n';
   }
+  procedureCode += '}';
+  mainTextarea.value = procedureCode;
+}
+
 
 
 
@@ -474,28 +533,6 @@ function guardarVariables() {
             modal.show();
         });
     });
-
-
-    var variables = []; // Array to store the variables
-    var variablesGuardados = ""; // String to store the saved variables
-
-function cargarVariables() {
-  var variableNombre = document.getElementById('variableNombre').value;
-  var variableTipo = document.getElementById('variableTipo').value;
-  var variableValor = document.getElementById('variableValor').value;
-
-  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
-  var existingVariables = variablesGuardadosTextarea.value;
-  var newVariable = variableTipo + ' ' + variableNombre + ' = ' + variableValor + ';';
-  var updatedVariables = existingVariables + '\n' + newVariable;
-
-  variablesGuardadosTextarea.value = updatedVariables;
-
-  // Clear input fields after saving
-  document.getElementById('variableNombre').value = '';
-  document.getElementById('variableTipo').value = 'int';
-  document.getElementById('variableValor').value = '';
-}
 
 function toggleOtherInputIf(attributeId) {
   var attributeSelect = document.getElementById(attributeId);
