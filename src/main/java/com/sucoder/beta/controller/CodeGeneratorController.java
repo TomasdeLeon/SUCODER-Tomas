@@ -1,60 +1,61 @@
 package com.sucoder.beta.controller;
 
-import com.sucoder.beta.request.CodeGenerationRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.sucoder.beta.servicio.ServicioCodeGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping
 public class CodeGeneratorController {
 
-  @GetMapping("/redirectToProcedimiento")
+  /*@GetMapping("/procedimiento.html")
   public String redirectToProcedimiento() {
-    return "Procedimiento";
+    // This method will redirect to procedimiento.html
+    return "procedimiento";
+  }*/
+
+
+  /*@GetMapping("/redirectToProcedimiento")
+  public String showProcedimientoPage(Model model) {
+    // Add any model attributes you want to pass to the template
+    model.addAttribute("message", "Welcome to Procedimiento Page!");
+    return "procedimiento"; // Return the name of the Thymeleaf template (without the ".html" extension)
   }
 
   @GetMapping("/redirectToCodigo")
-  public String redirectToCodigo() {
-    return "Codigo";
+  public String redirectToCodigo(RedirectAttributes attributes) {
+    // Assuming "Codigo" is a Thymeleaf template named "Codigo.html"
+    // This will redirect the user to the "Codigo" page
+    attributes.addFlashAttribute("attribute", "redirectWithRedirectPrefix");
+    return "redirect:/Codigo";
+  }*/
+
+  private final ServicioCodeGenerator codeGeneratorService;
+
+  @Autowired
+  public CodeGeneratorController(ServicioCodeGenerator codeGeneratorService) {
+    this.codeGeneratorService = codeGeneratorService;
+  }
+
+  @GetMapping("/redirectToProcedimiento")
+  public String redirectToProcedimiento(Model model) {
+    // Call the generateJavaCode method from the ServicioCodeGenerator
+    String generatedCode = codeGeneratorService.generateJavaCode("User Input Data");
+    model.addAttribute("generatedCode", generatedCode);
+
+    // Redirect to procedimiento.html
+    return "redirect:/procedimiento.html";
   }
 
   @PostMapping("/generate-code")
-  public String generateCode(@RequestBody CodeGenerationRequest request) {
-    String structure = request.getStructure();
-    String attribute1Name = request.getAttribute1Name();
-    String attribute1Value = request.getAttribute1Value();
-    String attribute1Type = request.getAttribute1Type();
-    String attribute2Name = request.getAttribute2Name();
-    String attribute2Value = request.getAttribute2Value();
-    String attribute2Type = request.getAttribute2Type();
-    String comparisonOperator = request.getComparisonOperator();
-    String trueMessage = request.getTrueMessage();
-    String elseMessage = request.getElseMessage();
-
-    // Generar el código Java en base a los valores recibidos
-    String javaCode = generateJavaCode(structure, attribute1Name, attribute1Value, attribute1Type,
-        attribute2Name, attribute2Value, attribute2Type, comparisonOperator, trueMessage, elseMessage);
-
-    return javaCode;
-  }
-
-  private String generateJavaCode(String structure, String attribute1Name, String attribute1Value,
-      String attribute1Type, String attribute2Name, String attribute2Value, String attribute2Type,
-      String comparisonOperator, String trueMessage, String elseMessage) {
-    StringBuilder javaCode = new StringBuilder();
-
-    if (structure.equals("if")) {
-      javaCode.append("if (").append(attribute1Name).append(" ").append(comparisonOperator).append(" ").append(attribute2Name).append(") {\n");
-      javaCode.append("    System.out.println(\"").append(trueMessage).append("\");\n");
-      javaCode.append("} else {\n");
-      javaCode.append("    System.out.println(\"").append(elseMessage).append("\");\n");
-      javaCode.append("}");
-
-      return javaCode.toString();
-    }
-
-    return "";
+  public ResponseEntity<String> generateJavaCode(@RequestBody String userInput) {
+    String generatedCode = codeGeneratorService.generateJavaCode(userInput);
+    return new ResponseEntity<>(generatedCode, HttpStatus.OK);
   }
 }

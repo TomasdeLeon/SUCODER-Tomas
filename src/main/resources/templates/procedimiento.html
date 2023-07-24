@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>SUCODER</title>
@@ -59,6 +59,7 @@
 
 <div class="container">
   <br>
+  <p th:text="${generatedCode}"></p>
   <h1 align="center" style="color:white">SUCODER</h1>
   <h2 align="center" style="color:white">Java Code Generator</h2><br>
   <div class="progress">
@@ -543,6 +544,34 @@ function checkConditionsAndShowNextButton() {
       siguienteButton.style.display = 'none';
     }
   }
+  </script>
+  <script>
+  // JavaScript code to send the user input and get the generated Java code
+      const userInput = {
+        procedureName: document.getElementById('procedureName').value,
+        variableNombre: document.getElementById('variableNombre').value,
+        variableTipo: document.getElementById('variableTipo').value,
+        variableValor: document.getElementById('variableValor').value,
+        // Add more properties as needed for other input fields
+      };
+
+      fetch('/generate-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userInput)
+      })
+      .then(response => response.text())
+      .then(generatedCode => {
+        // Handle the generated Java code here, e.g., display it on the page or in a textarea
+        console.log(generatedCode);
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the request
+        console.error('Error:', error);
+      });
+      </script>
 
   </script>
 </body>
