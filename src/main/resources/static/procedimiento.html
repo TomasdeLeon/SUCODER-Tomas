@@ -382,7 +382,7 @@
           </div>
           <br><br>
           <textarea id="maintextarea" rows="10" cols="50" readonly></textarea><br><br>
-          <button type="button" class="btn btn-primary">Guardar Procedimiento</button>
+          <button id="guardarProcedimiento" type="button" class="btn btn-primary">Guardar Procedimiento</button>
 
 
         </div>
@@ -495,6 +495,47 @@ function updateMainTextarea() {
   procedureCode += '}';
   mainTextarea.value = procedureCode;
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const guardarProcedimiento = document.getElementById("guardarProcedimiento");
+    const maintextarea = document.getElementById("maintextarea");
+
+    guardarProcedimiento.addEventListener("click", function () {
+        const procedimientoData = maintextarea.value;
+
+        fetch("/api/procedimientos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ data: procedimientoData })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); // Optionally handle the response from the backend
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -634,23 +675,6 @@ function checkConditionsAndShowNextButton() {
         variableValor: document.getElementById('variableValor').value,
         // Add more properties as needed for other input fields
       };
-
-      fetch('/generate-code', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userInput)
-      })
-      .then(response => response.text())
-      .then(generatedCode => {
-        // Handle the generated Java code here, e.g., display it on the page or in a textarea
-        console.log(generatedCode);
-      })
-      .catch(error => {
-        // Handle any errors that occurred during the request
-        console.error('Error:', error);
-      });
 
 </script>
 </body>
