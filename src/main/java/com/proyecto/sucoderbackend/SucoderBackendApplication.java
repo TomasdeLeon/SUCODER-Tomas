@@ -1,12 +1,13 @@
-package com.sucoder.beta.MiAplicacion;
+package com.proyecto.sucoderbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CodeGeneratorApplication {
+public class SucoderBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CodeGeneratorApplication.class, args);
+		SpringApplication.run(SucoderBackendApplication.class, args);
 	}
+
 }

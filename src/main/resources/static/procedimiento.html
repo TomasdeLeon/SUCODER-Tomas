@@ -61,30 +61,21 @@
   <br>
   <h1 align="center" style="color:white">SUCODER</h1>
   <h2 align="center" style="color:white">Java Code Generator</h2><br>
-  <div class="progress">
-    <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-  </div>
-  <br><hr><br>
+  <br><br>
   <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="width:102%; background-color: white;">
     <div class="p-3 p-lg-5 pt-lg-3">
       <form id="codeGeneratorForm">
+          <h3 align="center">Crear Procedimiento</h3><hr>
 
-        <!--VENTANA 1-->
-        <div id="firstStep">
-          <h3>Crear Procedimiento</h3><hr>
-
-          <a href="/procedimiento.html">Crear Procedimiento</a>
-          <a href="/codigo.html">Crear Código</a><br>
-
-          <h3>1. Nombre Procedimiento</h3>
+          <h4>Nombre Procedimiento</h4>
           <div class="form-group">
-            <input type="text" id="procedureName" name="procedureName" required>
+            <input type="text" id="procedureName" name="procedureName" required onkeyup="updateTextArea()">
           </div><br>
-          <button id="variablesButton" type="button" data-toggle="modal" data-target="#variablesModal">VARIABLES</button>
-          <button id="siButton" type="button" data-toggle="modal" data-target="#siModal">SI</button>
-          <button id="mientrasButton" type="button" data-toggle="modal" data-target="#mientrasModal">MIENTRAS</button>
-          <button id="imprimirButton" type="button" data-toggle="modal" data-target="#imprimirModal">IMPRIMIR</button>
-          <button id="comentarButton" type="button" data-toggle="modal" data-target="#comentarModal">COMENTARIO</button>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#variablesModal">VARIABLES</button><br><br>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#siModal">SI</button><br><br>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mientrasModal">MIENTRAS</button><br><br>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#imprimirModal">IMPRIMIR</button><br><br>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#comentarModal">COMENTARIO</button><br><br>
 
           <!-- Variables Modal -->
           <div class="modal fade" id="variablesModal" tabindex="-1" role="dialog" aria-labelledby="variablesModalLabel" aria-hidden="true">
@@ -102,11 +93,10 @@
                     </div>
                     <div class="form-group">
                       <label for="variableTipo">Tipo:</label>
-                      <select id="variableTipo" name="variableTipo">
+                      <select id="variableTipo" name="variableTipo" required>
                         <option value="int">Número (int)</option>
                         <option value="double">Número decimal (double)</option>
                         <option value="String">Texto (String)</option>
-                        Add more options if needed
                       </select>
                     </div>
                     <div class="form-group">
@@ -117,8 +107,8 @@
                       <button id="cargarVariablesBtn" type="button" class="btn btn-success">Cargar Variables</button>
                     </div><br>
                     <div class="form-group">
-                      <label for="variablesGuardados">Variables Guardados:</label>
-                      <textarea id="variablesGuardados" readonly></textarea>
+                      <label for="variablesCargados">Variables Cargados:</label>
+                      <textarea id="variablesCargados" readonly></textarea>
                     </div>
 
                   </form>
@@ -141,7 +131,7 @@
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="attribute1">Variable 1</label>
-                    <select id="attribute1" name="attribute1" onchange="toggleOtherInputIf('attribute1')">
+                    <select id="attribute1" name="attribute1">
                       <option value="-">-</option>
                       <option value="other">Otro Valor...</option>
                       <!-- Dropdown options will be dynamically added here -->
@@ -153,7 +143,7 @@
                   </div><br>
                   <div class="form-group">
                     <label for="attribute2">Variable 2</label>
-                    <select id="attribute2" name="attribute2" onchange="toggleOtherInputIf('attribute2')">
+                    <select id="attribute2" name="attribute2">
                       <option value="-">-</option>
                       <option value="other">Otro Valor...</option>
                       <!-- Dropdown options will be dynamically added here -->
@@ -293,7 +283,6 @@
                     <select id="attribute2While" name="attribute2" onchange="toggleOtherInputWhile('attribute2While', 'attribute2InputContainer2'); checkConditionsAndShowNextButton();">
                       <option value="-">-</option>
                       <option value="other">Otro Valor...</option>
-                      <!-- Dropdown options will be dynamically added here -->
                     </select>
                   </div>
                   <div class="form-group" id="attribute2InputContainer2" style="display: none;">
@@ -310,12 +299,10 @@
                       <option value="<">Es Menor (<)</option>
                       <option value=">=">Mayor o Igual (>=)</option>
                       <option value="<=">Menor o Igual (<=)</option>
-                      <!-- Add more options if needed -->
                     </select>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <!-- The "SIGUIENTE" button initially hidden -->
                   <button class="btn btn-primary" id="siguienteButton" style="display: none;" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
                 </div>
               </div>
@@ -382,10 +369,7 @@
           </div>
           <br><br>
           <textarea id="maintextarea" rows="10" cols="50" readonly></textarea><br><br>
-          <button type="button" class="btn btn-primary">Guardar Procedimiento</button>
-
-
-        </div>
+          <button id="guardarProcedimiento" type="button" class="btn btn-primary">Guardar Procedimiento</button>
 
       </form>
     </div>
@@ -397,261 +381,21 @@
 
 <script>
 
-  // Global variable to store the current procedure code
-  let currentProcedureCode = '';
-
-
-document.addEventListener('DOMContentLoaded', function() {
-        // Button click event handlers
-        var variablesButton = document.getElementById('variablesButton');
-variablesButton.addEventListener('click', function() {
-    // Open the VARIABLES modal here
-    var variablesModal = document.getElementById('variablesModal');
-    var modal = new bootstrap.Modal(variablesModal);
-    modal.show();
-});
-
-
-// Define global variables to store the procedure name, variables, and the main textarea element
-var procedureName = '';
-var variables = [];
-var mainTextarea = document.getElementById('maintextarea');
-
-// Add event listener to the input element for the procedure name
-document.getElementById('procedureName').addEventListener('input', function() {
-  procedureName = this.value;
-  updateMainTextarea();
-});
-
-function cargarVariables() {
-  var variableNombre = document.getElementById('variableNombre').value;
-  var variableTipo = document.getElementById('variableTipo').value;
-  var variableValor = document.getElementById('variableValor').value;
-
-  var newVariable = variableTipo + ' ' + variableNombre + ' = ' + variableValor + ';';
-  variables.push(newVariable);
-
-  // Clear input fields after saving
-  document.getElementById('variableNombre').value = '';
-  document.getElementById('variableTipo').value = 'int';
-  document.getElementById('variableValor').value = '';
-
-  updateVariablesTextarea();
-}
-
-function updateVariablesTextarea() {
-  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
-  variablesGuardadosTextarea.value = variables.join('\n');
-}
-
-function guardarVariables() {
-  // Clear the main textarea
-  mainTextarea.value = '';
-
-  // Generate the Java-like procedure structure and display it in the main textarea
-  updateMainTextarea();
-
-  // Manually close the modal after saving
-  var variablesModal = new bootstrap.Modal(document.getElementById('variablesModal'));
-  variablesModal.hide();
-}
-
-// Add event listener to the "Cargar Variables" button in the modal
-document.getElementById('cargarVariablesBtn').addEventListener('click', function() {
-  cargarVariables();
-});
-
-// Add event listener to the "Guardar Variables" button in the modal
-document.getElementById('guardarVariablesBtn').addEventListener('click', function() {
-  guardarVariables();
-});
-
-// When the modal is shown, update the modal textarea with the saved variables
-document.getElementById('variablesModal').addEventListener('shown.bs.modal', function() {
-  var savedVariables = localStorage.getItem('savedVariables');
-  if (savedVariables) {
-    variables = JSON.parse(savedVariables);
-    updateVariablesTextarea();
-  } else {
-    variables = [];
-    updateVariablesTextarea();
-  }
-});
-
-// When the modal is hidden, clear the modal textarea
-document.getElementById('variablesModal').addEventListener('hidden.bs.modal', function() {
-  var variablesGuardadosTextarea = document.getElementById('variablesGuardados');
-  variablesGuardadosTextarea.value = '';
-});
-
-// Function to update the main textarea with the procedure name and variables
-function updateMainTextarea() {
-  var procedureCode = 'procedure ' + procedureName + ' {';
-  if (variables.length > 0) {
-    procedureCode += '\n  ';
-    procedureCode += variables.join('\n  ');
-    procedureCode += '\n';
-  }
-  procedureCode += '}';
-  mainTextarea.value = procedureCode;
-}
-
-
-
-
-
-
-
-
-
-
-        var siButton = document.getElementById('siButton');
-        siButton.addEventListener('click', function() {
-            // Open the SI modal here
-            var siModal = document.getElementById('siModal');
-            var modal = new bootstrap.Modal(siModal);
-            modal.show();
-        });
-
-        var imprimirButton = document.getElementById('imprimirButton');
-        imprimirButton.addEventListener('click', function() {
-            // Open the IMPRIMIR modal here
-            var imprimirModal = document.getElementById('imprimirModal');
-            var modal = new bootstrap.Modal(imprimirModal);
-            modal.show();
-        });
-
-        var mientrasButton = document.getElementById('mientrasButton');
-        mientrasButton.addEventListener('click', function() {
-            // Open the MIENTRAS modal here
-            var mientrasModal = document.getElementById('mientrasModal');
-            var modal = new bootstrap.Modal(mientrasModal);
-            modal.show();
-        });
-
-        var comentarButton = document.getElementById('comentarButton');
-        comentarButton.addEventListener('click', function() {
-            // Open the COMENTAR modal here
-            var comentarModal = document.getElementById('comentarModal');
-            var modal = new bootstrap.Modal(comentarModal);
-            modal.show();
-        });
-    });
-
-function toggleOtherInputIf(attributeId) {
-  var attributeSelect = document.getElementById(attributeId);
-  var inputContainerId = attributeId + "InputContainer";
-  var inputContainer = document.getElementById(inputContainerId);
-  var inputField = inputContainer.querySelector("input");
-
-  if (attributeSelect.value === "other") {
-    inputContainer.style.display = "block";
-    inputField.required = true;
-  } else {
-    inputContainer.style.display = "none";
-    inputField.required = false;
-  }
-}
-
-function toggleOtherInputWhile(attributeId, inputContainerId) {
-  var attributeSelect = document.getElementById(attributeId);
-  var inputContainer = document.getElementById(inputContainerId);
-  var inputField = inputContainer.querySelector("input");
-
-  if (attributeSelect.value === "other") {
-    inputContainer.style.display = "block";
-    inputField.required = true;
-  } else {
-    inputContainer.style.display = "none";
-    inputField.required = false;
-  }
-}
-
-function checkConditionsAndShowNextButton() {
-    const attribute1Value = document.getElementById('attribute1While').value;
-    const attribute2Value = document.getElementById('attribute2While').value;
-    const comparisonOperation = document.getElementById('comparisonOperation2').value;
-
-    // Check if both variables and the comparison operator have selected values
-    const isAttribute1Selected = attribute1Value !== '-';
-    const isAttribute2Selected = attribute2Value !== '-';
-    const isComparisonOperationSelected = comparisonOperation !== '-';
-
-    // Evaluate the condition based on the selected comparison operation and the values of the variables
-    let conditionMet = false;
-    if (isAttribute1Selected && isAttribute2Selected && isComparisonOperationSelected) {
-      // Convert attribute1Value and attribute2Value to numbers if necessary
-      // This step is important if you want to compare numeric values correctly
-      // If your variables are already numbers, you can skip this step
-      const numAttribute1 = parseFloat(attribute1Value);
-      const numAttribute2 = parseFloat(attribute2Value);
-
-      switch (comparisonOperation) {
-        case '==':
-          conditionMet = (numAttribute1 === numAttribute2);
-          break;
-        case '!=':
-          conditionMet = (numAttribute1 !== numAttribute2);
-          break;
-        case '>':
-          conditionMet = (numAttribute1 > numAttribute2);
-          break;
-        case '<':
-          conditionMet = (numAttribute1 < numAttribute2);
-          break;
-        case '>=':
-          conditionMet = (numAttribute1 >= numAttribute2);
-          break;
-        case '<=':
-          conditionMet = (numAttribute1 <= numAttribute2);
-          break;
-        default:
-          // If an invalid comparison operation is selected, return early
-          return;
-      }
+  function updateTextArea() {
+        const procedureName = document.getElementById('procedureName').value;
+        const formattedProcedure = createJavaProcedure(procedureName);
+        document.getElementById('maintextarea').value = formattedProcedure;
     }
 
-    // Get the "SIGUIENTE" button element
-    const siguienteButton = document.getElementById('siguienteButton');
-
-    // Show or hide the "SIGUIENTE" button based on the conditions
-    if (isAttribute1Selected && isAttribute2Selected && isComparisonOperationSelected) {
-      if (conditionMet) {
-        siguienteButton.style.display = 'inline-block';
-      } else {
-        siguienteButton.style.display = 'none';
-      }
-    } else {
-      siguienteButton.style.display = 'none';
+    function createJavaProcedure(procedureName) {
+        const template = `public void ${procedureName}() {\n}`;
+        return template;
     }
-  }
-
-  // JavaScript code to send the user input and get the generated Java code
-      const userInput = {
-        procedureName: document.getElementById('procedureName').value,
-        variableNombre: document.getElementById('variableNombre').value,
-        variableTipo: document.getElementById('variableTipo').value,
-        variableValor: document.getElementById('variableValor').value,
-        // Add more properties as needed for other input fields
-      };
-
-      fetch('/generate-code', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userInput)
-      })
-      .then(response => response.text())
-      .then(generatedCode => {
-        // Handle the generated Java code here, e.g., display it on the page or in a textarea
-        console.log(generatedCode);
-      })
-      .catch(error => {
-        // Handle any errors that occurred during the request
-        console.error('Error:', error);
-      });
 
 </script>
+
+<script src="/js/variablesModal.js"></script>
+<script src="/js/siModal.js"></script>
+
 </body>
 </html>
