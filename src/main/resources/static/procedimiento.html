@@ -394,8 +394,39 @@
 
 </script>
 
-<script src="/js/variablesModal.js"></script>
-<script src="/js/siModal.js"></script>
+<script src="/js/variablesModal_procedimiento.js"></script>
+<script src="/js/siModal_procedimiento.js"></script>
+
+<script>
+
+document.getElementById("guardarProcedimiento").addEventListener("click", function () {
+const procedureData = document.getElementById("maintextarea").value;
+
+// Send the data to the Spring Boot backend as plain text
+fetch("/api/procedimientos", {
+method: "POST",
+headers: {
+"Content-Type": "text/plain",
+},
+body: procedureData, // Send the procedureData directly as plain text
+})
+.then((response) => {
+if (!response.ok) {
+throw new Error("Network response was not ok");
+}
+return response.text(); // Use response.text() instead of response.json()
+})
+.then((data) => {
+alert("Procedure saved successfully!");
+})
+.catch((error) => {
+console.error("Error saving procedure:", error);
+alert("An error occurred while saving the procedure.");
+});
+});
+
+</script>
+
 
 </body>
 </html>

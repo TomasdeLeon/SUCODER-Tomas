@@ -18,6 +18,6 @@ public class Procedimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "line_charger")
+    @Column(name = "line_charger", length = 1000)
     private String line;
 }
