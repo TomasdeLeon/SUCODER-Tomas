@@ -121,6 +121,30 @@ const variableNames = [];
       }
     }
 
+    // Function to populate the dropdowns in the "MIENTRAS" modal with the names of the variables
+    function refereeVariableNamesMientras() {
+      // Get the values selected in the MIENTRAS modal
+      const attribute1WhileDropdown = document.getElementById('attribute1While');
+      const attribute2WhileDropdown = document.getElementById('attribute2While');
+
+      // Clear existing options
+      attribute1WhileDropdown.innerHTML = '<option value="-">-</option>';
+      attribute2WhileDropdown.innerHTML = '<option value="-">-</option>';
+
+      // Populate the dropdowns with variable names from the array (assuming you have a variableNamesMientras array)
+      for (const name of variableNames) {
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = name;
+        attribute1WhileDropdown.appendChild(option);
+
+        const option2 = document.createElement('option');
+        option2.value = name;
+        option2.textContent = name;
+        attribute2WhileDropdown.appendChild(option2);
+      }
+    }
+
     // When the modal is opened, update the "Guardar Variables" button state
     document.getElementById('variablesModal').addEventListener('show.bs.modal', function () {
         updateGuardarVariablesButton();
@@ -128,4 +152,9 @@ const variableNames = [];
 
     document.getElementById('siModal').addEventListener('show.bs.modal', function () {
         refereeVariableNames();
+    });
+
+    // Call the functions when the "MIENTRAS" button is clicked
+      document.getElementById('mientrasModal').addEventListener('show.bs.modal', function () {
+        refereeVariableNamesMientras(); // Call for MIENTRAS modal
     });

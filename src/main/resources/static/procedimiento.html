@@ -3,55 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>SUCODER</title>
-  <style>
 
-    .container {
-      width: 400px;
-      margin: 0 auto;
-    }
-    .form-group {
-      margin-bottom: 10px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-    }
-    input[type="text"],
-    select {
-      width: 100%;
-      padding: 5px;
-      border: 1px solid #ccc;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background-color: #0000FF;
-      color: blue;
-      border: none;
-      cursor: pointer;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      padding: 5px;
-      border: 1px solid #ccc;
-    }
-    .step-navigation {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-
-    body {
-      background-image: url(/images/SUCODER.png);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-    }
-
-  </style>
-
+  <link rel="stylesheet" type="text/css" href="/css/proceso.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
 
 </head>
@@ -62,20 +15,22 @@
   <h1 align="center" style="color:white">SUCODER</h1>
   <h2 align="center" style="color:white">Java Code Generator</h2><br>
   <br><br>
-  <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="width:102%; background-color: white;">
+  <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="width:100%; background-color: white;">
     <div class="p-3 p-lg-5 pt-lg-3">
       <form id="codeGeneratorForm">
           <h3 align="center">Crear Procedimiento</h3><hr>
 
           <h4>Nombre Procedimiento</h4>
           <div class="form-group">
-            <input type="text" id="procedureName" name="procedureName" required onkeyup="updateTextArea()">
+            <input type="text" id="procedureName" name="procedureName" onkeyup="updateTextArea()" required>
           </div><br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#variablesModal">VARIABLES</button><br><br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#siModal">SI</button><br><br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mientrasModal">MIENTRAS</button><br><br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#imprimirModal">IMPRIMIR</button><br><br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#comentarModal">COMENTARIO</button><br><br>
+        <div class="button-container">
+          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#variablesModal"><span class="text">VARIABLES</span></button>
+          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#siModal"><span class="text">SI</span></button>
+          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#mientrasModal"><span class="text">MIENTRAS</span></button>
+          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#imprimirModal"><span class="text">IMPRIMIR</span></button>
+          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#comentarModal"><span class="text">COMENTARIO</span></button><br><br>
+        </div>
 
           <!-- Variables Modal -->
           <div class="modal fade" id="variablesModal" tabindex="-1" role="dialog" aria-labelledby="variablesModalLabel" aria-hidden="true">
@@ -191,7 +146,7 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-secondary" data-bs-target="#siModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
-                  <button type="button" class="btn btn-primary">Guardar Condición "SI"</button>
+                  <button type="button" id="guardarCondicionSiBtn" class="btn btn-primary">Guardar Condición "SI"</button>
                 </div>
               </div>
             </div>
@@ -251,7 +206,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Guardar Mensaje</button>
+                  <button id="guardarMensajeButton" type="button" class="btn btn-primary" onclick="saveMessage()">Guardar Mensaje</button>
                 </div>
               </div>
             </div>
@@ -268,7 +223,7 @@
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="attribute1While">Variable 1</label>
-                    <select id="attribute1While" name="attribute1While" onchange="toggleOtherInputWhile('attribute1While', 'attribute1InputContainer2'); checkConditionsAndShowNextButton();">
+                    <select id="attribute1While" name="attribute1While">
                       <option value="-">-</option>
                       <option value="other">Otro Valor...</option>
                       <!-- Dropdown options will be dynamically added here -->
@@ -276,23 +231,22 @@
                   </div>
                   <div class="form-group" id="attribute1InputContainer2" style="display: none;">
                     <label for="attribute1Input">Valor</label>
-                    <input type="text" id="attribute1InputWhile" name="attribute1Input" onchange="checkConditionsAndShowNextButton();">
+                    <input type="text" id="attribute1InputWhile" name="attribute1Input">
                   </div><br>
                   <div class="form-group">
                     <label for="attribute2">Variable 2</label>
-                    <select id="attribute2While" name="attribute2" onchange="toggleOtherInputWhile('attribute2While', 'attribute2InputContainer2'); checkConditionsAndShowNextButton();">
+                    <select id="attribute2While" name="attribute2">
                       <option value="-">-</option>
                       <option value="other">Otro Valor...</option>
                     </select>
                   </div>
                   <div class="form-group" id="attribute2InputContainer2" style="display: none;">
                     <label for="attribute2InputWhile">Valor</label>
-                    <input type="text" id="attribute2InputWhile" name="attribute2InputWhile" onchange="checkConditionsAndShowNextButton();">
+                    <input type="text" id="attribute2InputWhile" name="attribute2InputWhile">
                   </div><br>
                   <div class="form-group">
                     <label for="comparisonOperation2">Operador de Comparación</label>
-                    <select id="comparisonOperation2" name="comparisonOperation2" onchange="checkConditionsAndShowNextButton();">
-                      <option value="-">-</option>
+                    <select id="comparisonOperation2" name="comparisonOperation2">
                       <option value="==">Igual (==)</option>
                       <option value="!=">Distinto (!=)</option>
                       <option value=">">Es Mayor (>)</option>
@@ -303,7 +257,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" id="siguienteButton" style="display: none;" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                  <button class="btn btn-primary" id="siguienteButton" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
                 </div>
               </div>
             </div>
@@ -322,7 +276,7 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-secondary" data-bs-target="#mientrasModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
-                  <button type="button" class="btn btn-primary">Guardar Condición "MIENTRAS"</button>
+                  <button type="button" id="guardarCondicionWhile" class="btn btn-primary">Guardar Condición "MIENTRAS"</button>
                 </div>
               </div>
             </div>
@@ -362,7 +316,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Guardar Comentario</button>
+                  <button type="button" class="btn btn-primary" onclick="saveComment()">Guardar Comentario</button>
                 </div>
               </div>
             </div>
@@ -394,8 +348,11 @@
 
 </script>
 
-<script src="/js/variablesModal_procedimiento.js"></script>
-<script src="/js/siModal_procedimiento.js"></script>
+<script src="/js/procedimiento/variablesModal.js"></script>
+<script src="/js/procedimiento/siModal.js"></script>
+<script src="/js/procedimiento/mientrasModal.js"></script>
+<script src="/js/procedimiento/mensajeModal.js"></script>
+<script src="/js/procedimiento/comentarioModal.js"></script>
 
 <script>
 
