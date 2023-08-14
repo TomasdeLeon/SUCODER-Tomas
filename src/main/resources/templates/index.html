@@ -131,6 +131,122 @@
 
     </div>
 
+    <!-- SI Modal -->
+    <div class="modal fade" id="siModal" tabindex="-1" role="dialog" aria-labelledby="siModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="siModalLabel">SI</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="attribute1">Variable 1</label>
+                        <select id="attribute1" name="attribute1" onchange="toggleOtherInput('attribute1')">
+                            <option value="-">-</option>
+                            <option value="other">Other</option>
+                            <!-- Dropdown options will be dynamically added here -->
+                        </select>
+                    </div><br>
+                    <div class="form-group" id="attribute1InputContainer" style="display: none;">
+                        <label for="attribute1Input">Attribute 1 Value</label>
+                        <input type="text" id="attribute1Input" name="attribute1Input">
+                    </div>
+                    <div class="form-group">
+                        <label for="attribute2">Variable 2</label>
+                        <select id="attribute2" name="attribute2" onchange="toggleOtherInput('attribute2')">
+                            <option value="-">-</option>
+                            <option value="other">Other</option>
+                            <!-- Dropdown options will be dynamically added here -->
+                        </select>
+                    </div><br>
+                    <div class="form-group" id="attribute2InputContainer" style="display: none;">
+                        <label for="attribute2Input">Attribute 2 Value</label>
+                        <input type="text" id="attribute2Input" name="attribute2Input">
+                    </div>
+                    <div class="form-group">
+                        <label for="comparisonOperation">Operador de Comparación</label>
+                        <select id="comparisonOperation" name="comparisonOperation">
+                            <option value="==">Igual (==)</option>
+                            <option value="!=">Distinto (!=)</option>
+                            <option value=">">Es Mayor (>)</option>
+                            <option value="<">Es Menor (<)</option>
+                            <option value=">=">Mayor o Igual (>=)</option>
+                            <option value="<=">Menor o Igual (<=)</option>
+                            <!-- Add more options if needed -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Condiciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Verdadera</label>
+                        <button class="btn btn-primary" data-bs-target="#modalVerdadero" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                    </div><br>
+                    <div class="form-group">
+                        <label>Falsa</label>
+                        <button class="btn btn-primary" data-bs-target="#modalFalso" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-target="#siModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+                    <button type="button" class="btn btn-primary">Guardar Condición "SI"</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalVerdadero" aria-hidden="true" aria-labelledby="modalVerdadero" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Imprimir Mensaje</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="trueConditionStatements">Mensaje si es Verdadero:</label>
+                        <input type="text" id="trueConditionStatements" name="trueConditionStatements" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalFalso" aria-hidden="true" aria-labelledby="modalFalso" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Imprimir Mensaje</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="trueConditionStatements">Mensaje si es Falso:</label>
+                        <input type="text" id="falseConditionStatements" name="falseConditionStatements" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </form>
 
 <script>
