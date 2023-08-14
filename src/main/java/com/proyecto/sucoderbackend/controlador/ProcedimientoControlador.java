@@ -5,10 +5,7 @@ import com.proyecto.sucoderbackend.servicio.ProcedimientoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,9 +21,14 @@ public class ProcedimientoControlador {
     }
 
     @PostMapping("/procedimientos")
-    public ResponseEntity<String> guardarProcedimiento(@RequestBody String procedimientoData) {
+    public ResponseEntity<String> guardarProcedimiento(@RequestBody String requestData) {
+        String[] parts = requestData.split("\n", 2); // Split the data into procedure name and content
+        String nombreProcedimiento = parts[0];
+        String lineCharger = parts[1];
+
         Procedimiento procedimiento = new Procedimiento();
-        procedimiento.setLine(procedimientoData); // Assuming you have a 'line' field in your Procedimiento entity
+        procedimiento.setProcedureName(nombreProcedimiento);
+        procedimiento.setLine(lineCharger);
 
         try {
             procedimientoServicio.guardarProcedimiento(procedimiento);
@@ -36,4 +38,20 @@ public class ProcedimientoControlador {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving procedimiento");
         }
     }
+
+    @RequestMapping ("/fetchProcedure")
+    public ResponseEntity<?> fetchProcedure(@RequestParam("nombre_procedimiento") String nombreProcedimiento) {
+        try {
+            String lineCharger = procedimientoServicio.obtenerLineChargerPorNombre(nombreProcedimiento);
+            if (lineCharger != null) {
+                return ResponseEntity.ok(Map.of("line_charger", lineCharger));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

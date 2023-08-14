@@ -18,4 +18,12 @@ public class ProcedimientoServicio {
     public void guardarProcedimiento(Procedimiento procedimiento) {
         procedimientoRepositorio.save(procedimiento);
     }
+
+    public String obtenerLineChargerPorNombre(String nombreProcedimiento) {
+        Procedimiento procedimiento = procedimientoRepositorio.findByProcedureName(nombreProcedimiento);
+        if (procedimiento != null) {
+            return procedimiento.getLine();
+        }
+        return null; // Return null if the procedure is not found
+    }
 }

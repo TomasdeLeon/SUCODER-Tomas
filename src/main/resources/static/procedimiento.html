@@ -355,35 +355,35 @@
 <script src="/js/procedimiento/comentarioModal.js"></script>
 
 <script>
+  document.getElementById("guardarProcedimiento").addEventListener("click", function () {
+    const procedureName = document.getElementById("procedureName").value;
+    const procedureContent = document.getElementById("maintextarea").value;
 
-document.getElementById("guardarProcedimiento").addEventListener("click", function () {
-const procedureData = document.getElementById("maintextarea").value;
+    // Combine the procedure name and content into a single string
+    const data = `${procedureName}\n${procedureContent}`;
 
-// Send the data to the Spring Boot backend as plain text
-fetch("/api/procedimientos", {
-method: "POST",
-headers: {
-"Content-Type": "text/plain",
-},
-body: procedureData, // Send the procedureData directly as plain text
-})
-.then((response) => {
-if (!response.ok) {
-throw new Error("Network response was not ok");
-}
-return response.text(); // Use response.text() instead of response.json()
-})
-.then((data) => {
-alert("Procedure saved successfully!");
-})
-.catch((error) => {
-console.error("Error saving procedure:", error);
-alert("An error occurred while saving the procedure.");
-});
-});
-
+    fetch("/api/procedimientos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: data, // Send the combined data as plain text
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.text();
+      })
+      .then((data) => {
+        alert("Procedure saved successfully!");
+      })
+      .catch((error) => {
+        console.error("Error saving procedure:", error);
+        alert("An error occurred while saving the procedure.");
+      });
+  });
 </script>
-
 
 </body>
 </html>

@@ -20,4 +20,7 @@ public class Procedimiento {
 
     @Column(name = "line_charger", length = 1000)
     private String line;
+
+    @Column(name = "nombre_procedimiento")
+    private String procedureName;
 }
