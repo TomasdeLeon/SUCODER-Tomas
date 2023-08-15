@@ -11,23 +11,18 @@
 <body>
 
 <div class="container">
-    <br>
-    <h1 align="center" style="color:white">SUCODER</h1>
-    <h2 align="center" style="color:white">Java Code Generator</h2><br>
-    <br><br>
+    <br><br><br>
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="width:100%; background-color: white;">
         <div class="p-3 p-lg-5 pt-lg-3">
             <form id="codeGeneratorForm">
                 <h3 align="center">Crear Código</h3><hr>
-
-                <h4>Nombre Procedimiento</h4>
-                <div class="form-group">
-                    <input type="text" id="procedureName" name="procedureName" onkeyup="updateTextArea()" required>
-                </div><br>
+                <br>
                 <div class="button-container">
                     <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#variablesModal"><span class="text">VARIABLES</span></button>
                     <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#siModal"><span class="text">SI</span></button>
                     <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#mientrasModal"><span class="text">MIENTRAS</span></button>
+                </div><br>
+                <div class="button-container">
                     <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#imprimirModal"><span class="text">IMPRIMIR</span></button>
                     <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#comentarModal"><span class="text">COMENTARIO</span></button>
                     <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#procedimientoModal"><span class="text">PROCEDIMIENTO</span></button><br><br>
@@ -342,15 +337,12 @@
                         </div>
                     </div>
                 </div>
-
                 <br><br>
                 <textarea id="maintextarea" rows="10" cols="50" readonly>
-    public static void main(String[] args) {
-        // Your procedures will be inserted here
-    }
-                </textarea><br><br>
-                <button id="guardarProcedimiento" type="button" class="btn btn-primary">Guardar Procedimiento</button>
-
+public static void main(String[] args) {
+  // Ingrese su código main
+}
+                </textarea><br>
             </form>
         </div>
     </div>
@@ -375,11 +367,21 @@
 
 </script>
 
-<script src="/js/procedimiento/variablesModal.js"></script>
-<script src="/js/procedimiento/siModal.js"></script>
-<script src="/js/procedimiento/mientrasModal.js"></script>
-<script src="/js/procedimiento/mensajeModal.js"></script>
-<script src="/js/procedimiento/comentarioModal.js"></script>
+<script>
+  let variablesGuardados = '';
+  let ifStructure = '';
+  let whileStructure = '';
+  let messageStructure = '';
+  let commentStructure = '';
+</script>
+
+<script src="/js/codigoModal/variablesCodigo.js"></script>
+<script src="/js/codigoModal/siCodigo.js"></script>
+<script src="/js/codigoModal/mientrasCodigo.js"></script>
+<script src="/js/codigoModal/mensajeCodigo.js"></script>
+<script src="/js/codigoModal/comentarioCodigo.js"></script>
+<script src="/js/codigoModal/procedimientoCodigo.js"></script>
+
 
 <script>
     jQuery(document).ready(function () {
@@ -399,40 +401,6 @@
             });
         });
     });
-</script>
-
-<script>
-  $(document).ready(function() {
-    // ... Your existing JavaScript code ...
-
-    // When the Insertar Procedimiento button is clicked
-    $("#insertProcedimiento").click(function() {
-      const procedimientoName = $("#procedimientoName").val();
-      if (procedimientoName) {
-        // Get the current content of the main text area
-        const mainTextArea = document.getElementById("maintextarea");
-        let currentContent = mainTextArea.value;
-
-        // Find the position of the opening and closing curly braces of the main method
-        const mainMethodStart = currentContent.indexOf("{");
-        const mainMethodEnd = currentContent.lastIndexOf("}");
-
-        // Construct the procedure invocation and insert it inside the main method
-        const procedureInvocation = `${procedimientoName}();\n`;
-        const newContent = currentContent.substring(0, mainMethodEnd) +
-                           procedureInvocation +
-                           currentContent.substring(mainMethodEnd);
-
-        // Update the content of the main text area
-        mainTextArea.value = newContent;
-
-        // Close the modal
-        $("#procedimientoModal").modal("hide");
-      } else {
-        alert("Please enter a procedimiento name.");
-      }
-    });
-  });
 </script>
 
 </body>

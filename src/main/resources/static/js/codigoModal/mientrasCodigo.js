@@ -35,7 +35,6 @@ document.getElementById("siguienteButton").addEventListener("click", function ()
 
 });
 
-let whileStructure = '';
 
 // Function to handle the "Guardar Condición 'MIENTRAS'" button click
 function saveWhileCondition() {
@@ -60,17 +59,49 @@ function saveWhileCondition() {
     }
 
   // Construct the while loop structure based on the user inputs
-      whileStructure = `while (${attribute1WhileValue} ${comparisonOperation2Value} ${attribute2WhileValue}) {
-        System.out.println("${messageWhileValue}");
-        ${attribute1WhileValue}++;
-      }`;
+  if (comparisonOperation2Value === "==") {
+    whileStructure = `while (${attribute1WhileValue} == ${attribute2WhileValue}) {
+      System.out.println("${messageWhileValue}");
+      // Increment or decrement logic based on your needs
+      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
+    }`;
+  } else if (comparisonOperation2Value === "!=") {
+    whileStructure = `while (${attribute1WhileValue} != ${attribute2WhileValue}) {
+      System.out.println("${messageWhileValue}");
+      // Increment or decrement logic based on your needs
+      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
+    }`;
+  } else if (comparisonOperation2Value === ">") {
+    whileStructure = `while (${attribute1WhileValue} > ${attribute2WhileValue}) {
+      System.out.println("${messageWhileValue}");
+      // Increment or decrement logic based on your needs
+      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
+    }`;
+  } else if (comparisonOperation2Value === "<") {
+    whileStructure = `while (${attribute1WhileValue} < ${attribute2WhileValue}) {
+      System.out.println("${messageWhileValue}");
+      // Increment or decrement logic based on your needs
+      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
+    }`;
+  } else if (comparisonOperation2Value === ">=") {
+    whileStructure = `while (${attribute1WhileValue} >= ${attribute2WhileValue}) {
+      System.out.println("${messageWhileValue}");
+      // Increment or decrement logic based on your needs
+      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
+    }`;
+  } else if (comparisonOperation2Value === "<=") {
+    whileStructure = `while (${attribute1WhileValue} <= ${attribute2WhileValue}) {
+      System.out.println("${messageWhileValue}");
+      // Increment or decrement logic based on your needs
+      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
+    }`;
+  }
 
   // Concatenate the existing procedure and variables with the while loop structure and if structure
-    const procedureName = document.getElementById('procedureName').value;
     const variablesGuardados = document.getElementById('variablesCargados').value;
 
     // Concatenate the existing if structure with the while loop structure
-    const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n}`;
+    const formattedProcedure = `public static void main(String[] args) {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
 
     // Update the maintextarea with the complete procedure
     const maintextarea = document.getElementById('maintextarea');
@@ -92,4 +123,3 @@ function saveWhileCondition() {
 document.getElementById("guardarCondicionWhile").addEventListener("click", function() {
   saveWhileCondition();
 });
-

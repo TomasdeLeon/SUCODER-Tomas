@@ -76,11 +76,10 @@ const variableNames = [];
 
     document.getElementById('guardarVariablesBtn').addEventListener('click', function () {
         // If the user clicks the "Guardar Variables" button, append the variables to the main textarea
-        const procedureName = document.getElementById('procedureName').value;
         const variablesGuardados = document.getElementById('variablesCargados').value;
 
         // Concatenate the procedure name and variables
-        const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}}`;
+        const formattedProcedure = `public static void main(String[] args) {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
 
         document.getElementById('maintextarea').value = formattedProcedure;
 

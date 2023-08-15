@@ -1,5 +1,3 @@
-let messageStructure = '';
-
 // Function to handle the "Guardar Mensaje" button click
   function saveMessage() {
     const message = document.getElementById('imprimirMensaje').value;
@@ -21,13 +19,12 @@ let messageStructure = '';
 
   // Function to update the procedure with the entered message
   function addMessageToProcedure(message) {
-    const procedureName = document.getElementById('procedureName').value;
     const variablesGuardados = document.getElementById('variablesCargados').value;
 
     messageStructure = `System.out.println("${message}");`;
 
     // Construct the procedure with the entered message
-    const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n}`;
+    const formattedProcedure = `public static void main(String[] args) {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
 
     // Update the maintextarea with the complete procedure
     const maintextarea = document.getElementById('maintextarea');

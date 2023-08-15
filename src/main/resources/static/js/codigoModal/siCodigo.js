@@ -40,6 +40,7 @@ function checkCondition(attribute1Value, attribute2Value, comparisonOperation) {
     case ">":
       return attribute1Value > attribute2Value;
     case ">=":
+    case ">=":
       return attribute1Value >= attribute2Value;
     case "<":
       return attribute1Value < attribute2Value;
@@ -49,9 +50,6 @@ function checkCondition(attribute1Value, attribute2Value, comparisonOperation) {
       return false;
   }
 }
-
-// Define the ifStructure variable at the global scope
-let ifStructure = '';
 
 // Function to handle the "Guardar Condición 'SI'" button click
 function generateIfStructure() {
@@ -84,11 +82,10 @@ function generateIfStructure() {
       : `if (${attribute1Value} ${comparisonOperation} ${attribute2Value}) {\n  System.out.println("${falseConditionStatements}");\n} else {\n  System.out.println("${trueConditionStatements}");\n}\n`;
 
   // Get the existing procedure name and variables from the variablesModal
-  const procedureName = document.getElementById("procedureName").value;
   const variablesGuardados = document.getElementById("variablesCargados").value;
 
   // Concatenate the existing procedure and variables with the if structure
-  const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n}`;
+  const formattedProcedure = `public static void main(String[] args) {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
 
   // Update the maintextarea with the complete procedure
   const maintextarea = document.getElementById("maintextarea");
