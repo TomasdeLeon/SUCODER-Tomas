@@ -125,6 +125,7 @@ document.getElementById('guardarVariablesBtn').addEventListener('click', functio
         // Update the maintextarea with the updated content
         maintextarea.value = updatedContent;
 
+
         // Close the modal after saving variables
         const modal = document.getElementById('variablesModal');
         const bsModal = bootstrap.Modal.getInstance(modal);

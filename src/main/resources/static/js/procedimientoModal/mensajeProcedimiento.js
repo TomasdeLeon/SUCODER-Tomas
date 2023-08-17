@@ -48,6 +48,7 @@ guardarMensajeButton.addEventListener('click', function() {
     // Update the maintextarea with the updated content
     maintextarea.value = updatedContent;
 
+
     // Hide the modal
     const modal = document.getElementById('imprimirModal');
     const bsModal = bootstrap.Modal.getInstance(modal);
