@@ -1,44 +1,63 @@
-// Function to handle the "Guardar Mensaje" button click
-  function saveMessage() {
-    const message = document.getElementById('imprimirMensaje').value;
+// Function to create code for the IMPRIMIR component
+function createImprimirCode() {
+  // Get the IMPRIMIR component data from the modal fields
+  const imprimirMensaje = document.getElementById('imprimirMensaje').value;
 
-    // Check if the message is not empty
-    if (message.trim() === "") {
-      // Show a warning message using SweetAlert
-      swal({
-        title: "Error",
-        text: "Por favor ingrese un mensaje.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-      return;
-    }
-
-    addMessageToProcedure(message); // Pass the message as an argument to the function
+  // Check if the message is empty
+  if (imprimirMensaje.trim() === "") {
+    // Show error message
+    swal({
+      title: "Error",
+      text: "Por favor ingrese un mensaje.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return null; // Return null to indicate an error
   }
 
-  // Function to update the procedure with the entered message
-  function addMessageToProcedure(message) {
-    const procedureName = document.getElementById('procedureName').value;
-    const variablesGuardados = document.getElementById('variablesCargados').value;
+  // Construct the code for the IMPRIMIR component
+  const imprimirCode = `System.out.println("${imprimirMensaje}");`;
 
-    messageStructure = `System.out.println("${message}");`;
+  // Show a success message using SweetAlert
+  swal({
+    title: 'Mensaje guardado correctamente!',
+    icon: 'success',
+    confirmButtonText: 'OK',
+  });
 
-    // Construct the procedure with the entered message
-    const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
+  return imprimirCode; // Return the generated code
+}
 
-    // Update the maintextarea with the complete procedure
+// Add an event listener to the "Guardar Mensaje" button
+const guardarMensajeButton = document.getElementById('guardarMensajeButton');
+guardarMensajeButton.addEventListener('click', function() {
+  const imprimirCode = createImprimirCode();
+
+  if (imprimirCode !== null) {
+    // Get the existing content of the maintextarea
     const maintextarea = document.getElementById('maintextarea');
-    maintextarea.value = formattedProcedure;
+    const existingContent = maintextarea.value;
 
+    // Find the position of the last closing curly brace in the existing content
+    const lastClosingBraceIndex = existingContent.lastIndexOf('}');
+
+    // Insert the generated code before the last closing curly brace
+    const updatedContent = existingContent.slice(0, lastClosingBraceIndex) +
+      '\n' + imprimirCode + '\n' + existingContent.slice(lastClosingBraceIndex);
+
+    // Update the maintextarea with the updated content
+    maintextarea.value = updatedContent;
+
+    // Hide the modal
     const modal = document.getElementById('imprimirModal');
     const bsModal = bootstrap.Modal.getInstance(modal);
     bsModal.hide();
 
     // Show a success message using SweetAlert
-    swal({
-      title: 'Mensaje guardado correctamente!',
-      icon: 'success',
-      confirmButtonText: 'OK',
-    });
+        swal({
+          title: 'Mensaje guardado correctamente!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
   }
+});

@@ -60,7 +60,7 @@ const variableNames = [];
             return; // Exit the function without adding the variable
         }
 
-        // If the value format is correct, add the variable to the textarea
+        // Add variableType to the variable entry
         const variableEntry = `${variableTipo} ${variableNombre} = ${variableValor};`;
         document.getElementById('variablesCargados').value += variableEntry + '\n';
 

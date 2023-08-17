@@ -334,22 +334,46 @@
 <script src="/js/sweetalert.min.js"></script>
 
 <script>
-  let variablesGuardados = '';
-  let ifStructure = '';
-  let whileStructure = '';
-  let messageStructure = '';
-  let commentStructure = '';
+let componentsOrder = []; // Store the order of selected components
 
   function updateTextArea() {
-        const procedureName = document.getElementById('procedureName').value;
-        const formattedProcedure = createJavaProcedure(procedureName);
-        document.getElementById('maintextarea').value = formattedProcedure;
-    }
+    const procedureName = document.getElementById('procedureName').value;
+    const formattedProcedure = createJavaProcedure(procedureName, componentsOrder);
+    document.getElementById('maintextarea').value = formattedProcedure;
+  }
 
-    function createJavaProcedure(procedureName) {
-        const template = `public void ${procedureName}() {\n}`;
-        return template;
+  function createJavaProcedure(procedureName, selectedComponents) {
+  let procedureCode = `public void ${procedureName}() {\n`;
+
+  selectedComponents.forEach(component => {
+    switch (component) {
+      case "variables":
+        procedureCode += "// Code for VARIABLES\n";
+        procedureCode += createVariablesCode();
+        break;
+      case "si":
+        procedureCode += "// Code for SI\n";
+        procedureCode += createSiCode();
+        break;
+      case "mientras":
+        procedureCode += "// Code for MIENTRAS\n";
+        procedureCode += createMientrasCode();
+        break;
+      case "imprimir":
+        procedureCode += "// Code for IMPRIMIR\n";
+        procedureCode += createImprimirCode();
+        break;
+      case "comentario":
+        procedureCode += "// Code for COMENTARIO\n";
+        procedureCode += createComentarioCode();
+        break;
+      // Add more cases for other components
     }
+  });
+
+  procedureCode += "}";
+  return procedureCode;
+}
 
 </script>
 

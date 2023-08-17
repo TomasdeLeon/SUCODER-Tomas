@@ -2,100 +2,142 @@
 const variableNames = [];
 
 // Function to toggle the visibility and disabled state of the "Guardar Variables" button
-    function updateGuardarVariablesButton() {
-        const variablesCargadosValue = document.getElementById('variablesCargados').value.trim();
-        const guardarVariablesBtn = document.getElementById('guardarVariablesBtn');
-        guardarVariablesBtn.disabled = variablesCargadosValue === ''; // Disable the button if the textarea is empty
+function updateGuardarVariablesButton() {
+    const variablesCargadosValue = document.getElementById('variablesCargados').value.trim();
+    const guardarVariablesBtn = document.getElementById('guardarVariablesBtn');
+    guardarVariablesBtn.disabled = variablesCargadosValue === ''; // Disable the button if the textarea is empty
+}
+
+// Function to create code for declaring variables
+function createVariablesCode(variableDeclarations) {
+    // Construct the code for declaring the variables
+    const variableCode = variableDeclarations.join('\n');
+
+    return variableCode;
+}
+
+// Add an input event listener to the variablesCargados textarea to trigger the toggle function
+document.getElementById('variablesCargados').addEventListener('input', updateGuardarVariablesButton);
+
+// Event listener for "Cargar Variables" button
+document.getElementById('cargarVariablesBtn').addEventListener('click', function () {
+    const variableNombre = document.getElementById('variableNombre').value;
+    const variableTipo = document.getElementById('variableTipo').value;
+    const variableValor = document.getElementById('variableValor').value;
+
+    // Check if all fields are filled
+    if (!variableNombre || !variableTipo || !variableValor) {
+        // Show warning message for incomplete inputs
+        swal({
+            text: 'Por favor, complete todos los campos.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return; // Exit the function without adding the variable
     }
 
-    // Add an input event listener to the variablesCargados textarea to trigger the toggle function
-    document.getElementById('variablesCargados').addEventListener('input', updateGuardarVariablesButton);
+    // Regular expressions for validation based on variable type
+    const intPattern = /^[+-]?\d+$/;
+    const doublePattern = /^[+-]?\d+(\.\d+)?$/;
+    const stringPattern = /^[A-Za-z]+$/;
 
-    document.getElementById('cargarVariablesBtn').addEventListener('click', function () {
-        const variableNombre = document.getElementById('variableNombre').value;
-        const variableTipo = document.getElementById('variableTipo').value;
-        const variableValor = document.getElementById('variableValor').value;
+    // Check the value format based on the variable type
+    let isValidValue = true;
+    switch (variableTipo) {
+        case 'int':
+            isValidValue = intPattern.test(variableValor);
+            break;
+        case 'double':
+            isValidValue = doublePattern.test(variableValor) && variableValor.includes('.');
+            break;
+        case 'String':
+            isValidValue = stringPattern.test(variableValor);
+            break;
+        // Add more cases for other variable types if needed
+        default:
+            break;
+    }
 
-        // Check if all fields are filled
-        if (!variableNombre || !variableTipo || !variableValor) {
-            // Show warning message for incomplete inputs
-            swal({
-                text: 'Por favor, complete todos los campos.',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            });
-            return; // Exit the function without adding the variable
-        }
+    if (!isValidValue) {
+        // Show warning message for incorrect value format
+        swal({
+            title: 'Formato Incorrecto',
+            text: `El formato del valor de ${variableTipo} es incorrecto.`,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return; // Exit the function without adding the variable
+    }
 
-        // Regular expressions for validation based on variable type
-        const intPattern = /^[+-]?\d+$/;
-        const doublePattern = /^[+-]?\d+(\.\d+)?$/;
-        const stringPattern = /^[A-Za-z]+$/;
+    const variableName = document.getElementById('variableNombre').value;
+        const variableType = document.getElementById('variableTipo').value;
+        const variableValue = document.getElementById('variableValor').value;
 
-        // Check the value format based on the variable type
-        let isValidValue = true;
-        switch (variableTipo) {
-            case 'int':
-                isValidValue = intPattern.test(variableValor);
-                break;
-            case 'double':
-                isValidValue = doublePattern.test(variableValor) && variableValor.includes('.');
-                break;
-            case 'String':
-                isValidValue = stringPattern.test(variableValor);
-                break;
-            // Add more cases for other variable types if needed
-            default:
-                break;
-        }
+    // If the value format is correct, add the variable to the textarea
+    const variableEntry = `${variableType} ${variableNombre} = ${variableValor};`;
+    document.getElementById('variablesCargados').value += variableEntry + '\n';
 
-        if (!isValidValue) {
-            // Show warning message for incorrect value format
-            swal({
-                title: 'Formato Incorrecto',
-                text: `El formato del valor de ${variableTipo} es incorrecto.`,
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            return; // Exit the function without adding the variable
-        }
+    // Clear the form fields after adding the variable
+    document.getElementById('variableNombre').value = '';
+    document.getElementById('variableValor').value = '';
 
-        // If the value format is correct, add the variable to the textarea
-        const variableEntry = `${variableTipo} ${variableNombre} = ${variableValor};`;
-        document.getElementById('variablesCargados').value += variableEntry + '\n';
+    variableNames.push(variableNombre);
 
-        // Clear the form fields after adding the variable
-        document.getElementById('variableNombre').value = '';
-        document.getElementById('variableValor').value = '';
+    // Call the toggle function after adding the variable to update the "Guardar Variables" button
+    updateGuardarVariablesButton();
+});
 
-        variableNames.push(variableNombre);
+// Event listener for "Guardar Variables" button
+document.getElementById('guardarVariablesBtn').addEventListener('click', function () {
+    // If the user clicks the "Guardar Variables" button, append the variables to the main textarea
+    const variablesGuardados = document.getElementById('variablesCargados').value;
 
-        // Call the toggle function after adding the variable to update the "Guardar Variables" button
-        updateGuardarVariablesButton();
-    });
+    // Split the textarea content into individual lines
+    const variableLines = variablesGuardados.trim().split('\n');
 
-    document.getElementById('guardarVariablesBtn').addEventListener('click', function () {
-        // If the user clicks the "Guardar Variables" button, append the variables to the main textarea
-        const procedureName = document.getElementById('procedureName').value;
-        const variablesGuardados = document.getElementById('variablesCargados').value;
+    // Generate variable declaration code for each line
+        const variableDeclarations = variableLines.map((line) => {
+            const assignmentIndex = line.indexOf('=');
+            if (assignmentIndex !== -1) {
+                const variableName = line.slice(0, assignmentIndex).trim();
+                const variableDeclaration = variableName + ' = ' + line.slice(assignmentIndex + 1).trim();
+                return variableDeclaration;
+            } else {
+                return line.trim(); // Handle lines without assignments (e.g., comments)
+            }
+        });
 
-        // Concatenate the procedure name and variables
-        const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
+    // Call createVariablesCode() to generate the variable code
+    const variableCode = createVariablesCode(variableDeclarations);
 
-        document.getElementById('maintextarea').value = formattedProcedure;
+    if (variableCode !== null) {
+        // Get the existing content of the maintextarea
+        const maintextarea = document.getElementById('maintextarea');
+        const existingContent = maintextarea.value;
+
+        // Find the position of the last closing curly brace in the existing content
+        const lastClosingBraceIndex = existingContent.lastIndexOf('}');
+
+        // Insert the generated code before the last closing curly brace
+        const updatedContent = existingContent.slice(0, lastClosingBraceIndex) +
+        '\n' + variableCode + '\n' + existingContent.slice(lastClosingBraceIndex);
+
+        // Update the maintextarea with the updated content
+        maintextarea.value = updatedContent;
 
         // Close the modal after saving variables
-            const modal = document.getElementById('variablesModal');
-            const bsModal = bootstrap.Modal.getInstance(modal);
-            bsModal.hide();
+        const modal = document.getElementById('variablesModal');
+        const bsModal = bootstrap.Modal.getInstance(modal);
+        bsModal.hide();
 
-            // Show a success message using SweetAlert
-            swal({
-                title: 'Variables guardadas!',
-                icon: 'success',
-                confirmButtonText: 'OK',
-            });
-    });
+        // Show a success message using SweetAlert
+        swal({
+            title: 'Variables guardadas!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+        });
+    }
+});
 
     // Function to populate the dropdowns in the "SI" modal with the names of the variables
     function refereeVariableNames() {
