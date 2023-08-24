@@ -4,72 +4,87 @@
   <meta charset="UTF-8">
   <title>SUCODER</title>
 
-  <link rel="stylesheet" type="text/css" href="/css/proceso.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
 
 </head>
 <body>
 
+<header>
+  <a href="index.html">
+    <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+  </a>
+  <nav class="navbar">
+    <a href="index.html">Inicio</a>
+    <a href="procedimiento.html">Crear Procedimiento</a>
+    <a href="codigo.html">Crear Código</a>
+  </nav>
+</header>
+
+<br><br><br><br><br><br>
+
 <div class="container">
-  <br>
-  <br><br>
-  <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="width:100%; background-color: white;">
-    <div class="p-3 p-lg-5 pt-lg-3">
+  <div class="box">
+    <div>
       <form id="codeGeneratorForm">
-          <h3 align="center">Crear Procedimiento</h3><hr>
+          <h2 align="center">Crear Procedimiento</h2>
+        <br><br><br>
 
           <h4>Nombre Procedimiento</h4>
-          <div class="form-group">
-            <input type="text" id="procedureName" name="procedureName" onkeyup="updateTextArea()" required>
-          </div><br>
+          <div class="input-box">
+            <input type="text" id="procedureName" name="procedureName" onkeyup="updateTextArea()" required autocomplete="off">
+          </div><br><br>
+
         <div class="button-container">
           <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#variablesModal"><span class="text">VARIABLES</span></button>
-          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#siModal"><span class="text">SI</span></button>
-          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#mientrasModal"><span class="text">MIENTRAS</span></button>
+          <button class="button-64" type="button" data-bs-toggle="modal" data-bs-target="#siModal"><span class="text">SI</span></button>
+          <button class="button-64" type="button" data-bs-toggle="modal" data-bs-target="#mientrasModal"><span class="text">MIENTRAS</span></button>
         </div><br>
         <div class="button-container">
-          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#imprimirModal"><span class="text">IMPRIMIR</span></button>
-          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#comentarModal"><span class="text">COMENTARIO</span></button><br><br>
-        </div>
+          <button class="button-64" type="button" data-bs-toggle="modal" data-bs-target="#imprimirModal"><span class="text">IMPRIMIR</span></button>
+          <button class="button-64" type="button" data-bs-toggle="modal" data-bs-target="#comentarModal"><span class="text">COMENTARIO</span></button>
+        </div><br><br>
 
           <!-- Variables Modal -->
           <div class="modal fade" id="variablesModal" tabindex="-1" role="dialog" aria-labelledby="variablesModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+                <div class="modal-header" style="color: white;">
                   <h5 class="modal-title" id="variablesModalLabel">Variables</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
                   <form>
-                    <div class="form-group">
-                      <label for="variableNombre">Nombre:</label>
+                    <div class="input-name">
+                      <label for="variableNombre" style="color: white;">Nombre:</label>
                       <input type="text" id="variableNombre" name="variableNombre" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="variableTipo">Tipo:</label>
-                      <select id="variableTipo" name="variableTipo" required>
-                        <option value="int">Número (int)</option>
-                        <option value="double">Número decimal (double)</option>
-                        <option value="String">Texto (String)</option>
+                    </div><br>
+                    <div class="input-type">
+                      <label for="variableTipo" style="color: white;">Tipo:</label>
+                      <select id="variableTipo" name="variableTipo" style="height: 90px" required>
+                        <option value="int" style="background-color: rgba(0, 0, 0, 0.8);">Número (int)</option>
+                        <option value="double" style="background-color: rgba(0, 0, 0, 0.8);">Número decimal (double)</option>
+                        <option value="String" style="background-color: rgba(0, 0, 0, 0.8);">Texto (String)</option>
                       </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="variableValor">Valor:</label>
+                    </div><br>
+                    <div class="input-value">
+                      <label for="variableValor" style="color: white;">Valor:</label>
                       <input type="text" id="variableValor" name="variableValor" required>
                     </div><br>
-                    <div class="form-group">
-                      <button id="cargarVariablesBtn" type="button" class="btn btn-success">Cargar Variables</button>
+                    <div class="button-charge">
+                      <button id="cargarVariablesBtn" class="button-63" type="button">Cargar Variables</button>
                     </div><br>
-                    <div class="form-group">
-                      <label for="variablesCargados">Variables Cargados:</label>
+                    <div class="textarea-charge">
+                      <label for="variablesCargados" style="color: white;">Variables Cargados:</label>
                       <textarea id="variablesCargados" readonly></textarea>
                     </div>
 
                   </form>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button id="guardarVariablesBtn" type="button" class="btn btn-primary">Guardar Variables</button>
+                  <button id="guardarVariablesBtn" type="button" class="button">Guardar Variables</button>
                 </div>
               </div>
             </div>
@@ -78,94 +93,87 @@
           <!-- SI Modal -->
           <div class="modal fade" id="siModal" tabindex="-1" role="dialog" aria-labelledby="siModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="siModalLabel">SI</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" id="siModalLabel" style="color: white;">SI</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="attribute1">Variable 1</label>
-                    <select id="attribute1" name="attribute1">
-                      <option value="-">-</option>
-                      <option value="other">Otro Valor...</option>
-                      <!-- Dropdown options will be dynamically added here -->
+                  <div class="attribute1">
+                    <label for="attribute1" style="color: white;">Variable 1</label>
+                    <select id="attribute1" name="attribute1" style="height: 90px">
+                      <option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>
                     </select>
-                  </div>
-                  <div class="form-group" id="attribute1InputContainer" style="display: none;">
-                    <label for="attribute1Input">Valor</label>
-                    <input type="text" id="attribute1Input" name="attribute1Input">
                   </div><br>
-                  <div class="form-group">
-                    <label for="attribute2">Variable 2</label>
-                    <select id="attribute2" name="attribute2">
-                      <option value="-">-</option>
-                      <option value="other">Otro Valor...</option>
-                      <!-- Dropdown options will be dynamically added here -->
+                  <div class="attribute2">
+                    <label for="attribute2" style="color: white;">Variable 2</label>
+                    <select id="attribute2" name="attribute2" style="height: 90px">
+                      <option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>
                     </select>
-                  </div>
-                  <div class="form-group" id="attribute2InputContainer" style="display: none;">
-                    <label for="attribute2Input">Valor</label>
-                    <input type="text" id="attribute2Input" name="attribute2Input">
                   </div><br>
-                  <div class="form-group">
-                    <label for="comparisonOperation">Operador de Comparación</label>
-                    <select id="comparisonOperation" name="comparisonOperation">
-                      <option value="==">Igual (==)</option>
-                      <option value="!=">Distinto (!=)</option>
-                      <option value=">">Es Mayor (>)</option>
-                      <option value="<">Es Menor (<)</option>
-                      <option value=">=">Mayor o Igual (>=)</option>
-                      <option value="<=">Menor o Igual (<=)</option>
-                      <!-- Add more options if needed -->
+                  <div class="operator">
+                    <label for="comparisonOperation" style="color: white;">Operador de Comparación</label>
+                    <select id="comparisonOperation" name="comparisonOperation" style="height: 90px">
+                      <option value="==" style="background-color: rgba(0, 0, 0, 0.8);">Igual (==)</option>
+                      <option value="!=" style="background-color: rgba(0, 0, 0, 0.8);">Distinto (!=)</option>
+                      <option value=">" style="background-color: rgba(0, 0, 0, 0.8);">Es Mayor (>)</option>
+                      <option value="<" style="background-color: rgba(0, 0, 0, 0.8);">Es Menor (<)</option>
+                      <option value=">=" style="background-color: rgba(0, 0, 0, 0.8);">Mayor o Igual (>=)</option>
+                      <option value="<=" style="background-color: rgba(0, 0, 0, 0.8);">Menor o Igual (<=)</option>
                     </select>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                  <button class="button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalToggleLabel2">Condiciones</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" id="exampleModalToggleLabel2" style="color: white;">Condiciones</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
                   <div class="form-group">
-                    <label>Verdadera</label>
-                    <button class="btn btn-primary" data-bs-target="#modalVerdadero" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                    <label style="color: white;">Verdadera</label>
+                    <button class="button-63" data-bs-target="#modalVerdadero" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
                   </div><br>
                   <div class="form-group">
-                    <label>Falsa</label>
-                    <button class="btn btn-primary" data-bs-target="#modalFalso" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                    <label style="color: white;">Falsa</label>
+                    <button class="button-63" data-bs-target="#modalFalso" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-secondary" data-bs-target="#siModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
-                  <button type="button" id="guardarCondicionSiBtn" class="btn btn-primary">Guardar Condición "SI"</button>
+                  <button class="button" style="background: grey;" data-bs-target="#siModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+                  <button class="button" style="background: #fff;" type="button" id="guardarCondicionSiBtn" class="btn btn-primary">Guardar Condición "SI"</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal fade" id="modalVerdadero" aria-hidden="true" aria-labelledby="modalVerdadero" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title">Imprimir Mensaje</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" style="color: white;">Imprimir Mensaje</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="trueConditionStatements">Mensaje si es Verdadero:</label>
+                  <div class="true_message">
+                    <label for="trueConditionStatements" style="color: white;">Mensaje si es Verdadero:</label>
                     <input type="text" id="trueConditionStatements" name="trueConditionStatements" required>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                  <button class="button" style="background: #fff;" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
                 </div>
               </div>
             </div>
@@ -173,19 +181,21 @@
 
           <div class="modal fade" id="modalFalso" aria-hidden="true" aria-labelledby="modalFalso" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title">Imprimir Mensaje</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" style="color: white;">Imprimir Mensaje</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="trueConditionStatements">Mensaje si es Falso:</label>
+                  <div class="false_message">
+                    <label for="falseConditionStatements" style="color: white;">Mensaje si es Falso:</label>
                     <input type="text" id="falseConditionStatements" name="falseConditionStatements" required>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                  <button class="button" style="background: #fff;" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
                 </div>
               </div>
             </div>
@@ -194,19 +204,21 @@
           <!-- IMPRIMIR Modal -->
           <div class="modal fade" id="imprimirModal" tabindex="-1" role="dialog" aria-labelledby="imprimirModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="imprimirModalLabel">Imprimir Mensaje</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Imprimir Mensaje</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="imprimirMensaje">Mensaje:</label>
+                  <div class="message">
+                    <label for="imprimirMensaje" style="color: white;">Mensaje:</label>
                     <input type="text" id="imprimirMensaje" name="imprimirMensaje" required>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button id="guardarMensajeButton" type="button" class="btn btn-primary" onclick="saveMessage()">Guardar Mensaje</button>
+                  <button id="guardarMensajeButton" type="button" class="button" style="background: #fff;" onclick="saveMessage()">Guardar Mensaje</button>
                 </div>
               </div>
             </div>
@@ -215,87 +227,82 @@
           <!-- MIENTRAS Modal -->
           <div class="modal fade" id="mientrasModal" tabindex="-1" role="dialog" aria-labelledby="mientrasModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="mientrasModalLabel">MIENTRAS</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" id="mientrasModalLabel" style="color: white;">MIENTRAS</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="attribute1While">Variable 1</label>
-                    <select id="attribute1While" name="attribute1While">
-                      <option value="-">-</option>
-                      <option value="other">Otro Valor...</option>
-                      <!-- Dropdown options will be dynamically added here -->
+                  <div class="attribute1-while">
+                    <label for="attribute1While" style="color: white;">Variable 1</label>
+                    <select id="attribute1While" name="attribute1While" style="height: 90px">
+                      <option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>
                     </select>
-                  </div>
-                  <div class="form-group" id="attribute1InputContainer2" style="display: none;">
-                    <label for="attribute1Input">Valor</label>
-                    <input type="text" id="attribute1InputWhile" name="attribute1Input">
                   </div><br>
-                  <div class="form-group">
-                    <label for="attribute2">Variable 2</label>
-                    <select id="attribute2While" name="attribute2">
-                      <option value="-">-</option>
-                      <option value="other">Otro Valor...</option>
+                  <div class="attribute2-while">
+                    <label for="attribute2While" style="color: white;">Variable 2</label>
+                    <select id="attribute2While" name="attribute2" style="height: 90px">
+                      <option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>
                     </select>
-                  </div>
-                  <div class="form-group" id="attribute2InputContainer2" style="display: none;">
-                    <label for="attribute2InputWhile">Valor</label>
-                    <input type="text" id="attribute2InputWhile" name="attribute2InputWhile">
                   </div><br>
-                  <div class="form-group">
-                    <label for="comparisonOperation2">Operador de Comparación</label>
-                    <select id="comparisonOperation2" name="comparisonOperation2">
-                      <option value="==">Igual (==)</option>
-                      <option value="!=">Distinto (!=)</option>
-                      <option value=">">Es Mayor (>)</option>
-                      <option value="<">Es Menor (<)</option>
-                      <option value=">=">Mayor o Igual (>=)</option>
-                      <option value="<=">Menor o Igual (<=)</option>
+                  <div class="operator-while">
+                    <label for="comparisonOperation2" style="color: white;">Operador de Comparación</label>
+                    <select id="comparisonOperation2" name="comparisonOperation2" style="height: 90px">
+                      <option value="==" style="background-color: rgba(0, 0, 0, 0.8);">Igual (==)</option>
+                      <option value="!=" style="background-color: rgba(0, 0, 0, 0.8);">Distinto (!=)</option>
+                      <option value=">" style="background-color: rgba(0, 0, 0, 0.8);">Es Mayor (>)</option>
+                      <option value="<" style="background-color: rgba(0, 0, 0, 0.8);">Es Menor (<)</option>
+                      <option value=">=" style="background-color: rgba(0, 0, 0, 0.8);">Mayor o Igual (>=)</option>
+                      <option value="<=" style="background-color: rgba(0, 0, 0, 0.8);">Menor o Igual (<=)</option>
                     </select>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" id="siguienteButton" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
+                  <button class="button" id="siguienteButton" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Siguiente</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal fade" id="condicionWhileModal" aria-hidden="true" aria-labelledby="condicionWhileModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title">Condición</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" style="color: white;">Condición</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
                   <div class="form-group">
-                    <button class="btn btn-primary" data-bs-target="#modalMensajeWhile" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
-                  </div><br>
-                </div>
+                    <button class="button-63" data-bs-target="#modalMensajeWhile" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
+                  </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-secondary" data-bs-target="#mientrasModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
-                  <button type="button" id="guardarCondicionWhile" class="btn btn-primary">Guardar Condición "MIENTRAS"</button>
+                  <button class="button" style="background: grey;" data-bs-target="#mientrasModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
+                  <button type="button" id="guardarCondicionWhile" class="button" style="background: #fff;">Guardar Condición "MIENTRAS"</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal fade" id="modalMensajeWhile" aria-hidden="true" aria-labelledby="modalMensajeWhile" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title">Imprimir Mensaje</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" style="color: white;">Imprimir Mensaje</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="messageWhile">Mensaje:</label>
+                  <div class="message-while">
+                    <label for="messageWhile" style="color: white;">Mensaje:</label>
                     <input type="text" id="messageWhile" name="messageWhile" required>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                  <button class="button" style="background: #fff;" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
                 </div>
               </div>
             </div>
@@ -304,34 +311,41 @@
           <!-- COMENTAR Modal -->
           <div class="modal fade" id="comentarModal" tabindex="-1" role="dialog" aria-labelledby="comentarModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
+              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="comentarModalLabel">Comentario</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                  <h5 class="modal-title" id="comentarModalLabel" style="color: white;">Comentario</h5>
+                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div><br>
                 <div class="modal-body">
-                  <div class="form-group">
-                    <label for="mensajeComentado">Mensaje:</label>
+                  <div class="comment">
+                    <label for="mensajeComentado" style="color: white;">Mensaje:</label>
                     <input type="text" id="mensajeComentado" name="mensajeComentado" required>
                   </div>
-                </div>
+                </div><br>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" onclick="saveComment()">Guardar Comentario</button>
+                  <button type="button" class="button" style="background: #fff;" onclick="saveComment()">Guardar Comentario</button>
                 </div>
               </div>
             </div>
           </div>
-          <br><br>
-          <textarea id="maintextarea" rows="10" cols="50" readonly></textarea><br><br>
-          <button id="guardarProcedimiento" type="button" class="btn btn-primary">Guardar Procedimiento</button>
+          <br>
+        <div class="textarea_field">
+          <textarea id="maintextarea" rows="10" cols="50" style="width: 750px;" readonly></textarea>
+        </div>
+        <br><br>
+          <button id="guardarProcedimiento" type="button" class="button-63">Guardar Procedimiento</button>
 
       </form>
     </div>
   </div>
 </div>
+<br><br><br>
 
 <script src="js/bootstrap.min.js"></script>
 <script src="/js/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
 let componentsOrder = []; // Store the order of selected components
@@ -379,10 +393,10 @@ let componentsOrder = []; // Store the order of selected components
 </script>
 
 <script src="/js/modal/variablesModal.js"></script>
-<script src="/js/modal/siProcedimiento.js"></script>
-<script src="/js/modal/mientrasProcedimiento.js"></script>
+<script src="/js/modal/siModal.js"></script>
+<script src="/js/modal/mientrasModal.js"></script>
 <script src="/js/modal/imprimirModal.js"></script>
-<script src="/js/modal/comentarioProcedimiento.js"></script>
+<script src="/js/modal/comentarioModal.js"></script>
 
 <script>
   document.getElementById("guardarProcedimiento").addEventListener("click", function () {

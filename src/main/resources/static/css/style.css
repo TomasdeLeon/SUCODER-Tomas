@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 50px;
+  background: rgba(0, 0, 0, .1);
+  backdrop-filter: blur(50px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100; /* Higher z-index to appear above content */
+}
+
+.container {
+      width: 400px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #0000FF;
+      color: blue;
+      border: none;
+      cursor: pointer;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .step-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+/* Modal Container */
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101; /* Higher z-index to appear above header and other content */
+  /* Other styles for the modal container */
+}
+
+.logo{
+font-size: 2rem;
+color: #fff;
+text-decoration: none;
+font-weight: 700;
+}
+
+.navbar a {
+font-size: 1.15rem;
+color: #fff;
+text-decoration: none;
+font-weight: 500;
+margin-left: 2.5rem;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(/images/bg.jpg) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  animation: animateBg 10s linear infinite;
+  z-index: -1; /* Place the pseudo-element behind the content */
+}
+
+@keyframes animateBg {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.box {
+position: relative;
+width: 900px;
+height: 1050px;
+background: transparent;
+border: 2px solid rgba(255, 255, 255, .5);
+border-radius: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: auto;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the color and opacity as needed */
+  backdrop-filter: blur(15px);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+h2{
+font-size: 2em;
+color: #fff;
+text-align: center;
+}
+
+h4{
+color: #fff;
+text-align: left;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.input-box {
+width: 100%;
+margin: 30px 0;
+border-bottom: 2px solid #fff;
+}
+
+.input-box input{
+width: 100%;
+height: 40px;
+background: transparent;
+border: none;
+outline: none;
+font-size: 1em;
+color: #fff;
+}
+
+
+.modal-content {
+  width: 500px;
+  background: transparent;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  padding: 30px;
+}
+
+.modal-header .custom-close-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-body .input-name input,
+.modal-body .input-type select,
+.modal-body .input-value input,
+.modal-body .attribute1 select,
+.modal-body .attribute2 select,
+.modal-body .operator select,
+.modal-body .true_message input,
+.modal-body .false_message input,
+.modal-body .message input,
+.modal-body .comment input,
+.modal-body .attribute1-while select,
+.modal-body .attribute2-while select,
+.modal-body .operator-while select,
+.modal-body .message-while input,
+.modal-body .procedure-name input{
+height: 10px;
+padding: 1.5rem;
+color: #fff;
+background: transparent;
+border-radius: .6rem;
+border: .2rem solid #fff;
+}
+
+.modal-body .textarea-charge textarea,
+.modal-body .procedure-charge textarea{
+height: 200px;
+padding: 1.5rem;
+color: #fff;
+background: transparent;
+border-radius: .6rem;
+border: .2rem solid #fff;
+}
+
+.textarea_field textarea {
+height: 250px;
+padding: 1.5rem;
+color: #fff;
+background: transparent;
+border-radius: .6rem;
+border: .2rem solid #fff;
+}
+
+.button-64 {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.button-64:active,
+.button-64:hover {
+  outline: 0;
+}
+
+.button-64 span {
+  background-color: rgb(5, 6, 45);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.button-64:hover span {
+  background: none;
+}
+
+.button{
+width: 100%;
+height: 40px;
+border: none;
+outline: none;
+border-radius: 40px;
+cursor: pointer;
+font-size: 1em;
+color: #000;
+font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .button-64 {
+    font-size: 24px;
+    min-width: 196px;
+  }
+}
+
+
+.button-63 {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 19px 24px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  margin: auto;
+}
+
+.button-63:active,
+.button-63:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .button-63 {
+    font-size: 24px;
+    min-width: 196px;
+  }
+}

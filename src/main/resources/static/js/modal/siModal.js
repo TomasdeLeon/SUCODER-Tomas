@@ -51,8 +51,24 @@ function checkCondition(attribute1Value, attribute2Value, comparisonOperation) {
   }
 }
 
+// Function to create code for the SI component
+function createSiCode(attribute1, attribute2, comparisonOperation, trueConditionStatements, falseConditionStatements) {
+  // Get the SI component data from the modal fields
+  const attribute1Input = document.getElementById('attribute1Input').value;
+  const attribute2Input = document.getElementById('attribute2Input').value;
+
+  let siCode = `if (${attribute1} ${comparisonOperation} ${attribute2}) {\n`;
+  siCode += `  System.out.println("${trueConditionStatements}");\n`; // Code to execute when the condition is true
+  siCode += "} else {\n";
+  siCode += `  System.out.println("${falseConditionStatements}");\n`; // Code to execute when the condition is false
+  siCode += "}";
+
+  return siCode;
+}
+
 // Function to handle the "Guardar Condición 'SI'" button click
 function generateIfStructure() {
+  // Get the SI component data from the modal fields
   const attribute1Value = document.getElementById("attribute1").value;
   const attribute2Value = document.getElementById("attribute2").value;
   const comparisonOperation = document.getElementById("comparisonOperation").value;
@@ -61,8 +77,8 @@ function generateIfStructure() {
   const conditionMet = checkCondition(attribute1Value, attribute2Value, comparisonOperation);
 
   // Get the true and false messages from the input fields
-  trueConditionStatements = document.getElementById("trueConditionStatements").value;
-  falseConditionStatements = document.getElementById("falseConditionStatements").value;
+  const trueConditionStatements = document.getElementById("trueConditionStatements").value;
+  const falseConditionStatements = document.getElementById("falseConditionStatements").value;
 
   // Check if both true and false condition messages are not empty
   if (trueConditionStatements.trim() === "" && falseConditionStatements.trim() === "") {
@@ -76,26 +92,27 @@ function generateIfStructure() {
     return; // Exit the function without generating the if structure
   }
 
-  // Generate the if structure based on the condition
-    ifStructure = conditionMet
-      ? `if (${attribute1Value} ${comparisonOperation} ${attribute2Value}) {\n  System.out.println("${trueConditionStatements}");\n} else {\n  System.out.println("${falseConditionStatements}");\n}\n`
-      : `if (${attribute1Value} ${comparisonOperation} ${attribute2Value}) {\n  System.out.println("${falseConditionStatements}");\n} else {\n  System.out.println("${trueConditionStatements}");\n}\n`;
+  // Generate the if structure based on the condition using createSiCode()
+  const ifStructureCode = createSiCode(attribute1Value, attribute2Value, comparisonOperation, trueConditionStatements, falseConditionStatements);
 
   // Get the existing procedure name and variables from the variablesModal
   const procedureName = document.getElementById("procedureName").value;
   const variablesGuardados = document.getElementById("variablesCargados").value;
 
-  // Concatenate the existing procedure and variables with the if structure
-  const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
+  // Get the existing content of the maintextarea
+  const maintextarea = document.getElementById("maintextarea");
+
+  // Find the position of the last closing curly brace in the existing content
+  const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
+
+  // Insert the generated if structure code before the last closing curly brace
+  const updatedContent = maintextarea.value.slice(0, lastClosingBraceIndex) +
+    '\n' + ifStructureCode + '\n' + maintextarea.value.slice(lastClosingBraceIndex);
 
   // Update the maintextarea with the complete procedure
-  const maintextarea = document.getElementById("maintextarea");
-  maintextarea.value = formattedProcedure;
+  maintextarea.value = updatedContent;
 
   // Close the "Imprimir" modals (optional)
-  const modalVerdadero = document.getElementById("modalVerdadero");
-  const modalFalso = document.getElementById("modalFalso");
-
   const modal = document.getElementById('exampleModalToggle2');
   const bsModal = bootstrap.Modal.getInstance(modal);
   bsModal.hide();
