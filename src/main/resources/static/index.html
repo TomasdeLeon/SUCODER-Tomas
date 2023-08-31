@@ -4,179 +4,124 @@
     <meta charset="UTF-8">
     <title>SUCODER - Java Code Generator</title>
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet" >
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <style>
-        /* Optional: Add custom styles for the technology-themed design */
-/* probando */
-
-        body {
-            background-image: url(/images/SUCODER.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-        }
-
-    /* Set the carousel height and background color */
-    #carouselExampleControls {
-        height: 300px; /* Adjust the height as needed */
-    }
-
-    /* Make the carousel items the same size */
-    .carousel-item {
-        height: 100%; /* Adjust the height as needed; 100vh makes it cover the full viewport height */
-    align-items: center;
-    justify-content: center;
-    }
-
-    /* Customize the background color for carousel items */
-    .carousel-item:nth-child(1) {
-        background-color: #6c757d; /* Background color for the first carousel item */
-    }
-
-    .carousel-item:nth-child(2) {
-        background-color: #6c757d; /* Background color for the second carousel item */
-    }
-
-    .carousel-item:nth-child(3) {
-        background-color: #6c757d; /* Background color for the third carousel item */
-    }
-
-    /* Optional: Adjust text and button styles for better visibility on the colored background */
-    .carousel-item h2,
-    .carousel-item p {
-        color: #fff; /* Text color on the colored background */
-    }
-
-    .carousel-item .btn-primary {
-        background-color: #fff; /* Button background color on the colored background */
-        color: #007bff; /* Button text color on the colored background */
-    }
-
-    </style>
 </head>
 <body>
-    <!-- Add the carousel -->
-    <main>
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                            <div class="my-3 py-3">
-                                <h2 class="display-5">Bienvenido a SUCODER</h2>
-                                <!-- Add content for the first slide -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                            <div class="my-3 py-3">
-                                <h2 class="display-5">Sobre SUCODER</h2>
-                                <!-- Add content for the second slide -->
-                                <p class="lead">SUCODER es un versátil generador de código Java diseñado para aumentar la productividad y agilizar el proceso de desarrollo...</p>
-                                <a class="btn btn-primary btn-lg" href="#about-sucoder">Más información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<header>
+    <a href="#">
+        <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+    </a>
+    <nav class="navbar">
+        <a href="#">Inicio</a>
+        <a href="#">Acerca de</a>
+        <a href="#">Características</a>
+        <a href="#">Modos de Uso</a>
+    </nav>
+</header>
 
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                            <div class="my-3 py-3">
-                                <h2 class="display-5">Generar Código con Facilidad</h2>
-                                <!-- Add content for the third slide -->
-                                <p class="lead">SUCODER simplifica el proceso de generación de código y sigue un enfoque amigable para el usuario...</p>
-                                <a class="btn btn-primary btn-lg" href="#generate-code">Más información</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+<!-- Sección de Bienvenida -->
+<section id="welcome-section" class="home">
+    <div class="box">
+        <div class="home-content">
+            <h1 class="display-4" style="color: white;">Bienvenido a SUCODER</h1>
+            <p class="lead" style="color: white;">Tu Compañero para Comprender y Crear Código Java</p>
+            <a href="#" class="btn-box">Comenzar</a>
         </div>
-
-
-        <div class="container py-4">
-            <div class="row row-cols-1 row-cols-md-2 mb-2 text-center">
-                <div class="col">
-                    <div class="card mb-4 rounded-1 shadow-sm">
-                        <div class="card-header py-3">
-                            <h2>Crear Procedimiento</h2>
-                        </div>
-                        <div class="card-body">
-                            <p class="mb-4">Utilice este botón para crear un nuevo procedimiento en su proyecto de Java.</p>
-                            <a href="/procedimiento.html" class="btn btn-primary btn-lg btn-block technology-theme">Crear Procedimiento</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h2>Crear Código Principal</h2>
-                        </div>
-                        <div class="card-body">
-                            <p class="mb-4">Utilice este botón para generar el código principal de su proyecto de Java.</p>
-                            <a href="/codigo.html" class="btn btn-primary btn-lg btn-block technology-theme">Crear Código Principal</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="home-img">
+            <img src="images/SUCODER2.png" alt="">
         </div>
+    </div>
+</section>
 
-        <section id="about-sucoder">
-            <div class="container py-4">
-            <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-                <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                    <div class="my-3 py-3">
-                        <h2 class="display-5">Acerca de SUCODER</h2>
-                        <p class="lead">SUCODER es un versátil generador de código Java diseñado para aumentar la productividad y agilizar el proceso de desarrollo. Permite a los desarrolladores generar plantillas de código de alta calidad, reduciendo el esfuerzo manual y permitiéndoles centrarse en la lógica central del negocio.</p>
-                    </div>
+<div class="space"></div>
 
-                </div>
-            </div>
-            </div>
-        </section>
+<!-- Sección Acerca de SUCODER -->
+<section id="about" class="about" style="background:linear-gradient(45deg, black, transparent);">
+    <br><br><br>
+    <div class="heading">
+        <h1>Acerca de</h1>
+        <div class="about-img">
+            <img src="images/SUCODER2.png" alt="">
+        </div>
+    </div><br>
+    <div class="about-content">
+        <div class="col-md-8 mx-auto">
+            <p>SUCODER es un innovador generador de código Java diseñado para ayudarte a comprender y crear código Java de manera efectiva. Explorarás el proceso de armado de código Java a través de procedimientos y códigos principales, utilizando pseudocódigos para simplificar el aprendizaje.</p><br>
+            <p>Con SUCODER, te sumergirás en la esencia de la programación Java mientras creas codigos significativos.</p>
+        </div>
+    </div>
+</section>
 
-        <section id="generate-code">
-            <div class="container py-4">
-            <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-                <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                    <div class="my-3 py-3">
-                        <h2 class="display-5">Generar Código con Facilidad</h2>
-                        <p class="lead">SUCODER simplifica el proceso de generación de código y sigue un enfoque amigable para el usuario. Los pasos típicos para generar código con SUCODER son:</p>
-                        <ol class="text-left">
-                            <li>Configurar los ajustes de su proyecto, incluyendo el marco de trabajo deseado, la conexión a la base de datos y la estructura de paquetes.</li>
-                            <li>Especificar los requisitos de generación de código, como atributos de entidades, relaciones y componentes deseados.</li>
-                            <li>Utilizar el generador de código SUCODER para crear automáticamente los archivos de código necesarios.</li>
-                            <li>Revisar y refinar el código generado para alinearlo con las necesidades específicas de su proyecto.</li>
-                            <li>Implementar el código generado en su proyecto y construir sobre él para implementar la lógica de negocio.</li>
-                        </ol>
-                        <p class="lead">SUCODER permite a los desarrolladores acelerar el proceso de desarrollo, reducir la redundancia de código y mantener la consistencia del código en todos sus proyectos de Java.</p>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </section>
-    </main>
+<div class="space"></div>
 
-<footer>
+<!-- Sección de Características -->
+<section id="features" class="features">
+    <div class="heading">
+        <h1>Características</h1>
+    </div><br>
+    <div class="features-container">
+        <div class="features-box"><br>
+            <i class="bx bx-book-open"></i><br>
+            <h3>Aprendizaje Guiado</h3><br>
+            <p>Comprende el armado de código Java a través de procedimientos guiados.</p>
+        </div>
+        <div class="features-box"><br>
+            <i class="bx bx-code"></i><br>
+            <h3>Generación Práctica</h3><br>
+            <p>Genera códigos principales con ejemplos prácticos.</p>
+        </div>
+    </div>
+    <div class="features-container">
+        <div class="features-box"><br>
+            <i class="bx bx-code-alt"></i><br>
+            <h3>Simplifica la Lógica</h3><br>
+            <p>Utiliza pseudocódigos para simplificar la lógica de programación.</p>
+        </div>
+        <div class="features-box"><br>
+            <i class="bx bx-hourglass"></i><br>
+            <h3>Proceso Interactivo</h3><br>
+            <p>Experimenta un proceso interactivo que construye tu código en tiempo real.</p>
+        </div>
+    </div>
+</section>
+
+<div class="space"></div>
+
+<!-- Sección de Modos de Uso -->
+<section id="modes-section" class="modes" style="background:linear-gradient(45deg, black, transparent);">
+    <br><br><br>
+    <div class="heading">
+        <h1>Modos de Uso</h1>
+    </div><br>
+    <div class="modes-container">
+        <p style="text-align: center;">Elige cómo deseas comenzar tu experiencia con SUCODER. Contamos con dos modos de uso que se adaptan a tus necesidades y nivel de experiencia:</p><br>
+        <div class="modes-box"><br>
+            <i class="bx bx-compass"></i><br>
+            <h3>Modo Libre</h3><br>
+            <p>Explora y aprende a tu propio ritmo.</p>
+            <p>En el Modo Libre, puedes generar procedimientos y códigos principales sin restricciones. Ideal para familiarizarte con la programación Java.</p><br>
+            <a href="#" class="btn btn-primary">Comenzar en Modo Libre</a>
+        </div>
+        <div class="modes-box"><br>
+            <i class="bx bx-dumbbell"></i><br>
+            <h3>Modo Ejercicio</h3><br>
+            <p>Acepta el desafío.</p>
+            <p>En el Modo Ejercicio, completa tareas específicas para mejorar tus habilidades de programación Java. Ideal para poner a prueba tus conocimientos y habilidades.</p><br>
+            <a href="#" class="btn btn-primary">Comenzar en Modo Ejercicio</a>
+        </div>
+    </div>
+    <div class="space"></div>
+</section>
+
+
+<!-- Sección de Pie de Página -->
+<footer class="py-4 bg-dark text-white text-center">
     <div class="container">
-        <p>&copy; 2023 SUCODER. All rights reserved.</p>
+        <p>&copy; 2023 SUCODER. Todos los derechos reservados.</p>
     </div>
 </footer>
 
