@@ -36,6 +36,17 @@ document.getElementById("siguienteButton").addEventListener("click", function ()
 });
 
 
+// Function to create code for the MIENTRAS component
+function createMientrasCode(attribute1While, attribute2While, comparisonOperation2, messageWhileValue) {
+  // Construct the code for the MIENTRAS component
+  let mientrasCode = `while (${attribute1While} ${comparisonOperation2} ${attribute2While}) {\n`;
+  mientrasCode += `  System.out.println("${messageWhileValue}");\n`; // Code to execute while the condition is true
+  mientrasCode += `  ${attribute1While}++; // o ${attribute1While}--;\n`;
+  mientrasCode += `}`;
+
+  return mientrasCode;
+}
+
 // Function to handle the "Guardar Condición 'MIENTRAS'" button click
 function saveWhileCondition() {
   // Get the values selected in the MIENTRAS modal
@@ -46,82 +57,53 @@ function saveWhileCondition() {
   // Get the message from the "Imprimir Mensaje" modal
   const messageWhileValue = document.getElementById('messageWhile').value;
 
-  // Check if  message is not empty
-    if (messageWhileValue.trim() === "") {
-      // Show a warning message using SweetAlert
-      swal({
-        title: "Error",
-        text: "Por favor ingrese un mensaje.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-      return; // Exit the function without generating the if structure
-    }
-
-  // Construct the while loop structure based on the user inputs
-  if (comparisonOperation2Value === "==") {
-    whileStructure = `while (${attribute1WhileValue} == ${attribute2WhileValue}) {
-      System.out.println("${messageWhileValue}");
-      // Increment or decrement logic based on your needs
-      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
-    }`;
-  } else if (comparisonOperation2Value === "!=") {
-    whileStructure = `while (${attribute1WhileValue} != ${attribute2WhileValue}) {
-      System.out.println("${messageWhileValue}");
-      // Increment or decrement logic based on your needs
-      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
-    }`;
-  } else if (comparisonOperation2Value === ">") {
-    whileStructure = `while (${attribute1WhileValue} > ${attribute2WhileValue}) {
-      System.out.println("${messageWhileValue}");
-      // Increment or decrement logic based on your needs
-      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
-    }`;
-  } else if (comparisonOperation2Value === "<") {
-    whileStructure = `while (${attribute1WhileValue} < ${attribute2WhileValue}) {
-      System.out.println("${messageWhileValue}");
-      // Increment or decrement logic based on your needs
-      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
-    }`;
-  } else if (comparisonOperation2Value === ">=") {
-    whileStructure = `while (${attribute1WhileValue} >= ${attribute2WhileValue}) {
-      System.out.println("${messageWhileValue}");
-      // Increment or decrement logic based on your needs
-      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
-    }`;
-  } else if (comparisonOperation2Value === "<=") {
-    whileStructure = `while (${attribute1WhileValue} <= ${attribute2WhileValue}) {
-      System.out.println("${messageWhileValue}");
-      // Increment or decrement logic based on your needs
-      ${attribute1WhileValue}++; // o ${attribute1WhileValue}--;
-    }`;
+  // Check if message is not empty
+  if (messageWhileValue.trim() === "") {
+    // Show a warning message using SweetAlert
+    swal({
+      title: "Error",
+      text: "Por favor ingrese un mensaje.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return; // Exit the function without generating the while structure
   }
 
-  // Concatenate the existing procedure and variables with the while loop structure and if structure
-    const procedureName = document.getElementById('procedureName').value;
-    const variablesGuardados = document.getElementById('variablesCargados').value;
+  // Construct the while loop structure based on the user inputs using createMientrasCode()
+  const whileStructureCode = createMientrasCode(attribute1WhileValue, attribute2WhileValue, comparisonOperation2Value, messageWhileValue);
 
-    // Concatenate the existing if structure with the while loop structure
-    const formattedProcedure = `public void ${procedureName}() {\n${variablesGuardados}\n${ifStructure}\n${whileStructure}\n\n${messageStructure}\n\n${commentStructure}\n\n}`;
+  // Get the existing procedure name and variables from the variablesModal
+  const variablesGuardados = document.getElementById('variablesCargados').value;
 
-    // Update the maintextarea with the complete procedure
-    const maintextarea = document.getElementById('maintextarea');
-    maintextarea.value = formattedProcedure;
+  // Get the existing content of the maintextarea
 
-    const modal = document.getElementById('condicionWhileModal');
-      const bsModal = bootstrap.Modal.getInstance(modal);
-      bsModal.hide();
+  const maintextarea = document.getElementById('maintextarea');
 
-      // Show a success message using SweetAlert
-      swal({
-        title: 'Condición MIENTRAS guardada correctamente!',
-        icon: 'success',
-        confirmButtonText: 'OK',
-      });
+  // Find the position of the last closing curly brace in the existing content
+  const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
+
+  // Insert the generated while loop structure code before the last closing curly brace
+  const updatedContent = maintextarea.value.slice(0, lastClosingBraceIndex) +
+    '\n' + whileStructureCode + '\n' + maintextarea.value.slice(lastClosingBraceIndex);
+
+  // Update the maintextarea with the complete procedure
+  maintextarea.value = updatedContent;
+
+  // Close the "condicionWhileModal" (optional)
+  const modal = document.getElementById('condicionWhileModal');
+  const bsModal = bootstrap.Modal.getInstance(modal);
+  bsModal.hide();
+
+  // Show a success message using SweetAlert
+  swal({
+    title: 'Condición MIENTRAS guardada correctamente!',
+    icon: 'success',
+    confirmButtonText: 'OK',
+  });
 }
 
-// Add an event listener to the "Guardar Condición 'MIENTRAS'" button
-document.getElementById("guardarCondicionWhile").addEventListener("click", function() {
-  saveWhileCondition();
+// Add an event listener to the "Guardar Condicion MIENTRAS" button
+document.getElementById('guardarCondicionWhile').addEventListener('click', function () {
+  saveWhileCondition(); // Call the function to save the while condition
 });
 

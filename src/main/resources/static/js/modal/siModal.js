@@ -54,8 +54,8 @@ function checkCondition(attribute1Value, attribute2Value, comparisonOperation) {
 // Function to create code for the SI component
 function createSiCode(attribute1, attribute2, comparisonOperation, trueConditionStatements, falseConditionStatements) {
   // Get the SI component data from the modal fields
-  const attribute1Input = document.getElementById('attribute1Input').value;
-  const attribute2Input = document.getElementById('attribute2Input').value;
+  const attribute1Input = document.getElementById('attribute1').value;
+  const attribute2Input = document.getElementById('attribute2').value;
 
   let siCode = `if (${attribute1} ${comparisonOperation} ${attribute2}) {\n`;
   siCode += `  System.out.println("${trueConditionStatements}");\n`; // Code to execute when the condition is true
@@ -96,7 +96,6 @@ function generateIfStructure() {
   const ifStructureCode = createSiCode(attribute1Value, attribute2Value, comparisonOperation, trueConditionStatements, falseConditionStatements);
 
   // Get the existing procedure name and variables from the variablesModal
-  const procedureName = document.getElementById("procedureName").value;
   const variablesGuardados = document.getElementById("variablesCargados").value;
 
   // Get the existing content of the maintextarea
