@@ -95,7 +95,7 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(/images/bg.jpg) no-repeat;
+  background: url(/images/background.jpg) no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -104,11 +104,8 @@ body::before {
 }
 
 @keyframes animateBg {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-  100% {
-    filter: hue-rotate(360deg);
+  0%, 100% {
+    filter: hue-rotate(280deg); /* Stay in blue color */
   }
 }
 

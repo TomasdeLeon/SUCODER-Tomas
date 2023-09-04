@@ -41,13 +41,11 @@ guardarMensajeButton.addEventListener('click', function() {
     // Find the position of the last closing curly brace in the existing content
     const lastClosingBraceIndex = existingContent.lastIndexOf('}');
 
-    // Insert the generated code before the last closing curly brace
-    const updatedContent = existingContent.slice(0, lastClosingBraceIndex) +
-      '\n' + imprimirCode + '\n' + existingContent.slice(lastClosingBraceIndex);
+    // Insert the generated code using the generalized function
+      const updatedContent = insertCodeAtLocation(existingContent, imprimirCode, clickedLineNumber, lastClosingBraceIndex);
 
     // Update the maintextarea with the updated content
     maintextarea.value = updatedContent;
-
 
     // Hide the modal
     const modal = document.getElementById('imprimirModal');

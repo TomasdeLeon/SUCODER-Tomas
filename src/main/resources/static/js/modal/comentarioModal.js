@@ -26,13 +26,13 @@ function saveComment() {
 
   // Get the existing content of the maintextarea
   const maintextarea = document.getElementById('maintextarea');
+  const existingContent = maintextarea.value;
 
   // Find the position of the last closing curly brace in the existing content
   const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
 
-  // Insert the generated comentario code before the last closing curly brace
-  const updatedContent = maintextarea.value.slice(0, lastClosingBraceIndex) +
-    '\n' + comentarioCode + '\n' + maintextarea.value.slice(lastClosingBraceIndex);
+  // Insert the generated comentario code using the generalized function
+  const updatedContent = insertCodeAtLocation(existingContent, comentarioCode, clickedLineNumber, lastClosingBraceIndex);
 
   // Update the maintextarea with the new content
   maintextarea.value = updatedContent;

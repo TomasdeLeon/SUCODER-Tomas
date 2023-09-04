@@ -1,3 +1,4 @@
+// Function to enable or disable the "Siguiente" button based on the selected values of "Variable 1" and "Variable 2" in the MIENTRAS modal
 function toggleSiguienteWhile() {
   const attribute1ValueWhile = document.getElementById("attribute1While").value;
   const attribute2ValueWhile = document.getElementById("attribute2While").value;
@@ -82,12 +83,15 @@ function saveWhileCondition() {
   // Find the position of the last closing curly brace in the existing content
   const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
 
-  // Insert the generated while loop structure code before the last closing curly brace
-  const updatedContent = maintextarea.value.slice(0, lastClosingBraceIndex) +
-    '\n' + whileStructureCode + '\n' + maintextarea.value.slice(lastClosingBraceIndex);
+  // Insert the generated while structure code either at the clicked line or after the last closing curly brace
+  const updatedContent = insertCodeAtLocation(maintextarea.value, whileStructureCode, clickedLineNumber, lastClosingBraceIndex);
+
+  // After generating code, format the maintextarea
+  formatCodeInTextarea();
 
   // Update the maintextarea with the complete procedure
   maintextarea.value = updatedContent;
+
 
   // Close the "condicionWhileModal" (optional)
   const modal = document.getElementById('condicionWhileModal');

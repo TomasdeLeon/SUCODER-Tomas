@@ -66,6 +66,68 @@ function createSiCode(attribute1, attribute2, comparisonOperation, trueCondition
   return siCode;
 }
 
+// Function to insert code at a specific location
+function insertCodeAtLocation(existingContent, codeToInsert, clickedLineNumber, lastClosingBraceIndex) {
+    const textarea = document.getElementById('maintextarea');
+    const currentContent = existingContent;
+
+    if (clickedLineNumber !== -1 && clickedLineNumber < currentContent.split('\n').length) {
+        // Insert the code at the clicked line
+        const lines = currentContent.split('\n');
+        lines.splice(clickedLineNumber - 1, 0, '');
+        lines.splice(clickedLineNumber, 0, codeToInsert, '');
+        return lines.join('\n');
+    } else if (lastClosingBraceIndex !== -1) {
+        // Insert the code after the last closing curly brace
+        return currentContent.slice(0, lastClosingBraceIndex) +
+            '\n' + codeToInsert + '\n' +
+            currentContent.slice(lastClosingBraceIndex);
+    } else {
+        // If there is no closing curly brace and no line is clicked, simply add the code at the start of the code
+        return codeToInsert + '\n' + currentContent;
+    }
+}
+
+// Function to format the code in maintextarea
+function formatCodeInTextarea() {
+  // Get the content of the maintextarea
+  const textarea = document.getElementById('maintextarea');
+  const code = textarea.value;
+
+  // Split the code into lines and trim each line
+  const lines = code.split('\n').map(line => line.trim());
+
+  // Create an indentation level variable
+  let indentationLevel = 0;
+
+  // Initialize the formatted code as an empty string
+  let formattedCode = '';
+
+  // Iterate through the lines of code
+  for (let line of lines) {
+    // Remove any existing leading indentation
+    line = line.trimStart();
+
+    // Add the appropriate indentation based on the level
+    for (let i = 0; i < indentationLevel; i++) {
+      formattedCode += '  '; // You can adjust the number of spaces per level
+    }
+
+    // Add the line to the formatted code
+    formattedCode += line + '\n';
+
+    // Adjust the indentation level based on the code structure
+    if (line.includes('{')) {
+      indentationLevel++;
+    } else if (line.includes('}')) {
+      indentationLevel--;
+    }
+  }
+
+  // Update the maintextarea with the formatted code
+  textarea.value = formattedCode;
+}
+
 // Function to handle the "Guardar Condición 'SI'" button click
 function generateIfStructure() {
   // Get the SI component data from the modal fields
@@ -95,18 +157,17 @@ function generateIfStructure() {
   // Generate the if structure based on the condition using createSiCode()
   const ifStructureCode = createSiCode(attribute1Value, attribute2Value, comparisonOperation, trueConditionStatements, falseConditionStatements);
 
-  // Get the existing procedure name and variables from the variablesModal
-  const variablesGuardados = document.getElementById("variablesCargados").value;
-
   // Get the existing content of the maintextarea
   const maintextarea = document.getElementById("maintextarea");
 
   // Find the position of the last closing curly brace in the existing content
   const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
 
-  // Insert the generated if structure code before the last closing curly brace
-  const updatedContent = maintextarea.value.slice(0, lastClosingBraceIndex) +
-    '\n' + ifStructureCode + '\n' + maintextarea.value.slice(lastClosingBraceIndex);
+  // Insert the generated if structure code either at the clicked line or after the last closing curly brace
+  const updatedContent = insertCodeAtLocation(maintextarea.value, ifStructureCode, clickedLineNumber, lastClosingBraceIndex);
+
+  // After generating code, format the maintextarea
+  formatCodeInTextarea();
 
   // Update the maintextarea with the complete procedure
   maintextarea.value = updatedContent;
