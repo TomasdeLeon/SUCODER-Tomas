@@ -279,6 +279,11 @@
                     <button class="button-63" data-bs-target="#modalMensajeWhile" data-bs-toggle="modal" data-bs-dismiss="modal">IMPRIMIR</button>
                   </div>
                 </div><br>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <button class="button-63" data-bs-target="#modalIncrementDecrement" data-bs-toggle="modal" data-bs-dismiss="modal">INCREMENTO o DESCREMENTO</button>
+                  </div>
+                </div><br>
                 <div class="modal-footer">
                   <button class="button" style="background: grey;" data-bs-target="#mientrasModal" data-bs-toggle="modal" data-bs-dismiss="modal">Anterior</button>
                   <button type="button" id="guardarCondicionWhile" class="button" style="background: #fff;">Guardar Condición "MIENTRAS"</button>
@@ -302,11 +307,41 @@
                   </div>
                 </div><br>
                 <div class="modal-footer">
-                  <button class="button" style="background: #fff;" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                  <button class="button" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
                 </div>
               </div>
             </div>
           </div>
+        <div class="modal fade" id="modalIncrementDecrement" tabindex="-1" role="dialog" aria-labelledby="modalIncrementDecrementLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalIncrementDecrementLabel" style="color: white;">Definir Incremento o Decremento</h5>
+                <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div><br>
+              <div class="modal-body">
+                <div class="attribute-dropdown">
+                  <label for="attributeDropdown" style="color: white;">Seleccionar Variable:</label>
+                  <select id="attributeDropdown" name="attributeDropdown" style="height: 90px">
+                    <option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>
+                  </select>
+                </div><br>
+                <div class="increment-decrement-dropdown">
+                  <label for="incrementDecrementDropdown" style="color: white;">Seleccionar Incremento/Decremento:</label>
+                  <select id="incrementDecrementDropdown" name="incrementDecrementDropdown" style="height: 90px">
+                    <option value="++">Incrementar (++)</option>
+                    <option value="--">Decrementar (--)</option>
+                  </select>
+                </div>
+              </div><br>
+              <div class="modal-footer">
+                <button id="aceptarButton" class="button" data-bs-target="#condicionWhileModal" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
           <!-- COMENTAR Modal -->
           <div class="modal fade" id="comentarModal" tabindex="-1" role="dialog" aria-labelledby="comentarModalLabel" aria-hidden="true">

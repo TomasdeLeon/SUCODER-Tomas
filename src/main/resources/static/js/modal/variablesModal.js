@@ -186,19 +186,21 @@ function refereeVariableNames() {
     const attribute2Dropdown = document.getElementById('attribute2');
 
     // Clear existing options
-    attribute1Dropdown.innerHTML = '<option value="-">-</option>';
-    attribute2Dropdown.innerHTML = '<option value="-">-</option>';
+    attribute1Dropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
+    attribute2Dropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
 
     // Populate the dropdowns with variable names from the array
     for (const name of variableNames) {
         const option = document.createElement('option');
         option.value = name;
         option.textContent = name;
+        option.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
         attribute1Dropdown.appendChild(option);
 
         const option2 = document.createElement('option');
         option2.value = name;
         option2.textContent = name;
+        option2.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
         attribute2Dropdown.appendChild(option2);
     }
 }
@@ -210,19 +212,21 @@ function refereeVariableNamesMientras() {
     const attribute2WhileDropdown = document.getElementById('attribute2While');
 
     // Clear existing options
-    attribute1WhileDropdown.innerHTML = '<option value="-">-</option>';
-    attribute2WhileDropdown.innerHTML = '<option value="-">-</option>';
+    attribute1WhileDropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
+    attribute2WhileDropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
 
     // Populate the dropdowns with variable names from the array (assuming you have a variableNamesMientras array)
     for (const name of variableNames) {
         const option = document.createElement('option');
         option.value = name;
         option.textContent = name;
+        option.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Set background color
         attribute1WhileDropdown.appendChild(option);
 
         const option2 = document.createElement('option');
         option2.value = name;
         option2.textContent = name;
+        option2.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Set background color
         attribute2WhileDropdown.appendChild(option2);
     }
 }
