@@ -17,11 +17,24 @@ function generateProcedureCode() {
   const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
 
   // Insert the generated procedure call code before the last closing curly brace
-  const updatedContent = maintextarea.value.slice(0, lastClosingBraceIndex) +
-    '\n' + procedureCallCode + '\n' + maintextarea.value.slice(lastClosingBraceIndex);
+  const updatedContent = insertCodeAtLocation(maintextarea.value, procedureCallCode, clickedLineNumber, lastClosingBraceIndex);
 
   // Update the maintextarea with the new content
   maintextarea.value = updatedContent;
+
+  // Get the procedimientoText and split it into lines
+  const procedimientoText = document.getElementById('procedimientoText').value;
+  const procedimientoTextLines = procedimientoText.split('\n');
+
+  // Add a comment message
+  const procedureName = document.getElementById('procedimientoName').value;
+  maintextarea.value += `\n// Procedimiento ${procedureName}\n`;
+
+  // Add procedimientoText lines as comments outside the main method code
+  for (const line of procedimientoTextLines) {
+    maintextarea.value += `\n// ${line}`;
+  }
+  maintextarea.value += '\n'; // Add an extra line for separation
 
   // Close the modal
   const modal = document.getElementById('procedimientoModal');

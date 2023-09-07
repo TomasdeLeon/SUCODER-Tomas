@@ -200,7 +200,9 @@ color: #fff;
 .modal-body .attribute2-while select,
 .modal-body .operator-while select,
 .modal-body .message-while input,
-.modal-body .procedure-name input{
+.modal-body .procedure-name input,
+.modal-body .attribute-dropdown select,
+.modal-body .increment-decrement-dropdown select{
 height: 10px;
 padding: 1.5rem;
 color: #fff;

@@ -63,8 +63,6 @@ document.getElementById("attributeDropdown").addEventListener("change", function
   }
 });
 
-
-
 // Add an event listener to the "Siguiente" button in the "MIENTRAS" modal
 document.getElementById("siguienteButton").addEventListener("click", function () {
   // Get the values of "Variable 1" and "Variable 2" selected in the "MIENTRAS" modal
@@ -76,22 +74,20 @@ document.getElementById("siguienteButton").addEventListener("click", function ()
 });
 
 // Function to create code for the MIENTRAS component
-function createMientrasCode(attribute1While, attribute2While, comparisonOperation2, messageWhileValue, incrementDecrementValue) {
-
-  // Get the selected attribute from the dropdown
-  const selectedAttribute = document.getElementById("attributeDropdown").value;
+function createMientrasCode(attribute1While, attribute2While, comparisonOperation2, messageWhileValue, selectedAttribute, incrementDecrementValue) {
 
   // Construct the code for the MIENTRAS component
   let mientrasCode = `while (${attribute1While} ${comparisonOperation2} ${attribute2While}) {\n`;
   mientrasCode += `  System.out.println("${messageWhileValue}");\n`; // Code to execute while the condition is true
-  // Check if an Increment or Decrement is selected
-    if (incrementDecrementValue === '++') {
-      mientrasCode += `  ${selectedAttribute}++;\n`;
-    } else if (incrementDecrementValue === '--') {
-      mientrasCode += `  ${selectedAttribute}--;\n`;
-    }
 
-    mientrasCode += `}`;
+  // Check if an Increment or Decrement is selected for the selected attribute
+  if (incrementDecrementValue === '++') {
+    mientrasCode += `  ${selectedAttribute}++;\n`;
+  } else if (incrementDecrementValue === '--') {
+    mientrasCode += `  ${selectedAttribute}--;\n`;
+  }
+
+  mientrasCode += `}`;
 
   return mientrasCode;
 }
@@ -107,7 +103,7 @@ function saveWhileCondition() {
   const messageWhileValue = document.getElementById('messageWhile').value;
 
   // Get the selected value from the Increment/Decrement dropdown
-  const incrementDecrementValue = document.getElementById('incrementDecrementDropdown').value;
+  const attributeDropdownValue = document.getElementById('attributeDropdown').value;
 
   // Check if message is not empty
   if (messageWhileValue.trim() === "") {
@@ -122,25 +118,34 @@ function saveWhileCondition() {
   }
 
   // Check if Increment/Decrement option is not selected (assuming '-' is the default value)
-    if (incrementDecrementValue === '-') {
-      // Show a warning message using SweetAlert for the Increment/Decrement
-      swal({
-        title: "Error",
-        text: "Por favor seleccione un Incremento o Decremento.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-      return; // Exit the function without generating the while structure
-    }
+  if (attributeDropdownValue === '-') {
+    // Show a warning message using SweetAlert for the Increment/Decrement
+    swal({
+      title: "Error",
+      text: "Por favor seleccione un Incremento o Decremento.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return; // Exit the function without generating the while structure
+  }
+
+  // Get the selected Increment/Decrement value from the corresponding dropdown
+  const incrementDecrementValue = document.getElementById('incrementDecrementDropdown').value;
 
   // Construct the while loop structure based on the user inputs using createMientrasCode()
-  const whileStructureCode = createMientrasCode(attribute1WhileValue, attribute2WhileValue, comparisonOperation2Value, messageWhileValue, incrementDecrementValue);
+  const whileStructureCode = createMientrasCode(
+    attribute1WhileValue,
+    attribute2WhileValue,
+    comparisonOperation2Value,
+    messageWhileValue,
+    attributeDropdownValue,
+    incrementDecrementValue
+  );
 
   // Get the existing procedure name and variables from the variablesModal
   const variablesGuardados = document.getElementById('variablesCargados').value;
 
   // Get the existing content of the maintextarea
-
   const maintextarea = document.getElementById('maintextarea');
 
   // Find the position of the last closing curly brace in the existing content
@@ -167,6 +172,7 @@ function saveWhileCondition() {
     confirmButtonText: 'OK',
   });
 }
+
 
 // Add an event listener to the "Guardar Condicion MIENTRAS" button
 document.getElementById('guardarCondicionWhile').addEventListener('click', function () {
