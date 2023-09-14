@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SUCODER - Generador de Código Java</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+</head>
+
+<body>
+<header>
+  <a href="/index.html">
+    <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+  </a>
+  <nav class="navbar">
+    <h1 style="color: white;">Subir Ejercicio</h1>
+  </nav>
+</header>
+
+<div class="space"></div>
+
+<div class="box" style="width: 700px; height: 60%">
+  <form id="exerciseForm" class="form-exercises" action="#" method="post">
+    <br><br><br>
+    <div class="exercises-name">
+      <h4>Nombre del Ejercicio:</h4><br>
+      <input type="text" id="exerciseName" name="exerciseName" required>
+    </div><br><br><br>
+    <div class="exercises-letter">
+      <h4>Descripción del Ejercicio:</h4><br>
+      <textarea id="exerciseDescription" name="exerciseDescription" rows="4" cols="50" style="height: 30%;" required></textarea>
+    </div><br><br><br>
+    <div class="exercises-solution">
+      <h4>Solución del Ejercicio:</h4><br>
+      <textarea id="exerciseSolution" name="exerciseSolution" rows="4" cols="50" style="height: 30%;" required></textarea>
+    </div><br><br><br>
+
+    <button class="button" type="submit">Subir Ejercicio</button>
+    <br><br><br>
+  </form>
+</div>
+
+<div class="space"></div>
+
+<script>
+    // Function to handle form submission
+    function submitExerciseForm() {
+        // Get form data
+        const exerciseName = document.getElementById("exerciseName").value;
+        const exerciseDescription = document.getElementById("exerciseDescription").value;
+        const exerciseSolution = document.getElementById("exerciseSolution").value;
+
+        // Create an object to hold the form data
+        const exerciseData = {
+            nombre: exerciseName,
+            descripcion: exerciseDescription,
+            solucion: exerciseSolution
+        };
+
+        // Send a POST request to the backend
+        fetch("/api/uploadEjercicios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(exerciseData)
+        })
+        .then(response => {
+            if (response.ok) {
+                // Handle success, e.g., show a success message to the user
+                alert("Ejercicio subido con éxito");
+                // Optionally, you can reset the form
+                document.getElementById("exerciseForm").reset();
+            } else {
+                // Handle errors, e.g., show an error message to the user
+                alert("Error al subir el ejercicio");
+            }
+        })
+        .catch(error => {
+            // Handle network errors
+            alert("Error de red: " + error.message);
+        });
+    }
+
+    // Add an event listener to the form for form submission
+    document.getElementById("exerciseForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        submitExerciseForm(); // Call the function to handle the form submission
+    });
+</script>
+</body>
+</html>
