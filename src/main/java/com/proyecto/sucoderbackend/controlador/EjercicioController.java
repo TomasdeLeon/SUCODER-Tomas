@@ -3,9 +3,9 @@ package com.proyecto.sucoderbackend.controlador;
 import com.proyecto.sucoderbackend.modelo.Ejercicio;
 import com.proyecto.sucoderbackend.servicio.EjercicioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +24,14 @@ public class EjercicioController {
         return ejercicioService.getAllExercises();
     }
 
-    // Other methods if needed
+    @PostMapping("/uploadEjercicios")
+    public ResponseEntity<String> uploadEjercicios(@RequestBody Ejercicio ejercicio) {
+        try {
+            ejercicioService.saveEjercicio(ejercicio);
+            return ResponseEntity.ok("Ejercicio uploaded successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading ejercicio");
+        }
+    }
 }

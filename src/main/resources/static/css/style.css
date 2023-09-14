@@ -22,6 +22,15 @@ header {
   z-index: 100; /* Higher z-index to appear above content */
 }
 
+.space{
+min-height: 20vh;
+padding: 9rem 9% 2rem;
+}
+
+h4{
+color:white;
+}
+
 .container {
       width: 400px;
       margin: 0 auto;
@@ -167,7 +176,6 @@ font-size: 1em;
 color: #fff;
 }
 
-
 .modal-content {
   width: 500px;
   background: transparent;
@@ -202,7 +210,8 @@ color: #fff;
 .modal-body .message-while input,
 .modal-body .procedure-name input,
 .modal-body .attribute-dropdown select,
-.modal-body .increment-decrement-dropdown select{
+.modal-body .increment-decrement-dropdown select,
+.form-exercises .exercises-name input{
 height: 10px;
 padding: 1.5rem;
 color: #fff;
@@ -212,7 +221,9 @@ border: .2rem solid #fff;
 }
 
 .modal-body .textarea-charge textarea,
-.modal-body .procedure-charge textarea{
+.modal-body .procedure-charge textarea,
+.form-exercises .exercises-letter textarea,
+.form-exercises .exercises-solution textarea{
 height: 200px;
 padding: 1.5rem;
 color: #fff;

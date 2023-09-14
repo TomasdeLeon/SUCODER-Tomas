@@ -20,5 +20,7 @@ public class EjercicioService {
         return ejercicioRepository.findAll();
     }
 
-    // Other methods if needed
+    public Ejercicio saveEjercicio(Ejercicio ejercicio) {
+        return ejercicioRepository.save(ejercicio);
+    }
 }

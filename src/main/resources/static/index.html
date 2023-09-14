@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>SUCODER - Java Code Generator</title>
+    <title>SUCODER - Generador de Código Java</title>
 
     <link rel="stylesheet" type="text/css" href="/css/menu.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -103,14 +103,14 @@
             <h3>Modo Libre</h3><br>
             <p>Explora y aprende a tu propio ritmo.</p>
             <p>En el Modo Libre, puedes generar procedimientos y códigos principales sin restricciones. Ideal para familiarizarte con la programación Java.</p><br>
-            <a href="crear.html" class="btn-box" style="width: 70%; font-size: 16px;">Comenzar en Modo Libre</a>
+            <a href="#" class="btn-box" onclick="iniciarModo('Libre')" style="width: 70%; font-size: 16px;">Comenzar en Modo Libre</a>
         </div>
         <div class="modes-box"><br>
             <i class="bx bx-dumbbell"></i><br>
             <h3>Modo Ejercicio</h3><br>
             <p>Acepta el desafío.</p>
             <p>En el Modo Ejercicio, completa tareas específicas para mejorar tus habilidades de programación Java. Ideal para poner a prueba tus conocimientos y habilidades.</p><br>
-            <a href="ejercicios.html" class="btn-box" style="width: 70%; font-size: 16px;">Comenzar en Modo Ejercicio</a>
+            <a href="#" class="btn-box" onclick="iniciarModo('Ejercicio')" style="width: 70%; font-size: 16px;">Comenzar en Modo Ejercicio</a>
         </div>
     </div>
     <div class="space"></div>
@@ -125,6 +125,17 @@
 </footer>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
+
+<script>
+        // JavaScript function to handle mode selection and redirection
+        function iniciarModo(modo) {
+            if (modo === 'Libre') {
+                window.location.href = 'crear.html?modo=Libre'; // Redirect to crear.html with mode=Libre parameter
+            } else if (modo === 'Ejercicio') {
+                window.location.href = 'ejercicios.html'; // Redirect to ejercicios.html
+            }
+        }
+</script>
 
 </body>
 </html>

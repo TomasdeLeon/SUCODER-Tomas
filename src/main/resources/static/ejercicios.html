@@ -2,22 +2,45 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>SUCODER - Generador de Código Java</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
 </head>
+
 <body>
-<h1>Lista de Ejercicios</h1>
-<table border="1">
-  <thead>
-  <tr>
-    <th>Ejercicio</th>
-    <th>Descripcion</th>
-    <th>Acciones</th>
-  </tr>
-  </thead>
+<header>
+  <a href="/index.html">
+    <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+  </a>
+  <nav class="navbar">
+    <h1 style="color: white;">Lista de Ejercicios</h1>
+  </nav>
+</header>
+
+<div class="space"></div>
+
+<div class="container">
+    <a href="/subirEjercicios.html" class="btn-box" style="background: lightgrey;">Subir Ejercicios</a>
+    <hr style="color: white;"><br>
+
+    <table border="1">
+      <thead>
+      <tr>
+        <th>Ejercicio</th>
+        <th>Descripcion</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+
   <tbody id="exercise-table-body">
   <!-- Table rows will be populated here -->
   </tbody>
 </table>
+</div>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
 
 <script>
     // Fetch data and populate the table
@@ -30,7 +53,7 @@
                 row.innerHTML = `
                     <td>${exercise.nombre}</td>
                     <td>${exercise.descripcion}</td>
-                    <td><a href="procedimiento.html/ejercicio/${exercise.id}">Iniciar</a></td>
+                    <td><a href="crear.html?modo=Ejercicio" class="btn-box" style="font-size: 16px;">Iniciar</a></td>
                 `;
                 tableBody.appendChild(row);
             });
