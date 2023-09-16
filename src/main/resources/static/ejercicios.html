@@ -5,7 +5,11 @@
   <title>SUCODER - Generador de Código Java</title>
 
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 </head>
 
@@ -22,8 +26,65 @@
 <div class="space"></div>
 
 <div class="container">
-    <a href="/subirEjercicios.html" class="btn-box" style="background: lightgrey;">Subir Ejercicios</a>
+    <a href="#" class="btn-box" style="background: lightgrey;" data-bs-toggle="modal" data-bs-target="#contraseniaModal">Subir Ejercicio</a>
     <hr style="color: white;"><br>
+
+
+  <!-- CONTRASENIA Modal -->
+  <div class="modal fade" id="contraseniaModal" tabindex="-1" role="dialog" aria-labelledby="contraseniaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contraseniaModalLabel" style="color: white;">Ingrese Contraseña</h5>
+          <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div><br>
+        <div class="modal-body">
+          <div class="contrasenia-docente">
+            <label for="contrasenia" style="color: white;">Contraseña:</label><br>
+            <input type="password" id="contrasenia" name="contrasenia" required>
+          </div>
+        </div><br>
+        <div class="modal-footer">
+          <button id="contraseniaModalIngresar" type="button" class="button" style="background: #fff;" >Ingresar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBIR EJERCICIO Modal -->
+  <div class="modal fade" id="subirEjercicioModal" tabindex="-1" role="dialog" aria-labelledby="subirEjercicioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subirEjercicioLabel" style="color: white;">Subir Ejercicio</h5>
+          <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div><br>
+        <div class="modal-body">
+          <div class="exercises-name">
+            <label for="exerciseName" style="color: white;">Nombre</label>
+            <input type="text" id="exerciseName" name="exerciseName" required>
+          </div><br>
+          <div class="exercises-letter">
+            <label for="exerciseDescription" style="color: white;">Descripción</label>
+            <textarea id="exerciseDescription" name="exerciseDescription" rows="4" cols="50" style="height: 30%;" required></textarea>
+          </div><br>
+          <div class="exercises-solution">
+            <label for="exerciseSolution" style="color: white;">Solución</label>
+            <textarea id="exerciseSolution" name="exerciseSolution" rows="4" cols="50" style="height: 30%;" required></textarea>
+          </div>
+        </div><br>
+        <div class="modal-footer">
+          <button id="subirEjercicioButton" type="button" class="button" >Subir Ejercicio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
     <table border="1">
       <thead>
@@ -40,7 +101,12 @@
 </table>
 </div>
 
+<div class="space"></div>
+
+
+
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
 
 <script>
     // Fetch data and populate the table
@@ -62,5 +128,108 @@
             console.error('Error fetching data:', error);
         });
 </script>
+
+
+
+<script>
+    // Function to check the password when the "Ingresar" button is clicked
+function checkPassword(claveData) {
+    fetch('/api/validateClave', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(claveData)
+    })
+    .then(response => {
+        if (response.ok) {
+            // Password is correct, trigger the modal using Bootstrap's data attributes
+            const subirEjercicioModal = new bootstrap.Modal(document.getElementById('subirEjercicioModal'));
+            subirEjercicioModal.show();
+        } else {
+            swal({
+                title: "Error",
+                text: "Contraseña Incorrecta!",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error checking password:', error);
+    });
+}
+
+// Event listener for the "Ingresar" button in the first modal
+document.getElementById('contraseniaModalIngresar').addEventListener('click', function() {
+    const clave = document.getElementById('contrasenia').value;
+
+    const claveData = {
+        password: clave
+    };
+
+    // Call the checkPassword function with the JSON data
+    checkPassword(claveData);
+});
+</script>
+
+
+<script>
+    // Function to handle button click
+    function submitExercise() {
+        // Get input values
+        const exerciseName = document.getElementById("exerciseName").value;
+        const exerciseDescription = document.getElementById("exerciseDescription").value;
+        const exerciseSolution = document.getElementById("exerciseSolution").value;
+
+        // Create an object to hold the data
+        const exerciseData = {
+            nombre: exerciseName,
+            descripcion: exerciseDescription,
+            solucion: exerciseSolution
+        };
+
+        // Send a POST request to the backend
+        fetch("/api/uploadEjercicios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(exerciseData)
+        })
+        .then(response => {
+            if (response.ok) {
+                // Handle success with SweetAlert
+            swal({
+                title: 'Éxito!',
+                text: 'Ejercicio guardado correctamente!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                // Reset the input fields
+                document.getElementById("exerciseName").value = "";
+                document.getElementById("exerciseDescription").value = "";
+                document.getElementById("exerciseSolution").value = "";
+                // Close the modal
+                const subirEjercicioModal = new bootstrap.Modal(document.getElementById('subirEjercicioModal'));
+                subirEjercicioModal.hide();
+                // Optionally, reload the page
+                window.location.reload();
+            });
+            } else {
+                // Handle errors, e.g., show an error message to the user
+                alert("Error al subir el ejercicio");
+            }
+        })
+        .catch(error => {
+            // Handle network errors
+            alert("Error de red: " + error.message);
+        });
+    }
+
+    document.getElementById("subirEjercicioButton").addEventListener("click", submitExercise);
+</script>
+
+
 </body>
 </html>

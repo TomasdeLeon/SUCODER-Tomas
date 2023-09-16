@@ -211,7 +211,8 @@ color: #fff;
 .modal-body .procedure-name input,
 .modal-body .attribute-dropdown select,
 .modal-body .increment-decrement-dropdown select,
-.form-exercises .exercises-name input{
+.modal-body .contrasenia-docente input,
+.modal-body .exercises-name input{
 height: 10px;
 padding: 1.5rem;
 color: #fff;
@@ -222,8 +223,8 @@ border: .2rem solid #fff;
 
 .modal-body .textarea-charge textarea,
 .modal-body .procedure-charge textarea,
-.form-exercises .exercises-letter textarea,
-.form-exercises .exercises-solution textarea{
+.modal-body .exercises-letter textarea,
+.modal-body .exercises-solution textarea{
 height: 200px;
 padding: 1.5rem;
 color: #fff;
