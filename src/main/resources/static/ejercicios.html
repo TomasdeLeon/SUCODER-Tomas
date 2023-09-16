@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" />
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -43,7 +44,12 @@
         <div class="modal-body">
           <div class="contrasenia-docente">
             <label for="contrasenia" style="color: white;">Contraseña:</label><br>
-            <input type="password" id="contrasenia" name="contrasenia" required>
+            <div class="password-input">
+              <input type="password" id="contrasenia" name="contrasenia" style="width:70%;" required>&nbsp;&nbsp;
+              <span id="togglePassword" style="color: white;" class="eye-icon" onclick="togglePasswordVisibility()">
+                  <i class="fas fa-eye"></i>
+              </span>
+            </div>
           </div>
         </div><br>
         <div class="modal-footer">
@@ -107,6 +113,25 @@
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/sweetalert.min.js"></script>
+
+<script>
+
+  function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("contrasenia");
+    const togglePassword = document.getElementById("togglePassword");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordInput.style.width = "70%";
+        togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+        passwordInput.type = "password";
+        togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+}
+
+</script>
+
 
 <script>
     // Fetch data and populate the table
