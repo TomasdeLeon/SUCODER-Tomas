@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>SUCODER - Generador de Código Java</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/menu.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+
+<header>
+  <a href="/index.html">
+    <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+  </a>
+  <nav class="navbar">
+    <p id="modoMensaje"></p>
+  </nav>
+</header>
+
+<div class="space"></div>
+
+<section id="buttons" class="buttons">
+  <div class="buttons-container">
+    <div class="buttons-box"><br>
+      <i class='bx bx-code-curly'></i><br>
+      <h3>Crear Procedimiento</h3><br>
+      <p>Haz clic en este botón para generar un nuevo procedimiento Java.</p><br>
+      <a href="#" class="btn-box" id="generarProcedimientoBtn">Generar Procedimiento</a>
+    </div>
+    <div class="buttons-box"><br>
+      <i class='bx bx-code' ></i><br>
+      <h3>Crear Código Principal</h3><br>
+      <p>Haz clic en este botón para generar el código principal Java.</p><br>
+      <a href="#" class="btn-box" id="generarCodigoBtn">Generar Código Principal</a>
+    </div>
+  </div>
+
+</section>
+
+<script>
+    // JavaScript to populate the mode message based on URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const modo = urlParams.get('modo');
+    if (modo) {
+        const modoMensaje = document.getElementById('modoMensaje');
+        if (modo === 'Ejercicio') {
+        modoMensaje.innerHTML = '<i class="bx bx-dumbbell"></i> Estás en Modo Ejercicio';
+    } else if (modo === 'Libre') {
+        modoMensaje.innerHTML = '<i class="bx bx-compass"></i> Estás en Modo Libre';
+    }
+    }
+</script>
+
+<script>
+  // JavaScript to dynamically set the link based on the current mode
+  const urlParams2 = new URLSearchParams(window.location.search);
+  const modo2 = urlParams2.get('modo');
+  const generarProcedimientoBtn = document.getElementById('generarProcedimientoBtn');
+
+  if (modo2 === 'Ejercicio') {
+    // If in "Modo Ejercicio," set the link to procedimiento.html?modo=Ejercicio
+    generarProcedimientoBtn.href = 'procedimiento.html?modo=Ejercicio';
+  } else if (modo2 === 'Libre') {
+    // If in "Modo Libre," set the link to procedimiento.html?modo=Libre
+    generarProcedimientoBtn.href = 'procedimiento.html?modo=Libre';
+  }
+</script>
+
+<script>
+  // JavaScript to dynamically set the link based on the current mode
+  const urlParams3 = new URLSearchParams(window.location.search);
+  const modo3 = urlParams3.get('modo');
+  const generarCodigoBtn = document.getElementById('generarCodigoBtn');
+
+  if (modo3 === 'Ejercicio') {
+    // If in "Modo Ejercicio," set the link to codigo.html?modo=Ejercicio
+    generarCodigoBtn.href = 'codigo.html?modo=Ejercicio';
+  } else if (modo3 === 'Libre') {
+    // If in "Modo Libre," set the link to codigo.html?modo=Libre
+    generarCodigoBtn.href = 'codigo.html?modo=Libre';
+  }
+</script>
+
+</body>
+</html>
