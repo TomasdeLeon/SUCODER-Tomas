@@ -144,7 +144,10 @@
                 row.innerHTML = `
                     <td>${exercise.nombre}</td>
                     <td>${exercise.descripcion}</td>
-                    <td><a href="crear.html?modo=Ejercicio" class="btn-box" style="font-size: 16px;">Iniciar</a></td>
+                    <td style="display: none;">${exercise.solucion}</td>
+                    <td>
+                        <a href="crear.html?modo=Ejercicio&exerciseName=${encodeURIComponent(exercise.nombre)}&exerciseDescription=${encodeURIComponent(exercise.descripcion)}" class="btn-box" style="font-size: 16px;">Iniciar</a>
+                    </td>
                 `;
                 tableBody.appendChild(row);
             });

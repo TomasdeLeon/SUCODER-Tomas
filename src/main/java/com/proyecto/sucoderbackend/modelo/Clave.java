@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "clave")
+@Table(name = "claves")
 public class Clave {
 
     @Id

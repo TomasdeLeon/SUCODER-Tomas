@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>SUCODER - Generador de Código Java</title>
 
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/menu.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -15,10 +16,32 @@
   <a href="/index.html">
     <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
   </a>
+  <div class="button-container">
+    <button id="verLetraButton" type="button" data-bs-toggle="modal" data-bs-target="#descripcionModal">Ver Letra</button>
+  </div>
   <nav class="navbar">
     <p id="modoMensaje"></p>
   </nav>
 </header>
+
+<!-- LETRA Modal -->
+<div class="modal fade" id="descripcionModal" tabindex="-1" role="dialog" aria-labelledby="descripcionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="descripcionModalLabel" style="color: white;">Letra</h5>
+        <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div><br>
+      <div class="modal-body">
+        <div>
+          <textarea id="descripcion"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="space"></div>
 
@@ -28,31 +51,81 @@
       <i class='bx bx-code-curly'></i><br>
       <h3>Crear Procedimiento</h3><br>
       <p>Haz clic en este botón para generar un nuevo procedimiento Java.</p><br>
-      <a href="/procedimiento.html" class="btn-box">Generar Procedimiento</a>
+      <a href="#" class="btn-box" id="generarProcedimientoBtn">Generar Procedimiento</a>
     </div>
     <div class="buttons-box"><br>
       <i class='bx bx-code' ></i><br>
       <h3>Crear Código Principal</h3><br>
       <p>Haz clic en este botón para generar el código principal Java.</p><br>
-      <a href="/codigo.html" class="btn-box">Generar Código Principal</a>
+      <a href="#" class="btn-box" id="generarCodigoBtn">Generar Código Principal</a>
     </div>
   </div>
 
 </section>
 
+<script src="js/bootstrap.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    // JavaScript to populate the mode message based on URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const modo = urlParams.get('modo');
-    if (modo) {
+    // Function to extract query parameters from URL
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Update the mode message and exercise description
+    const modo = getQueryParam('modo');
+    if (modo === 'Ejercicio') {
+        const exerciseName = getQueryParam('exerciseName');
+        const exerciseDescription = getQueryParam('exerciseDescription');
+
+        // Update the "modoMensaje" element to show the exercise description
         const modoMensaje = document.getElementById('modoMensaje');
-        if (modo === 'Ejercicio') {
-        modoMensaje.innerHTML = '<i class="bx bx-dumbbell"></i> Estás en Modo Ejercicio';
+        modoMensaje.innerHTML = `<i class="bx bx-dumbbell"></i> Estás en Modo Ejercicio`;
+
+        // Update the "descripcion" element with the exercise description
+        const descripcionElement = document.getElementById('descripcion');
+        descripcionElement.textContent = `${exerciseDescription}`;
+
+        // Show the "Ver Letra" button
+        const verLetraButton = document.getElementById('verLetraButton');
+        verLetraButton.style.display = 'block';
     } else if (modo === 'Libre') {
+        // Update the "modoMensaje" element for "Modo Libre"
+        const modoMensaje = document.getElementById('modoMensaje');
         modoMensaje.innerHTML = '<i class="bx bx-compass"></i> Estás en Modo Libre';
+
+        // Hide the "Ver Letra" button when in "Modo Libre"
+        const verLetraButton = document.getElementById('verLetraButton');
+        verLetraButton.style.display = 'none';
     }
+
+    // Modify the link to procedimiento.html
+    const urlParams = new URLSearchParams(window.location.search);
+    const exerciseName = urlParams.get('exerciseName');
+    const exerciseDescription = urlParams.get('exerciseDescription');
+    let procedimientoLink = '';
+
+    if (modo === 'Ejercicio') {
+        procedimientoLink = `procedimiento.html?modo=${modo}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    } else if (modo === 'Libre') {
+        procedimientoLink = `procedimiento.html?modo=${modo}`;
     }
+    const generarProcedimientoBtn = document.getElementById('generarProcedimientoBtn');
+    generarProcedimientoBtn.href = procedimientoLink;
+
+    // Modify the link to codigo.html
+    let codigoLink = '';
+    if (modo === 'Ejercicio') {
+        codigoLink = `codigo.html?modo=${modo}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    } else if (modo === 'Libre') {
+        codigoLink = `codigo.html?modo=${modo}`;
+    }
+    const generarCodigoBtn = document.getElementById('generarCodigoBtn');
+    generarCodigoBtn.href = codigoLink;
 </script>
+
 
 </body>
 </html>
