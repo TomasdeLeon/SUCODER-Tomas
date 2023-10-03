@@ -234,6 +234,11 @@ border-radius: .6rem;
 border: .2rem solid #fff;
 }
 
+.modal-body p,
+.modal-body pre{
+color: white;
+}
+
 .textarea_field textarea {
 height: 250px;
 padding: 1.5rem;

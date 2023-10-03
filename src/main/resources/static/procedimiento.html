@@ -81,6 +81,9 @@
                 </div><br>
                 <div class="modal-body">
                   <form>
+                    <div>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionVariablesModal">Información</button>
+                    </div><br>
                     <div class="input-name">
                       <label for="variableNombre" style="color: white;">Nombre:</label>
                       <input type="text" id="variableNombre" name="variableNombre" required>
@@ -114,6 +117,48 @@
             </div>
           </div>
 
+        <!-- Información VARIABLES Modal -->
+        <div class="modal fade" id="informacionVariablesModal" tabindex="-1" aria-labelledby="informacionModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="informacionModalLabel" style="color: white;">Variables en Java</h5>
+              </div>
+              <div class="modal-body">
+                <p>
+                  En Java, una <strong>variable</strong> es una ubicación con nombre que almacena datos. Las variables
+                  se utilizan para almacenar y manipular diferentes tipos de información.
+                </p>
+                <p>
+                  Aquí está cómo se declara e inicializa una variable en Java:
+                </p>
+                <pre><code>
+// Declarar una variable de tipo int
+int edad;
+
+// Inicializar la variable con un valor
+edad = 25;
+
+// También puedes declarar e inicializar en una sola línea
+int otraEdad = 30;
+                </code></pre>
+                <p>
+                  En Java, debes declarar el tipo de datos de la variable antes de usarla. Los tipos de datos comunes
+                  incluyen <code>int</code> para enteros, <code>double</code> para números de punto flotante y
+                  <code>String</code> para texto.
+                </p>
+                <p>
+                  Las variables son esenciales para almacenar y gestionar datos en programas Java, y desempeñan un
+                  papel crucial para hacer que tu código sea dinámico y adaptable.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#variablesModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
           <!-- SI Modal -->
           <div class="modal fade" id="siModal" tabindex="-1" role="dialog" aria-labelledby="siModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -125,6 +170,9 @@
                   </button>
                 </div><br>
                 <div class="modal-body">
+                  <div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionSiModal">Información</button>
+                  </div><br>
                   <div class="attribute1">
                     <label for="attribute1" style="color: white;">Variable 1</label>
                     <select id="attribute1" name="attribute1" style="height: 90px">
@@ -225,28 +273,50 @@
             </div>
           </div>
 
-          <!-- IMPRIMIR Modal -->
-          <div class="modal fade" id="imprimirModal" tabindex="-1" role="dialog" aria-labelledby="imprimirModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Imprimir Mensaje</h5>
-                  <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div><br>
-                <div class="modal-body">
-                  <div class="message">
-                    <label for="imprimirMensaje" style="color: white;">Mensaje:</label>
-                    <input type="text" id="imprimirMensaje" name="imprimirMensaje" required>
-                  </div>
-                </div><br>
-                <div class="modal-footer">
-                  <button id="guardarMensajeButton" type="button" class="button" style="background: #fff;" onclick="saveMessage()">Guardar Mensaje</button>
-                </div>
+        <!-- Información SI Modal -->
+        <div class="modal fade" id="informacionSiModal" tabindex="-1" role="dialog" aria-labelledby="informacionSiModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="informacionSiModalLabel" style="color: white;">Instrucción "if" en Java</h5>
+              </div><br>
+              <div class="modal-body">
+                <p>
+                  La instrucción "if" en Java es una estructura fundamental que permite tomar decisiones en función de una condición. Puedes realizar una acción específica solo cuando la condición es verdadera (true), y si la condición es falsa (false), puedes especificar una acción alternativa utilizando la estructura "if...else".
+                </p>
+                <p>
+                  Aquí tienes un ejemplo en seudocódigo que verifica la calificación de un estudiante y muestra "Aprobado" si la calificación es mayor o igual a 60, o "Reprobado" si es menor:
+                </p>
+                <pre><code>
+Si la calificación del estudiante es mayor o igual a 60
+  Imprimir “Aprobado”
+De lo contrario
+  Imprimir “Reprobado”
+        </code></pre>
+                <p>
+                  En Java, esto se puede implementar de la siguiente manera:
+                </p>
+                <pre><code>
+int calificacion = 65; // Debes definir previamente esta variable
+
+if (calificacion >= 60) {
+    // Acción a realizar si la calificación es mayor o igual a 60
+    System.out.println("Aprobado");
+} else {
+    // Acción a realizar si la calificación es menor a 60
+    System.out.println("Reprobado");
+}
+        </code></pre>
+                <p>
+                  La estructura "if" en Java te permite controlar el flujo de tu programa en función de condiciones específicas. Puedes personalizar las acciones a realizar en cada rama del "if...else" para adaptarlas a tus necesidades.
+                </p>
+              </div><br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#siModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
               </div>
             </div>
           </div>
+        </div>
 
           <!-- MIENTRAS Modal -->
           <div class="modal fade" id="mientrasModal" tabindex="-1" role="dialog" aria-labelledby="mientrasModalLabel" aria-hidden="true">
@@ -259,6 +329,9 @@
                   </button>
                 </div><br>
                 <div class="modal-body">
+                  <div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionMientrasModal">Información</button>
+                  </div><br>
                   <div class="attribute1-while">
                     <label for="attribute1While" style="color: white;">Variable 1</label>
                     <select id="attribute1While" name="attribute1While" style="height: 90px">
@@ -369,6 +442,104 @@
           </div>
         </div>
 
+        <!-- Información MIENTRAS Modal -->
+        <div class="modal fade" id="informacionMientrasModal" tabindex="-1" role="dialog" aria-labelledby="informacionMientrasModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="informacionMientrasModalLabel" style="color: white;">Instrucción "while" en Java</h5>
+              </div><br>
+              <div class="modal-body">
+                <p>
+                  Una instrucción de repetición, comúnmente conocida como instrucción de ciclo o ciclo, permite que un programa repita una acción mientras una cierta condición sea verdadera. En pseudocódigo, esto se puede describir como:
+                </p>
+                <pre><code>
+Mientras existan más artículos en mi lista de compras
+    Comprar el siguiente artículo y quitarlo de mi lista
+        </code></pre>
+                <p>
+                  Esto ilustra la repetición típica durante una salida de compras. La condición "existen más artículos en mi lista de compras" puede ser verdadera o falsa. Si es verdadera, se ejecuta la acción de "Comprar el siguiente artículo y quitarlo de mi lista". Esta acción se repite mientras la condición siga siendo verdadera. La instrucción "while" en Java se utiliza para implementar esta funcionalidad.
+                </p>
+                <p>
+                  En Java, la instrucción "while" se utiliza para repetir un bloque de código mientras una condición especificada sea verdadera. El bloque de código, que puede consistir en una o varias instrucciones, forma el cuerpo de esta estructura. En algún momento, la condición se vuelve falsa, por ejemplo, cuando todos los artículos de la lista de compras han sido adquiridos y eliminados. En ese punto, la repetición se detiene y se ejecuta la primera instrucción que sigue después de la instrucción "while".
+                </p>
+                <p>
+                  A modo de ejemplo en Java, consideremos un fragmento de código diseñado para encontrar la primera potencia de 3 que sea mayor que 100. Supongamos que tenemos una variable llamada "producto" de tipo int inicializada en 3. La siguiente instrucción "while" realiza la tarea:
+                </p>
+                <pre><code>
+int producto = 3;
+while (producto <= 100) {
+    producto = 3 * producto;
+}
+        </code></pre>
+                <p>
+                  Cuando esta instrucción "while" comienza a ejecutarse, el valor de "producto" es 3. En cada iteración, la instrucción "while" multiplica "producto" por 3, lo que resulta en valores sucesivos de 9, 27, 81 y 243. Cuando "producto" finalmente alcanza el valor de 243, la condición "producto <= 100" se vuelve falsa, y la repetición se detiene. El valor final de "producto" es 243.
+                </p>
+              </div><br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#mientrasModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMPRIMIR Modal -->
+        <div class="modal fade" id="imprimirModal" tabindex="-1" role="dialog" aria-labelledby="imprimirModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Imprimir Mensaje</h5>
+                <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div><br>
+              <div class="modal-body">
+                <div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionImprimirModal">Información</button>
+                </div><br>
+                <div class="message">
+                  <label for="imprimirMensaje" style="color: white;">Mensaje:</label>
+                  <input type="text" id="imprimirMensaje" name="imprimirMensaje" required>
+                </div>
+              </div><br>
+              <div class="modal-footer">
+                <button id="guardarMensajeButton" type="button" class="button" style="background: #fff;" onclick="saveMessage()">Guardar Mensaje</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información IMPRIMIR Modal -->
+        <div class="modal fade" id="informacionImprimirModal" tabindex="-1" role="dialog" aria-labelledby="informacionImprimirModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="informacionImprimirModalLabel" style="color: white;">"Imprimir Mensaje" en Java</h5>
+              </div><br>
+              <div class="modal-body">
+                <p>
+                  La funcionalidad "Imprimir Mensaje" te permite definir un mensaje que se mostrará como salida en tu programa. El mensaje se verá de la siguiente manera:
+                <pre><code>
+System.out.println('Hola, Mundo');
+                    </code></pre>
+                </p>
+                <p>
+                  Para usar esta función, simplemente ingresa el mensaje que deseas mostrar y luego haz clic en el botón "Guardar Mensaje". Por ejemplo:
+                <pre><code>
+Mensaje: Hola, Mundo
+                    </code></pre>
+                </p>
+                <p>
+                  Cuando ejecutes tu programa, el mensaje se imprimirá en pantalla.
+                </p>
+              </div><br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#imprimirModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
           <!-- COMENTAR Modal -->
           <div class="modal fade" id="comentarModal" tabindex="-1" role="dialog" aria-labelledby="comentarModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -380,6 +551,9 @@
                   </button>
                 </div><br>
                 <div class="modal-body">
+                  <div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionComentarModal">Información</button>
+                  </div><br>
                   <div class="comment">
                     <label for="mensajeComentado" style="color: white;">Mensaje:</label>
                     <input type="text" id="mensajeComentado" name="mensajeComentado" required>
@@ -391,6 +565,39 @@
               </div>
             </div>
           </div>
+
+        <!-- Información COMENTAR Modal -->
+        <div class="modal fade" id="informacionComentarModal" tabindex="-1" role="dialog" aria-labelledby="informacionComentarModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="informacionComentarModalLabel" style="color: white;">"Comentario" en Java</h5>
+              </div><br>
+              <div class="modal-body">
+                <p>
+                  Un comentario que comienza con // se llama comentario de fin de línea (o de una sola línea), ya que
+                  termina al final de la línea en la que aparece. Un comentario que se especifica con // puede empezar también en
+                  medio de una línea, y continuar solamente hasta el final de esa línea.
+                </p>
+                <pre><code>
+// Esto es un comentario
+                  </code></pre>
+                <p>
+                  Los comentarios tradicionales (también conocidos como comentarios de múltiples líneas), como el que
+                  se muestra a continuación se distribuyen en varias líneas. Este tipo de comentario comienza con el delimitador /* y termina con */.
+                </p>
+                <pre><code>
+/* Éste es un comentario
+Tradicional. Puede
+dividirse en muchas líneas */
+        </code></pre>
+              </div><br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#comentarModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
           <br>
         <div class="textarea_field">
           <textarea id="maintextarea" rows="10" cols="50" style="width: 750px;" readonly></textarea>
