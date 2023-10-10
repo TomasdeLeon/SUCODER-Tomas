@@ -87,7 +87,8 @@ font-weight: 700;
 }
 
 .navbar a,
-.navbar p{
+.navbar p,
+.navbar span{
 font-size: 1.15rem;
 color: #fff;
 text-decoration: none;

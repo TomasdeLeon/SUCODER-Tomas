@@ -65,6 +65,28 @@
     <div class="space"></div>
 </section>
 
+<div class="modal fade" id="sesionModal" tabindex="-1" role="dialog" aria-labelledby="sesionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Ingrese su Nombre</h5>
+                <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div><br>
+            <div class="modal-body">
+                <div class="sesion">
+                    <label for="sesionNombre" style="color: white;">Nombre:</label><br>
+                    <input type="text" id="sesionNombre" name="sesionNombre" required>
+                </div>
+            </div><br>
+            <div class="modal-footer">
+                <button id="aceptarSesion" type="button" class="button" style="background: #fff;">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Sección Ayuda -->
 <section id="ayuda" class="ayuda" style="background:linear-gradient(45deg, black, transparent);">
     <br><br><br><br>
@@ -128,14 +150,28 @@
 <script src="/js/bootstrap.bundle.min.js"></script>
 
 <script>
-        // JavaScript function to handle mode selection and redirection
-        function iniciarModo(modo) {
+// JavaScript function to handle mode selection and redirection
+function iniciarModo(modo) {
+
+    // Show the modal
+    var sesionModal = new bootstrap.Modal(document.getElementById('sesionModal'));
+    sesionModal.show();
+
+    // Handle the Accept button click
+        var acceptButton = document.getElementById('aceptarSesion');
+        acceptButton.onclick = function() {
+            const userName = document.getElementById("sesionNombre").value;
+            sesionModal.hide(); // Hide the modal after clicking "Aceptar"
+
             if (modo === 'Libre') {
-                window.location.href = 'crear.html?modo=Libre'; // Redirect to crear.html with mode=Libre parameter
+                // Redirect to crear.html with mode and user name as query parameters
+                window.location.href = `crear.html?modo=Libre&sesion=${userName}`;
             } else if (modo === 'Ejercicio') {
-                window.location.href = 'ejercicios.html'; // Redirect to ejercicios.html
+                // Redirect to ejercicios.html with mode and user name as query parameters
+                window.location.href = `ejercicios.html?modo=Ejercicio&sesion=${userName}`;
             }
-        }
+        };
+}
 </script>
 
 </body>

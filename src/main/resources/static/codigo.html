@@ -533,23 +533,51 @@ mostrarSolucionButton.addEventListener('click', mostrarSolucion);
 
 
 <script>
-    jQuery(document).ready(function () {
-        jQuery("#searchProcedimiento").click(function () {
-            var procedimientoName = jQuery("#procedimientoName").val();
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
 
-            jQuery.ajax({
-                url: "/api/fetchProcedure",
-                method: "GET",
-                data: { nombre_procedimiento: procedimientoName },
-                success: function (response) {
-                    jQuery("#procedimientoText").val(response.line_charger);
-                },
-                error: function () {
-                    console.log("Error fetching procedure.");
-                }
-            });
-        });
+document.getElementById("searchProcedimiento").addEventListener("click", function () {
+    const procedimientoName = document.getElementById("procedimientoName").value;
+
+    // Get the session name from the query parameter
+    const sessionName = getQueryParam('sesion');
+
+    // Create a request object with the procedure name and session name
+    const requestData = {
+        nombre_procedimiento: procedimientoName,
+        nombre_usuario: sessionName
+    };
+
+    // Check if the user is allowed to search for this procedure
+    fetch("/api/fetchProcedureByUser", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then((data) => {
+        // If the procedure is found, populate the textarea
+        if (data.line_charger) {
+            document.getElementById("procedimientoText").value = data.line_charger;
+        } else {
+            alert("Procedure not found for this user or access denied.");
+        }
+    })
+    .catch((error) => {
+        console.error("Error fetching procedure:", error);
+        alert("An error occurred while fetching the procedure.");
     });
+});
+
 </script>
 
 </body>

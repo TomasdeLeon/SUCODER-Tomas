@@ -16,10 +16,12 @@
     <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
   </a>
   <div class="letter-button">
-    <button id="verLetraButton" type="button" data-bs-toggle="modal" data-bs-target="#descripcionModal">Ver Letra</button>
+    <button id="verLetraButton" class="button" type="button" data-bs-toggle="modal" data-bs-target="#descripcionModal" style="width:150px;">Ver Letra</button>
+  </div>
+  <div class="navbar">
+    <span id="userName"></span>
   </div>
   <nav class="navbar">
-    <a href="index.html">Inicio</a>
     <a id="crearProcedimientoLink" href="#">Crear Procedimiento</a>
     <a href="codigo.html">Crear Código</a>
     <p id="modoMensaje"></p>
@@ -126,31 +128,23 @@
               </div>
               <div class="modal-body">
                 <p>
-                  En Java, una <strong>variable</strong> es una ubicación con nombre que almacena datos. Las variables
-                  se utilizan para almacenar y manipular diferentes tipos de información.
-                </p>
-                <p>
-                  Aquí está cómo se declara e inicializa una variable en Java:
+                  Una variable es una ubicación en la memoria de la computadora, en donde se puede guardar un valor para utilizarlo posteriormente en un programa.
+                  Todas las variables deben declararse con un nombre y un tipo antes de poder usarse; este nombre permite al programa acceder al valor de la variable en memoria; y puede ser cualquier identificador válido.
+                  El tipo de una variable especifica el tipo de información que se guarda en esa ubicación de memoria. Al igual que las demás instrucciones, las instrucciones de
+                  declaración terminan con punto y coma (;).
                 </p>
                 <pre><code>
-// Declarar una variable de tipo int
-int edad;
-
-// Inicializar la variable con un valor
-edad = 25;
-
-// También puedes declarar e inicializar en una sola línea
-int otraEdad = 30;
+int numero1;
+int numero2;
                 </code></pre>
                 <p>
-                  En Java, debes declarar el tipo de datos de la variable antes de usarla. Los tipos de datos comunes
-                  incluyen <code>int</code> para enteros, <code>double</code> para números de punto flotante y
-                  <code>String</code> para texto.
+                  Las instrucciones de declaración de variables declaran que las variables numero1 y numero2 contienen datos de tipo int; estas variables pueden contener
+                  valores enteros (números completos, como 7, –11, 0 y 31,914). Estas variables no se han inicializado todavía. El rango de valores para un int es de –2,147,483,648 a +2,147,483,647:
                 </p>
-                <p>
-                  Las variables son esenciales para almacenar y gestionar datos en programas Java, y desempeñan un
-                  papel crucial para hacer que tu código sea dinámico y adaptable.
-                </p>
+                <pre><code>
+int numero1 = 2;
+int numero2 = 4;
+                </code></pre>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-target="#variablesModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
@@ -503,7 +497,7 @@ while (producto <= 100) {
                 </div>
               </div><br>
               <div class="modal-footer">
-                <button id="guardarMensajeButton" type="button" class="button" style="background: #fff;" onclick="saveMessage()">Guardar Mensaje</button>
+                <button id="guardarMensajeButton" type="button" class="button" style="background: #fff;">Guardar Mensaje</button>
               </div>
             </div>
           </div>
@@ -721,34 +715,45 @@ let componentsOrder = []; // Store the order of selected components
 <script src="/js/modal/comentarioModal.js"></script>
 
 <script>
+  function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+  }
+
   document.getElementById("guardarProcedimiento").addEventListener("click", function () {
-    const procedureName = document.getElementById("procedureName").value;
-    const procedureContent = document.getElementById("maintextarea").value;
+    const nombreProcedimiento = document.getElementById("procedureName").value;
+    const lineasProcedimiento = document.getElementById("maintextarea").value;
+    const sessionName = getQueryParam('sesion'); // Get the session name
 
-    // Combine the procedure name and content into a single string
-    const data = `${procedureName}\n${procedureContent}`;
+    // Create an object with the correct field names
+    const procedureData = {
+        line: lineasProcedimiento, // Use "line" instead of "lineCharger" to match your entity
+        procedureName: nombreProcedimiento, // Use "procedureName" to match your entity
+        nombreUsuario: sessionName
+    };
 
+    // Send the data as JSON
     fetch("/api/procedimientos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: data, // Send the combined data as plain text
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json", // Set the content type to JSON
+        },
+        body: JSON.stringify(procedureData), // Convert the object to JSON format
     })
-      .then((response) => {
+    .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+            throw new Error("Network response was not ok");
         }
         return response.text();
-      })
-      .then((data) => {
+    })
+    .then((data) => {
         alert("Procedure saved successfully!");
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.error("Error saving procedure:", error);
         alert("An error occurred while saving the procedure.");
-      });
-  });
+    });
+});
 </script>
 
 </body>

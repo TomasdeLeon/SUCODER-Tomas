@@ -5,6 +5,8 @@ import com.proyecto.sucoderbackend.repositorio.ProcedimientoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProcedimientoServicio {
 
@@ -24,6 +26,12 @@ public class ProcedimientoServicio {
         if (procedimiento != null) {
             return procedimiento.getLine();
         }
-        return null; // Return null if the procedure is not found
+        return null;
     }
+
+    public Procedimiento obtenerProcedimientoPorNombreYUsuario(String nombreProcedimiento, String nombreUsuario) {
+        // Find the procedure by name and user
+        return procedimientoRepositorio.findByProcedureNameAndNombreUsuario(nombreProcedimiento, nombreUsuario);
+    }
+
 }

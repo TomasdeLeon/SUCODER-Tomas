@@ -23,4 +23,7 @@ public class Procedimiento {
 
     @Column(name = "nombre_procedimiento")
     private String procedureName;
+
+    @Column(name = "nombre_usuario")
+    private String nombreUsuario;
 }
