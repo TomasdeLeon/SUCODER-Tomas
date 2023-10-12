@@ -23,7 +23,7 @@ public class Ejercicio {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "solucion")
+    @Column(name = "solucion", length = 1000)
     private String solucion;
 
 }

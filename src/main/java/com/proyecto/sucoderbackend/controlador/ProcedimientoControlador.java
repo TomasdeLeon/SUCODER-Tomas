@@ -45,7 +45,7 @@ public class ProcedimientoControlador {
             if (procedimiento != null) {
                 return ResponseEntity.ok(Map.of("line_charger", procedimiento.getLine()));
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure not found for this user or access denied.");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -47,19 +47,56 @@
   </div>
 </div>
 
-<br><br><br><br><br><br>
+<div class="space"></div>
 
 <div class="container">
   <div class="box">
     <div>
       <form id="codeGeneratorForm">
-          <h2 align="center">Crear Procedimiento</h2>
         <br><br><br>
-
-          <h4>Nombre Procedimiento</h4>
+          <h2 align="center">Crear Procedimiento</h2>
+        <br><br>
+        <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionProcedimientoModal">¿Que es un Procedimiento?</button>
+        <br><br><br>
+        <h4>Nombre Procedimiento</h4>
           <div class="input-box">
             <input type="text" id="procedureName" name="procedureName" onkeyup="updateTextArea()" required autocomplete="off">
           </div><br><br>
+
+        <!-- Información SI Modal -->
+        <div class="modal fade" id="informacionProcedimientoModal" tabindex="-1" role="dialog" aria-labelledby="informacionProcedimientoModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+            <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+              <div class="modal-header">
+                <h5 class="modal-title" id="informacionProcedimientoModalLabel" style="color: white;">¿Que es un Procedimiento?</h5>
+              </div><br>
+              <div class="modal-body">
+                <p>
+                  Los métodos (también conocidos como funciones o procedimientos en otros lenguajes) permiten al programador dividir un programa en módulos, por medio de la separación de sus tareas en unidades autónomas.
+                </p>
+                <p>
+                  Los nombres de los métodos comienzan con una letra minúscula, y el resto de las palabras en el nombre empiezan
+                  con letra mayúscula. Los paréntesis después del nombre del método indican que éste es un método. Un conjunto
+                  vacío de paréntesis indica que este método no requiere información adicional para
+                  realizar su tarea. El cuerpo de cada método se delimita mediante una llave izquierda y una llave derecha ({ y })
+                </p>
+                <pre><code>
+public void mostrarMensaje()
+{
+  System.out.println( “Bienvenido al Libro de calificaciones!” );
+} // fin del método mostrarMensaje
+        </code></pre>
+                <p>
+                  El cuerpo de un método contiene una o varias instrucciones que realizan su trabajo. En este caso, el método
+                  contiene una instrucción que muestra el mensaje "Bienvenido al Libro de calificaciones!".
+                </p>
+              </div><br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="button-container">
           <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#variablesModal"><span class="text">VARIABLES</span></button>
@@ -77,15 +114,13 @@
               <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header" style="color: white;">
                   <h5 class="modal-title" id="variablesModalLabel">Variables</h5>
+                  <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionVariablesModal" style="width:50%;">Información</button>
                   <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div><br>
                 <div class="modal-body">
                   <form>
-                    <div>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionVariablesModal">Información</button>
-                    </div><br>
                     <div class="input-name">
                       <label for="variableNombre" style="color: white;">Nombre:</label>
                       <input type="text" id="variableNombre" name="variableNombre" required>
@@ -159,14 +194,12 @@ int numero2 = 4;
               <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
                   <h5 class="modal-title" id="siModalLabel" style="color: white;">SI</h5>
+                  <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionSiModal" style="width: 50%;">Información</button>
                   <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div><br>
                 <div class="modal-body">
-                  <div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionSiModal">Información</button>
-                  </div><br>
                   <div class="attribute1">
                     <label for="attribute1" style="color: white;">Variable 1</label>
                     <select id="attribute1" name="attribute1" style="height: 90px">
@@ -318,14 +351,12 @@ if (calificacion >= 60) {
               <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
                   <h5 class="modal-title" id="mientrasModalLabel" style="color: white;">MIENTRAS</h5>
+                  <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionMientrasModal" style="width:50%;">Información</button>
                   <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div><br>
                 <div class="modal-body">
-                  <div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionMientrasModal">Información</button>
-                  </div><br>
                   <div class="attribute1-while">
                     <label for="attribute1While" style="color: white;">Variable 1</label>
                     <select id="attribute1While" name="attribute1While" style="height: 90px">
@@ -445,16 +476,6 @@ if (calificacion >= 60) {
               </div><br>
               <div class="modal-body">
                 <p>
-                  Una instrucción de repetición, comúnmente conocida como instrucción de ciclo o ciclo, permite que un programa repita una acción mientras una cierta condición sea verdadera. En pseudocódigo, esto se puede describir como:
-                </p>
-                <pre><code>
-Mientras existan más artículos en mi lista de compras
-    Comprar el siguiente artículo y quitarlo de mi lista
-        </code></pre>
-                <p>
-                  Esto ilustra la repetición típica durante una salida de compras. La condición "existen más artículos en mi lista de compras" puede ser verdadera o falsa. Si es verdadera, se ejecuta la acción de "Comprar el siguiente artículo y quitarlo de mi lista". Esta acción se repite mientras la condición siga siendo verdadera. La instrucción "while" en Java se utiliza para implementar esta funcionalidad.
-                </p>
-                <p>
                   En Java, la instrucción "while" se utiliza para repetir un bloque de código mientras una condición especificada sea verdadera. El bloque de código, que puede consistir en una o varias instrucciones, forma el cuerpo de esta estructura. En algún momento, la condición se vuelve falsa, por ejemplo, cuando todos los artículos de la lista de compras han sido adquiridos y eliminados. En ese punto, la repetición se detiene y se ejecuta la primera instrucción que sigue después de la instrucción "while".
                 </p>
                 <p>
@@ -482,15 +503,13 @@ while (producto <= 100) {
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
               <div class="modal-header">
-                <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Imprimir Mensaje</h5>
+                <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Imprimir</h5>
+                <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionImprimirModal" style="width: 50%;">Información</button>
                 <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div><br>
               <div class="modal-body">
-                <div>
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionImprimirModal">Información</button>
-                </div><br>
                 <div class="message">
                   <label for="imprimirMensaje" style="color: white;">Mensaje:</label>
                   <input type="text" id="imprimirMensaje" name="imprimirMensaje" required>
@@ -512,19 +531,11 @@ while (producto <= 100) {
               </div><br>
               <div class="modal-body">
                 <p>
-                  La funcionalidad "Imprimir Mensaje" te permite definir un mensaje que se mostrará como salida en tu programa. El mensaje se verá de la siguiente manera:
+                  El método System.out.println muestra (o imprime) una línea de texto. Es decir, que imprima la cadena de caracteres contenida entre
+                  los caracteres de comillas dobles (sin incluirlas).
                 <pre><code>
-System.out.println('Hola, Mundo');
+System.out.println( "Bienvenido a la programacion en Java!" );
                     </code></pre>
-                </p>
-                <p>
-                  Para usar esta función, simplemente ingresa el mensaje que deseas mostrar y luego haz clic en el botón "Guardar Mensaje". Por ejemplo:
-                <pre><code>
-Mensaje: Hola, Mundo
-                    </code></pre>
-                </p>
-                <p>
-                  Cuando ejecutes tu programa, el mensaje se imprimirá en pantalla.
                 </p>
               </div><br>
               <div class="modal-footer">
@@ -540,14 +551,12 @@ Mensaje: Hola, Mundo
               <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                 <div class="modal-header">
                   <h5 class="modal-title" id="comentarModalLabel" style="color: white;">Comentario</h5>
+                  <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionComentarModal" style="width: 50%;">Información</button>
                   <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div><br>
                 <div class="modal-body">
-                  <div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#informacionComentarModal">Información</button>
-                  </div><br>
                   <div class="comment">
                     <label for="mensajeComentado" style="color: white;">Mensaje:</label>
                     <input type="text" id="mensajeComentado" name="mensajeComentado" required>
@@ -596,9 +605,9 @@ dividirse en muchas líneas */
         <div class="textarea_field">
           <textarea id="maintextarea" rows="10" cols="50" style="width: 750px;" readonly></textarea>
         </div>
-        <br><br>
+        <br><br><br>
           <button id="guardarProcedimiento" type="button" class="button-63">Guardar Procedimiento</button>
-
+        <br><br>
       </form>
     </div>
   </div>
@@ -608,59 +617,6 @@ dividirse en muchas líneas */
 <script src="js/bootstrap.min.js"></script>
 <script src="/js/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-  // Function to retrieve exercise description from URL
-  function getExerciseDescription() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('exerciseDescription');
-  }
-
-  // Get the exercise description
-  const exerciseDescription = getExerciseDescription();
-
-  // Set the exercise description in the textarea
-  const descripcionTextarea = document.getElementById('descripcion');
-  if (exerciseDescription) {
-    descripcionTextarea.value = exerciseDescription;
-  }
-
-  // Attach a click event handler to the "Ver Letra" button
-  const verLetraButton = document.getElementById('verLetraButton');
-  verLetraButton.addEventListener('click', function () {
-    // Show the modal
-    $('#descripcionModal').modal('show');
-  });
-
-  // JavaScript to populate the mode message based on URL parameter
-  const urlParams = new URLSearchParams(window.location.search);
-  const modo = urlParams.get('modo');
-  if (modo) {
-    const modoMensaje = document.getElementById('modoMensaje');
-    if (modo === 'Ejercicio') {
-      modoMensaje.innerHTML = '<i class="bx bx-dumbbell" style="font-size: 2.15rem;"></i>';
-    } else if (modo === 'Libre') {
-      modoMensaje.innerHTML = '<i class="bx bx-compass" style="font-size: 2.15rem;"></i>';
-    }
-  }
-
-  // Handle "Modo Ejercicio" link and button visibility
-  const exerciseName = urlParams.get('exerciseName');
-  const crearProcedimientoLink = document.getElementById('crearProcedimientoLink');
-
-  if (modo === 'Ejercicio') {
-    // If in "Modo Ejercicio," construct the link with exercise details
-    const encodedExerciseName = encodeURIComponent(exerciseName);
-    const encodedExerciseDescription = encodeURIComponent(exerciseDescription);
-    crearProcedimientoLink.href = `procedimiento.html?modo=Ejercicio&exerciseName=${encodedExerciseName}&exerciseDescription=${encodedExerciseDescription}`;
-  } else {
-    // If in "Modo Libre" or other modes, set a default link
-    crearProcedimientoLink.href = 'procedimiento.html';
-
-    // Hide the "Ver Letra" button with id 'verLetraButton'
-    verLetraButton.style.display = 'none';
-  }
-</script>
 
 
 <script>
@@ -755,6 +711,8 @@ let componentsOrder = []; // Store the order of selected components
     });
 });
 </script>
+
+<script src="/js/modoProcedimiento.js"></script>
 
 </body>
 </html>

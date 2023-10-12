@@ -148,19 +148,32 @@
 </footer>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
 
 <script>
-// JavaScript function to handle mode selection and redirection
-function iniciarModo(modo) {
+    // JavaScript function to handle mode selection and redirection
+    function iniciarModo(modo) {
 
-    // Show the modal
-    var sesionModal = new bootstrap.Modal(document.getElementById('sesionModal'));
-    sesionModal.show();
+        // Show the modal
+        var sesionModal = new bootstrap.Modal(document.getElementById('sesionModal'));
+        sesionModal.show();
 
-    // Handle the Accept button click
+        // Handle the Accept button click
         var acceptButton = document.getElementById('aceptarSesion');
         acceptButton.onclick = function() {
             const userName = document.getElementById("sesionNombre").value;
+
+            // Check if a name is entered
+            if (!userName) {
+                // Show a Swal (SweetAlert) error
+                swal({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor, ingrese su nombre',
+                });
+                return; // Exit the function if the name is not entered
+            }
+
             sesionModal.hide(); // Hide the modal after clicking "Aceptar"
 
             if (modo === 'Libre') {
@@ -171,8 +184,9 @@ function iniciarModo(modo) {
                 window.location.href = `ejercicios.html?modo=Ejercicio&sesion=${userName}`;
             }
         };
-}
+    }
 </script>
+
 
 </body>
 </html>

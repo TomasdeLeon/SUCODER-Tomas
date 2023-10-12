@@ -45,12 +45,13 @@
     </div>
 </div>
 
-<br><br><br><br><br><br>
+<div class="space"></div>
 
 <div class="container">
-    <div class="box" style="height: 800px;">
+    <div class="box">
         <div>
             <form id="codeGeneratorForm">
+                <br><br><br>
                 <h2 align="center">Crear Código Principal</h2>
                 <br><br><br>
 
@@ -385,7 +386,7 @@ public static void main(String[] args) {
   // Ingrese su código main
 }
                 </textarea>
-                </div><br>
+                </div><br><br><br>
                 <div id="solucionButtonDiv">
                     <button id="mostrarSolucionButton">Mostrar Solución</button>
                 </div>
@@ -398,66 +399,30 @@ public static void main(String[] args) {
 <script src="js/bootstrap.min.js"></script>
 <script src="/js/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/modoCodigo.js"></script>
 
 <script>
-  // Function to retrieve exercise description from URL
-  function getExerciseDescription() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('exerciseDescription');
-  }
 
-  // Get the exercise description
-  const exerciseDescription = getExerciseDescription();
-
-  // Set the exercise description in the textarea
-  const descripcionTextarea = document.getElementById('descripcion');
-  if (exerciseDescription) {
-    descripcionTextarea.value = exerciseDescription;
-  }
-
-  // Attach a click event handler to the "Ver Letra" button
-  const verLetraButton = document.getElementById('verLetraButton');
-  verLetraButton.addEventListener('click', function () {
-    // Show the modal
-    $('#descripcionModal').modal('show');
-  });
-
-  // JavaScript to populate the mode message based on URL parameter
-  const urlParams = new URLSearchParams(window.location.search);
-  const modo = urlParams.get('modo');
-  if (modo) {
-    const modoMensaje = document.getElementById('modoMensaje');
-    if (modo === 'Ejercicio') {
-      modoMensaje.innerHTML = '<i class="bx bx-dumbbell" style="font-size: 2.15rem;"></i>';
-    } else if (modo === 'Libre') {
-      modoMensaje.innerHTML = '<i class="bx bx-compass" style="font-size: 2.15rem;"></i>';
+  function updateTextArea() {
+        const procedureName = document.getElementById('procedureName').value;
+        const formattedProcedure = createJavaProcedure(procedureName);
+        document.getElementById('maintextarea').value = formattedProcedure;
     }
-  }
 
-  // Handle "Modo Ejercicio" link and button visibility
-  const exerciseName = urlParams.get('exerciseName');
-  const crearProcedimientoLink = document.getElementById('crearProcedimientoLink');
-  const solucionButtonDiv = document.getElementById('solucionButtonDiv');
+    function createJavaProcedure(procedureName) {
+        const template = `public void ${procedureName}() {\n}`;
+        return template;
+    }
 
-  if (modo === 'Ejercicio') {
-    // If in "Modo Ejercicio," construct the link with exercise details
-    const encodedExerciseName = encodeURIComponent(exerciseName);
-    const encodedExerciseDescription = encodeURIComponent(exerciseDescription);
-    crearProcedimientoLink.href = `procedimiento.html?modo=Ejercicio&exerciseName=${encodedExerciseName}&exerciseDescription=${encodedExerciseDescription}`;
-
-    // Show the "Mostrar Solución" button
-    solucionButtonDiv.style.display = 'block';
-  } else {
-    // If in "Modo Libre" or other modes, set a default link
-    crearProcedimientoLink.href = 'procedimiento.html';
-
-    // Hide the "Ver Letra" button with id 'verLetraButton'
-    verLetraButton.style.display = 'none';
-
-    // Hide the "Mostrar Solución" button
-    solucionButtonDiv.style.display = 'none';
-  }
 </script>
+
+<script src="/js/modal/variablesModal.js"></script>
+<script src="/js/modal/siModal.js"></script>
+<script src="/js/modal/mientrasModal.js"></script>
+<script src="/js/modal/imprimirModal.js"></script>
+<script src="/js/modal/comentarioModal.js"></script>
+<script src="/js/modal/procedimientoModal.js"></script>
+
 
 <script>
  // Function to retrieve and display the exercise solution
@@ -508,35 +473,11 @@ mostrarSolucionButton.addEventListener('click', mostrarSolucion);
 
 </script>
 
-
-<script>
-
-  function updateTextArea() {
-        const procedureName = document.getElementById('procedureName').value;
-        const formattedProcedure = createJavaProcedure(procedureName);
-        document.getElementById('maintextarea').value = formattedProcedure;
-    }
-
-    function createJavaProcedure(procedureName) {
-        const template = `public void ${procedureName}() {\n}`;
-        return template;
-    }
-
-</script>
-
-<script src="/js/modal/variablesModal.js"></script>
-<script src="/js/modal/siModal.js"></script>
-<script src="/js/modal/mientrasModal.js"></script>
-<script src="/js/modal/imprimirModal.js"></script>
-<script src="/js/modal/comentarioModal.js"></script>
-<script src="/js/modal/procedimientoModal.js"></script>
-
-
 <script>
     function getQueryParam(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
 
 document.getElementById("searchProcedimiento").addEventListener("click", function () {
     const procedimientoName = document.getElementById("procedimientoName").value;
@@ -559,17 +500,20 @@ document.getElementById("searchProcedimiento").addEventListener("click", functio
         body: JSON.stringify(requestData)
     })
     .then((response) => {
+        if (response.status === 403 || response.status === 404) {
+            return response.text();
+        }
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
         return response.json();
     })
     .then((data) => {
-        // If the procedure is found, populate the textarea
         if (data.line_charger) {
             document.getElementById("procedimientoText").value = data.line_charger;
         } else {
-            alert("Procedure not found for this user or access denied.");
+            // Display a SweetAlert warning
+            swal("Procedimiento '" + procedimientoName + "' no encontrado para este usuario.", "", "warning");
         }
     })
     .catch((error) => {
@@ -577,7 +521,6 @@ document.getElementById("searchProcedimiento").addEventListener("click", functio
         alert("An error occurred while fetching the procedure.");
     });
 });
-
 </script>
 
 </body>
