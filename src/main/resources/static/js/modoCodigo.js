@@ -1,3 +1,8 @@
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
 // Function to retrieve exercise description from URL
   function getExerciseDescription() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -23,38 +28,50 @@
   // JavaScript to populate the mode message based on URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const modo = urlParams.get('modo');
+
+  // Get the session name from the query parameter
+  const sessionName = getQueryParam('sesion');
+
   if (modo) {
     const modoMensaje = document.getElementById('modoMensaje');
     if (modo === 'Ejercicio') {
+      const userNameElement = document.getElementById('userName');
+      userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
+
       modoMensaje.innerHTML = '<i class="bx bx-dumbbell" style="font-size: 2.15rem;"></i>';
     } else if (modo === 'Libre') {
+      const userNameElement = document.getElementById('userName');
+      userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
+
       modoMensaje.innerHTML = '<i class="bx bx-compass" style="font-size: 2.15rem;"></i>';
     }
   }
 
-  // Handle "Modo Ejercicio" link and button visibility
+  // Modify the link to procedimiento.html and codigo.html based on mode
   const exerciseName = urlParams.get('exerciseName');
-  const crearProcedimientoLink = document.getElementById('crearProcedimientoLink');
+  let procedimientoLink = '';
+  let codigoLink = '';
   const solucionButtonDiv = document.getElementById('solucionButtonDiv');
 
   if (modo === 'Ejercicio') {
-    // If in "Modo Ejercicio," construct the link with exercise details
-    const encodedExerciseName = encodeURIComponent(exerciseName);
-    const encodedExerciseDescription = encodeURIComponent(exerciseDescription);
-    crearProcedimientoLink.href = `procedimiento.html?modo=Ejercicio&exerciseName=${encodedExerciseName}&exerciseDescription=${encodedExerciseDescription}`;
+    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
 
     // Show the "Mostrar Solución" button
     solucionButtonDiv.style.display = 'block';
 
     // Add a line break after the "Mostrar Solución" button
-    solucionButtonDiv.insertAdjacentHTML('afterend', '<br><br><br>');
+    solucionButtonDiv.insertAdjacentHTML('afterend', '<br><br>');
   } else {
-    // If in "Modo Libre" or other modes, set a default link
-    crearProcedimientoLink.href = 'procedimiento.html';
+    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}`;
+    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}`;
 
     // Hide the "Ver Letra" button with id 'verLetraButton'
     verLetraButton.style.display = 'none';
-
     // Hide the "Mostrar Solución" button
     solucionButtonDiv.style.display = 'none';
   }
+
+  // Set the href attributes of the dropdown buttons
+  document.getElementById('procedimientoLink').setAttribute('href', procedimientoLink);
+  document.getElementById('codigoLink').setAttribute('href', codigoLink);

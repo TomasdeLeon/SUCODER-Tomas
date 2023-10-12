@@ -16,13 +16,22 @@
         <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
     </a>
     <div class="button-container">
-        <button id="verLetraButton" type="button" data-bs-toggle="modal" data-bs-target="#descripcionModal">Ver Letra</button>
+        <button id="verLetraButton" class="button" type="button" data-bs-toggle="modal" data-bs-target="#descripcionModal" style="width:150px;">Ver Letra</button>
+    </div>
+    <div class="navbar">
+        <span id="userName"></span>
     </div>
     <nav class="navbar">
-        <a href="index.html">Inicio</a>
-        <a id="crearProcedimientoLink" href="#">Crear Procedimiento</a>
-        <a href="codigo.html">Crear Código Principal</a>
-        <p id="modoMensaje"></p>
+        <div class="dropdown">
+            <span class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                Crear
+            </span>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" id="procedimientoLink" href="#" style="margin-left: 0rem;">Procedimiento</a></li>
+                <li><a class="dropdown-item" id="codigoLink" href="#" style="margin-left: 0rem;">Código Principal</a></li>
+            </ul>
+        </div>
+        <span id="modoMensaje"></span>
     </nav>
 </header>
 
@@ -388,7 +397,7 @@ public static void main(String[] args) {
                 </textarea>
                 </div><br><br><br>
                 <div id="solucionButtonDiv">
-                    <button id="mostrarSolucionButton">Mostrar Solución</button>
+                    <button id="mostrarSolucionButton" type="button" class="button-63">Mostrar Solución</button>
                 </div>
             </form>
         </div>

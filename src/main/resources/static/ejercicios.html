@@ -210,30 +210,42 @@ document.getElementById('contraseniaModalIngresar').addEventListener('click', fu
 
 <script>
     // Function to handle button click
-    function submitExercise() {
-        // Get input values
-        const exerciseName = document.getElementById("exerciseName").value;
-        const exerciseDescription = document.getElementById("exerciseDescription").value;
-        const exerciseSolution = document.getElementById("exerciseSolution").value;
+function submitExercise() {
+    // Get input values
+    const exerciseName = document.getElementById("exerciseName").value;
+    const exerciseDescription = document.getElementById("exerciseDescription").value;
+    const exerciseSolution = document.getElementById("exerciseSolution").value;
 
-        // Create an object to hold the data
-        const exerciseData = {
-            nombre: exerciseName,
-            descripcion: exerciseDescription,
-            solucion: exerciseSolution
-        };
+    // Check if any of the input values are empty
+    if (!exerciseName || !exerciseDescription || !exerciseSolution) {
+        // Show a SweetAlert error message
+        swal({
+            title: 'Error!',
+            text: 'Debes completar todos los valores para subir el ejercicio.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
+        return; // Exit the function to prevent submitting the exercise
+    }
 
-        // Send a POST request to the backend
-        fetch("/api/uploadEjercicios", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(exerciseData)
-        })
-        .then(response => {
-            if (response.ok) {
-                // Handle success with SweetAlert
+    // Create an object to hold the data
+    const exerciseData = {
+        nombre: exerciseName,
+        descripcion: exerciseDescription,
+        solucion: exerciseSolution
+    };
+
+    // Send a POST request to the backend
+    fetch("/api/uploadEjercicios", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(exerciseData)
+    })
+    .then(response => {
+        if (response.ok) {
+            // Handle success with SweetAlert
             swal({
                 title: 'Éxito!',
                 text: 'Ejercicio guardado correctamente!',
@@ -250,18 +262,18 @@ document.getElementById('contraseniaModalIngresar').addEventListener('click', fu
                 // Optionally, reload the page
                 window.location.reload();
             });
-            } else {
-                // Handle errors, e.g., show an error message to the user
-                alert("Error al subir el ejercicio");
-            }
-        })
-        .catch(error => {
-            // Handle network errors
-            alert("Error de red: " + error.message);
-        });
-    }
+        } else {
+            // Handle errors, e.g., show an error message to the user
+            alert("Error al subir el ejercicio");
+        }
+    })
+    .catch(error => {
+        // Handle network errors
+        alert("Error de red: " + error.message);
+    });
+}
 
-    document.getElementById("subirEjercicioButton").addEventListener("click", submitExercise);
+document.getElementById("subirEjercicioButton").addEventListener("click", submitExercise);
 </script>
 
 

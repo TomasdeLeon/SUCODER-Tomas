@@ -22,9 +22,16 @@
     <span id="userName"></span>
   </div>
   <nav class="navbar">
-    <a id="crearProcedimientoLink" href="#">Crear Procedimiento</a>
-    <a href="codigo.html">Crear Código</a>
-    <p id="modoMensaje"></p>
+    <div class="dropdown">
+            <span class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                Crear
+            </span>
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+        <li><a class="dropdown-item" id="procedimientoLink" href="#" style="margin-left: 0rem;">Procedimiento</a></li>
+        <li><a class="dropdown-item" id="codigoLink" href="#" style="margin-left: 0rem;">Código Principal</a></li>
+      </ul>
+    </div>
+    <span id="modoMensaje"></span>
   </nav>
 </header>
 
@@ -669,13 +676,9 @@ let componentsOrder = []; // Store the order of selected components
 <script src="/js/modal/mientrasModal.js"></script>
 <script src="/js/modal/imprimirModal.js"></script>
 <script src="/js/modal/comentarioModal.js"></script>
+<script src="/js/modoProcedimiento.js"></script>
 
 <script>
-  function getQueryParam(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-  }
-
   document.getElementById("guardarProcedimiento").addEventListener("click", function () {
     const nombreProcedimiento = document.getElementById("procedureName").value;
     const lineasProcedimiento = document.getElementById("maintextarea").value;
@@ -711,8 +714,6 @@ let componentsOrder = []; // Store the order of selected components
     });
 });
 </script>
-
-<script src="/js/modoProcedimiento.js"></script>
 
 </body>
 </html>
