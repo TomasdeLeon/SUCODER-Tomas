@@ -37,12 +37,12 @@ if (modo) {
     const userNameElement = document.getElementById('userName');
     userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
 
-    modoMensaje.innerHTML = '<i class="bx bx-dumbbell" style="font-size: 2.15rem;"></i>';
+    modoMensaje.innerHTML = '<i class="bx bx-dumbbell"></i> Modo Ejercicio';
   } else if (modo === 'Libre') {
     const userNameElement = document.getElementById('userName');
     userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
 
-    modoMensaje.innerHTML = '<i class="bx bx-compass" style="font-size: 2.15rem;"></i>';
+    modoMensaje.innerHTML = '<i class="bx bx-compass"></i> Modo Libre';
   }
 }
 

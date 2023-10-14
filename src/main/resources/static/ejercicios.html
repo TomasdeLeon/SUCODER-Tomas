@@ -133,36 +133,49 @@
 </script>
 
 <script>
-// Function to extract query parameters from URL
-function getQueryParam(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
+    // Function to extract query parameters from URL
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
 
-// Fetch data and populate the table
-fetch('/api/ejercicios') // Replace with the correct URL for your controller
-    .then(response => response.json())
-    .then(data => {
-        const tableBody = document.getElementById('exercise-table-body');
-        const sessionName = getQueryParam('sesion'); // Get the sessionName from the URL
+    // Function to format the exercise description as a list without bullet points
+    function formatDescription(description) {
+        const lines = description.split('\n'); // Split the description into lines
+        if (lines.length === 1) {
+            return lines[0]; // If there's only one line, return it as is
+        } else {
+            // If there are multiple lines, format them as a list without bullet points
+            const listItems = lines.map(line => `<li>${line}</li>`).join('');
+            return `<ul style="list-style-type: none;">${listItems}</ul>`;
+        }
+    }
 
-        data.forEach(exercise => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${exercise.nombre}</td>
-                <td>${exercise.descripcion}</td>
-                <td style="display: none;">${exercise.solucion}</td>
-                <td>
-                    <a href="crear.html?modo=Ejercicio&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exercise.nombre)}&exerciseDescription=${encodeURIComponent(exercise.descripcion)}" class="btn-box" style="font-size: 16px;">Iniciar</a>
-                </td>
-            `;
-            tableBody.appendChild(row);
+    // Fetch data and populate the table
+    fetch('/api/ejercicios') // Replace with the correct URL for your controller
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('exercise-table-body');
+            const sessionName = getQueryParam('sesion'); // Get the sessionName from the URL
+
+            data.forEach(exercise => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${exercise.nombre}</td>
+                    <td>${formatDescription(exercise.descripcion)}</td>
+                    <td style="display: none;">${exercise.solucion}</td>
+                    <td>
+                        <a href="crear.html?modo=Ejercicio&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exercise.nombre)}&exerciseDescription=${encodeURIComponent(exercise.descripcion)}" class="btn-box" style="font-size: 16px;">Iniciar</a>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
         });
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
 </script>
+
 
 
 <script>

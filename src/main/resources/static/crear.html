@@ -20,16 +20,16 @@
     <button id="verLetraButton" type="button" class="button" data-bs-toggle="modal" data-bs-target="#descripcionModal" style="width: 150px;">Ver Letra</button>
   </div>
   <div class="navbar">
-    <span id="userName"></span>
+    <span id="modoMensaje" style="font-size: 1.50rem;"></span>
   </div>
   <nav class="navbar">
-    <p id="modoMensaje"></p>
+    <span id="userName" style="font-size: 1.50rem;"></span>
   </nav>
 </header>
 
 <!-- LETRA Modal -->
 <div class="modal fade" id="descripcionModal" tabindex="-1" role="dialog" aria-labelledby="descripcionModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
       <div class="modal-header">
         <h5 class="modal-title" id="descripcionModalLabel" style="color: white;">Letra</h5>
@@ -38,8 +38,8 @@
         </button>
       </div><br>
       <div class="modal-body">
-        <div>
-          <textarea id="descripcion"></textarea>
+        <div class="exercises-descripcion">
+          <textarea id="descripcion" readonly></textarea>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
 
         // Update the "modoMensaje" element to show the exercise description
         const modoMensaje = document.getElementById('modoMensaje');
-        modoMensaje.innerHTML = `<i class="bx bx-dumbbell"></i> Estás en Modo Ejercicio`;
+        modoMensaje.innerHTML = `<i class="bx bx-dumbbell"></i> Modo Ejercicio`;
 
         // Update the "descripcion" element with the exercise description
         const descripcionElement = document.getElementById('descripcion');
@@ -107,7 +107,7 @@
 
         // Update the "modoMensaje" element for "Modo Libre"
         const modoMensaje = document.getElementById('modoMensaje');
-        modoMensaje.innerHTML = '<i class="bx bx-compass"></i> Estás en Modo Libre';
+        modoMensaje.innerHTML = '<i class="bx bx-compass"></i> Modo Libre';
 
         // Hide the "Ver Letra" button when in "Modo Libre"
         const verLetraButton = document.getElementById('verLetraButton');

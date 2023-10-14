@@ -226,7 +226,8 @@ border: .2rem solid #fff;
 .modal-body .textarea-charge textarea,
 .modal-body .procedure-charge textarea,
 .modal-body .exercises-letter textarea,
-.modal-body .exercises-solution textarea{
+.modal-body .exercises-solution textarea,
+.modal-body .exercises-descripcion textarea{
 height: 200px;
 padding: 1.5rem;
 color: #fff;
