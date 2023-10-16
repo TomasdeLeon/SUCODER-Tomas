@@ -16,6 +16,13 @@ function createVariablesCode(variableDeclarations) {
     return variableCode;
 }
 
+// Function to clear the variables textarea
+function clearVariablesTextarea() {
+    document.getElementById('variablesCargados').value = '';
+    variableNames.length = 0; // Clear the variable names array
+    updateGuardarVariablesButton(); // Update the button state
+}
+
 // Function to get the line number where the cursor is
 function getLineNumber(textarea, cursorPosition) {
     const textBeforeCursor = textarea.value.substring(0, cursorPosition);
@@ -233,6 +240,7 @@ function refereeVariableNamesMientras() {
 
 // When the modal is opened, update the "Guardar Variables" button state
 document.getElementById('variablesModal').addEventListener('show.bs.modal', function () {
+    clearVariablesTextarea();
     updateGuardarVariablesButton();
 });
 
