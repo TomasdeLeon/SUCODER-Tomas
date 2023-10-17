@@ -464,7 +464,10 @@ while (producto <= 100) {
                                     El método System.out.println muestra (o imprime) una línea de texto. Es decir, que imprima la cadena de caracteres contenida entre
                                     los caracteres de comillas dobles (sin incluirlas).
                                 <pre><code>
-System.out.println( "Bienvenido a la programacion en Java!" );
+public void mostrarMensaje()
+ {
+    System.out.println( “Bienvenido al Libro de calificaciones!” );
+ }
                     </code></pre>
                                 </p>
                             </div><br>
@@ -534,10 +537,11 @@ dividirse en muchas líneas */
 
                 <!-- PROCEDIMIENTO Modal -->
                 <div class="modal fade" id="procedimientoModal" tabindex="-1" role="dialog" aria-labelledby="procedimientoModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="procedimientoModalLabel" style="color: white;">Procedimiento</h5>
+                                <button type="button" class="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#llamarProcedimientoModal" style="width: 50%;">Información</button>
                                 <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -559,6 +563,42 @@ dividirse en muchas líneas */
                         </div>
                     </div>
                 </div>
+
+                <!-- Información LLAMAR PROCEDIMIENTO Modal -->
+                <div class="modal fade" id="llamarProcedimientoModal" tabindex="-1" role="dialog" aria-labelledby="llamarProcedimientoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="llamarProcedimientoModalLabel" style="color: white;">"LLamar Procedimiento" en Java</h5>
+                            </div><br>
+                            <div class="modal-body">
+                                <p>
+                                    Esta llamada hace que el método realice su tarea. Cada una de estas llamadas al método proporcionaban
+                                    argumentos que especificaban los datos a mostrar.
+                                </p>
+                                <pre><code>
+ public static void main( String args[] )
+ {
+
+    // llama al método mostrarMensaje
+    mostrarMensaje();
+ } // fin de main
+                  </code></pre>
+                                <p>
+                                    El ejemplo anterior indica que el método mostrarMensaje tiene una lista de parámetros vacía; es decir, mostrarMensaje no requiere información adicional para realizar su tarea. Por esta razón, la llamada al método especifica
+                                    un conjunto vacío de paréntesis después del nombre del método, para indicar que no se van a pasar argumentos
+                                    al método mostrarMensaje.
+                                    Cuando el método mostrarMensaje completa su tarea, el método main continúa
+                                    su ejecución
+                                </p>
+                            </div><br>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-target="#procedimientoModal" data-bs-dismiss="modal" data-bs-toggle="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <br><br>
                 <div class="textarea_field">
                 <textarea id="maintextarea" rows="10" cols="50" readonly>
@@ -665,6 +705,8 @@ document.getElementById("searchProcedimiento").addEventListener("click", functio
     // Check if the procedimientoName is empty
     if (procedimientoName.trim() === '') {
         swal("Por favor, ingrese un nombre de procedimiento.", "", "error");
+        // Enable the "Insertar Procedimiento" button
+        document.getElementById('insertProcedimiento').disabled = true;
         return; // Stop further execution
     }
 
@@ -699,7 +741,9 @@ document.getElementById("searchProcedimiento").addEventListener("click", functio
             document.getElementById("procedimientoText").value = data.line_charger;
         } else {
             // Display a SweetAlert warning
-            swal("Procedimiento '" + procedimientoName + "' no encontrado para este usuario.", "", "warning");
+            swal("Procedimiento '" + procedimientoName + "' no existe para este usuario.", "", "warning");
+            // Enable the "Insertar Procedimiento" button
+            document.getElementById('insertProcedimiento').disabled = true;
         }
     })
     .catch((error) => {
