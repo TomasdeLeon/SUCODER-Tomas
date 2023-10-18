@@ -23,8 +23,19 @@ public class ProcedimientoControlador {
     }
 
     @PostMapping("/procedimientos")
-    public ResponseEntity<String> guardarProcedimiento(@RequestBody Procedimiento procedimiento) {
+    public ResponseEntity<?> guardarProcedimiento(@RequestBody Procedimiento procedimiento) {
         try {
+            String procedureName = procedimiento.getProcedureName();
+            String nombreUsuario = procedimiento.getNombreUsuario();
+
+            // Check if a procedure with the same name exists for the user
+            Procedimiento existingProcedure = procedimientoServicio.obtenerProcedimientoPorNombreYUsuario(procedureName, nombreUsuario);
+
+            if (existingProcedure != null) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("A procedure with this name already exists for the current user.");
+            }
+
+            // No procedure with this name exists, save the new procedure
             procedimientoServicio.guardarProcedimiento(procedimiento);
             return ResponseEntity.ok("Procedimiento saved successfully!");
         } catch (Exception e) {

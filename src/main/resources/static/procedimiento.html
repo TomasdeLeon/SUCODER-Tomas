@@ -690,63 +690,67 @@ function createJavaProcedure(name, selectedComponents) {
 
 <script>
     document.getElementById("guardarProcedimiento").addEventListener("click", function () {
-        const nombreProcedimiento = document.getElementById("procedureName").value;
-        const lineasProcedimiento = document.getElementById("maintextarea").value;
-        const sessionName = getQueryParam('sesion'); // Get the session name
+    const nombreProcedimiento = document.getElementById("procedureName").value;
+    const lineasProcedimiento = document.getElementById("maintextarea").value;
+    const sessionName = getQueryParam('sesion'); // Get the session name
 
-        // Check if the maintextarea is empty
-        if (lineasProcedimiento.trim() === "") {
-            swal({
-                title: 'Error',
-                text: 'Debe ingresar un valor para guardar el procedimiento.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            return; // Don't proceed if the textarea is empty
-        }
+    // Check if the maintextarea is empty
+    if (lineasProcedimiento.trim() === "") {
+        swal({
+            title: 'Error',
+            text: 'Debe ingresar un valor para guardar el procedimiento.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return; // Don't proceed if the textarea is empty
+    }
 
-        // Create an object with the correct field names
-        const procedureData = {
-            line: lineasProcedimiento, // Use "line" instead of "lineCharger" to match your entity
-            procedureName: nombreProcedimiento, // Use "procedureName" to match your entity
-            nombreUsuario: sessionName
-        };
+    // Create an object with the correct field names
+    const procedureData = {
+        line: lineasProcedimiento,
+        procedureName: nombreProcedimiento,
+        nombreUsuario: sessionName
+    };
 
-        // Send the data as JSON
-        fetch("/api/procedimientos", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json", // Set the content type to JSON
-            },
-            body: JSON.stringify(procedureData), // Convert the object to JSON format
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.text();
-        })
-        .then((data) => {
+    // Send the data as JSON
+    fetch("/api/procedimientos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(procedureData),
+    })
+    .then((response) => {
+        if (response.status === 200) {
             swal({
                 title: 'Éxito',
                 text: 'Procedimiento guardado correctamente',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                // If the user clicks "OK," you can perform additional actions here if needed
-                // For example, you could clear the input fields or close the modal
+                // Additional actions if needed
             });
-        })
-        .catch((error) => {
-            console.error("Error saving procedure:", error);
+        } else if (response.status === 409) {
             swal({
                 title: 'Error',
-                text: 'Ha ocurrido un error al guardar el procedimiento.',
+                text: 'A procedure with this name already exists for the current user.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+        } else {
+            throw new Error("Network response was not ok");
+        }
+    })
+    .catch((error) => {
+        console.error("Error saving procedure:", error);
+        swal({
+            title: 'Error',
+            text: 'Ha ocurrido un error al guardar el procedimiento.',
+            icon: 'error',
+            confirmButtonText: 'OK'
         });
     });
+});
 </script>
 
 </body>
