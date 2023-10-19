@@ -31,7 +31,12 @@
         <li><a class="dropdown-item" id="codigoLink" href="#" style="margin-left: 0rem;">Código Principal</a></li>
       </ul>
     </div>
-    <span id="userName"></span>
+    <div class="dropdown">
+      <span class="dropdown-toggle" type="button" id="userName" data-bs-toggle="dropdown" aria-expanded="false"></span>
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userName">
+        <a class="dropdown-item" href="#" id="logoutButton" style="margin-left: 0rem;">Salir</a>
+      </ul>
+    </div>
   </nav>
 </header>
 
@@ -67,7 +72,7 @@
         <br><br><br>
         <h4>Nombre Procedimiento</h4>
           <div class="input-box">
-            <input type="text" id="procedureName" name="procedureName" onkeyup="updateTextArea()" required autocomplete="off">
+            <input type="text" id="procedureName" name="procedureName" onkeyup="updateProcedureName()" required autocomplete="off">
           </div><br><br>
 
         <!-- Información PROCEDIMIENTO Modal -->
@@ -625,68 +630,14 @@ dividirse en muchas líneas */
 <script src="/js/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-<script>
-
-function isProcedureNameEmpty() {
-    const procedureName = document.getElementById('procedureName').value;
-    return procedureName.trim() === '';
-}
-
-function openModal(modalId) {
-    if (isProcedureNameEmpty()) {
-        // Display a SweetAlert warning when procedureName is empty
-        swal("El nombre del procedimiento no puede estar vacío.", "", "warning");
-    } else {
-        // Procedure name is not empty, open the specified modal
-        $(modalId).modal('show');
-    }
-}
-
-
-
-let procedureName = ''; // Store the procedure name
-let selectedComponents = {}; // Store the selected components and their code
-
-function updateTextArea() {
-    procedureName = document.getElementById('procedureName').value;
-    const formattedProcedure = createJavaProcedure(procedureName, selectedComponents);
-    document.getElementById('maintextarea').value = formattedProcedure;
-}
-
-function updateComponentCode(componentName, code) {
-    // Update the code for the specified component
-    selectedComponents[componentName] = code;
-    updateTextArea();
-}
-
-function createJavaProcedure(name, selectedComponents) {
-    let procedureCode = '';
-
-    if (name) {
-        procedureCode = `public void ${name}() {\n`;
-    }
-
-    for (const componentName in selectedComponents) {
-        // Append the code for each selected component
-        procedureCode += `// Code for ${componentName}\n`;
-        procedureCode += selectedComponents[componentName];
-    }
-
-    if (name) {
-        procedureCode += '}';
-    }
-
-    return procedureCode;
-}
-</script>
-
+<script src="/js/procedimiento.js"></script>
 <script src="/js/modal/variablesModal.js"></script>
 <script src="/js/modal/siModal.js"></script>
 <script src="/js/modal/mientrasModal.js"></script>
 <script src="/js/modal/imprimirModal.js"></script>
 <script src="/js/modal/comentarioModal.js"></script>
 <script src="/js/modoProcedimiento.js"></script>
+<script src="/js/salir.js"></script>
 
 <script>
     document.getElementById("guardarProcedimiento").addEventListener("click", function () {
@@ -703,6 +654,17 @@ function createJavaProcedure(name, selectedComponents) {
             confirmButtonText: 'OK'
         });
         return; // Don't proceed if the textarea is empty
+    }
+
+    // Check if the procedure name is valid
+    if (!isValidProcedureName(nombreProcedimiento)) {
+        swal({
+            title: 'El nombre del procedimiento no es válido.',
+            text: 'Debe empezar con letra minúscula y no contener espacios.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return; // Don't proceed if the procedure name is not valid
     }
 
     // Create an object with the correct field names

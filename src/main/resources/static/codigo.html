@@ -674,7 +674,7 @@ function mostrarSolucion() {
         const currentContent = mainTextarea.value;
 
         // Combine the current content and exercise solution
-        const newContent = `${currentContent}\n\n// Ejercicio Solution:\n\n${selectedExercise.solucion}`;
+        const newContent = `${currentContent}\n\n// Solución ${exerciseName}:\n\n${selectedExercise.solucion}`;
 
         // Set the updated content in the textarea
         mainTextarea.value = newContent;

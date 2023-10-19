@@ -77,22 +77,49 @@ function addVariableAtClickedLineOrInsertOfProcedure(variableDeclaration) {
 // Add an input event listener to the variablesCargados textarea to trigger the toggle function
 document.getElementById('variablesCargados').addEventListener('input', updateGuardarVariablesButton);
 
+// Define a list to store used variable names
+const usedVariableNames = [];
+// Regular expression for variable name validation
+const variableNamePattern = /^[a-z][a-zA-Z0-9]*$/;
+
 // Event listener for "Cargar Variables" button
 document.getElementById('cargarVariablesBtn').addEventListener('click', function () {
     const variableNombre = document.getElementById('variableNombre').value;
     const variableTipo = document.getElementById('variableTipo').value;
-    const variableValor = document.getElementById('variableValor').value;
+    let variableValor = document.getElementById('variableValor').value;
 
     // Check if all fields are filled
     if (!variableNombre || !variableTipo || !variableValor) {
         // Show warning message for incomplete inputs
         swal({
-            text: 'Por favor, complete todos los campos.',
+            title: 'Por favor, complete todos los campos.',
             icon: 'warning',
             confirmButtonText: 'OK'
         });
         return; // Exit the function without adding the variable
     }
+
+    // Check if the variable name is already in use
+    if (usedVariableNames.includes(variableNombre)) {
+        swal({
+            title: 'Nombre de Variable Repetido',
+            text: 'El nombre de la variable ya se encuentra en uso.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return; // Exit the function without adding the variable
+    }
+
+    // Check if the variable name matches the pattern
+        if (!variableNamePattern.test(variableNombre)) {
+            swal({
+                title: 'Nombre de Variable Inválido',
+                text: 'Debe empezar con letra minúscula y no contener espacios..',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return; // Exit the function without adding the variable
+        }
 
     // Regular expressions for validation based on variable type
     const intPattern = /^[+-]?\d+$/;
@@ -110,6 +137,7 @@ document.getElementById('cargarVariablesBtn').addEventListener('click', function
             break;
         case 'String':
             isValidValue = stringPattern.test(variableValor);
+            variableValor = `"${variableValor}"`;
             break;
         // Add more cases for other variable types if needed
         default:
@@ -127,19 +155,16 @@ document.getElementById('cargarVariablesBtn').addEventListener('click', function
         return; // Exit the function without adding the variable
     }
 
-    const variableName = document.getElementById('variableNombre').value;
-    const variableType = document.getElementById('variableTipo').value;
-    const variableValue = document.getElementById('variableValor').value;
-
-    // If the value format is correct, add the variable to the textarea
+    // If the value format is correct and the name is not in use, add the variable to the textarea
     const variableEntry = `${variableTipo} ${variableNombre} = ${variableValor};`;
     document.getElementById('variablesCargados').value += variableEntry + '\n';
+
+    // Add the variable name to the list of used variable names
+    usedVariableNames.push(variableNombre);
 
     // Clear the form fields after adding the variable
     document.getElementById('variableNombre').value = '';
     document.getElementById('variableValor').value = '';
-
-    variableNames.push(variableNombre);
 
     // Call the toggle function after adding the variable to update the "Guardar Variables" button
     updateGuardarVariablesButton();
