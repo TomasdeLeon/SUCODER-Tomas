@@ -92,34 +92,34 @@ document.getElementById('cargarVariablesBtn').addEventListener('click', function
     if (!variableNombre || !variableTipo || !variableValor) {
         // Show warning message for incomplete inputs
         swal({
-            title: 'Por favor, complete todos los campos.',
+            text: 'Por favor, complete todos los campos.',
             icon: 'warning',
             confirmButtonText: 'OK'
         });
         return; // Exit the function without adding the variable
     }
 
-    // Check if the variable name is already in use
-    if (usedVariableNames.includes(variableNombre)) {
-        swal({
-            title: 'Nombre de Variable Repetido',
-            text: 'El nombre de la variable ya se encuentra en uso.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-        return; // Exit the function without adding the variable
-    }
+   // Check if the variable name is already in use
+       if (usedVariableNames.includes(variableNombre)) {
+           swal({
+               title: 'Nombre de Variable Repetido',
+               text: 'El nombre de la variable ya se encuentra en uso.',
+               icon: 'error',
+               confirmButtonText: 'OK'
+           });
+           return; // Exit the function without adding the variable
+       }
 
-    // Check if the variable name matches the pattern
-        if (!variableNamePattern.test(variableNombre)) {
-            swal({
-                title: 'Nombre de Variable Inválido',
-                text: 'Debe empezar con letra minúscula y no contener espacios..',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            return; // Exit the function without adding the variable
-        }
+        // Check if the variable name matches the pattern
+            if (!variableNamePattern.test(variableNombre)) {
+                swal({
+                    title: 'Nombre de Variable Inválido',
+                    text: 'Debe empezar con letra minúscula y no contener espacios.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return; // Exit the function without adding the variable
+            }
 
     // Regular expressions for validation based on variable type
     const intPattern = /^[+-]?\d+$/;
@@ -155,7 +155,11 @@ document.getElementById('cargarVariablesBtn').addEventListener('click', function
         return; // Exit the function without adding the variable
     }
 
-    // If the value format is correct and the name is not in use, add the variable to the textarea
+    const variableName = document.getElementById('variableNombre').value;
+    const variableType = document.getElementById('variableTipo').value;
+    const variableValue = document.getElementById('variableValor').value;
+
+    // If the value format is correct, add the variable to the textarea
     const variableEntry = `${variableTipo} ${variableNombre} = ${variableValor};`;
     document.getElementById('variablesCargados').value += variableEntry + '\n';
 
@@ -165,6 +169,8 @@ document.getElementById('cargarVariablesBtn').addEventListener('click', function
     // Clear the form fields after adding the variable
     document.getElementById('variableNombre').value = '';
     document.getElementById('variableValor').value = '';
+
+    variableNames.push(variableNombre);
 
     // Call the toggle function after adding the variable to update the "Guardar Variables" button
     updateGuardarVariablesButton();

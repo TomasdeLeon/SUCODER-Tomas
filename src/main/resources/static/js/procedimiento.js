@@ -54,7 +54,7 @@ function createJavaProcedure(name, components) {
     let procedureCode = '';
 
     if (name) {
-        procedureCode = `public class ${name}() {\n`;
+        procedureCode = `public void ${name}() {\n`;
     }
 
     for (const component of components) {
