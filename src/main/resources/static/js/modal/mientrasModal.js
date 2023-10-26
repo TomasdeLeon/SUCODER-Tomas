@@ -1,10 +1,10 @@
-// Function to enable or disable the "Siguiente" button based on the selected values of "Variable 1" and "Variable 2" in the MIENTRAS modal
+// Función para habilitar o deshabilitar el botón "Siguiente" basada en los valores seleccionados de "Variable 1" y "Variable 2" en el modal "MIENTRAS"
 function toggleSiguienteWhile() {
   const attribute1ValueWhile = document.getElementById("attribute1While").value;
   const attribute2ValueWhile = document.getElementById("attribute2While").value;
   const siguienteButtonWhile = document.getElementById("siguienteButton");
 
-  // For the "MIENTRAS" modal
+  // Para el modal "MIENTRAS"
   if (attribute1ValueWhile !== "-" && attribute2ValueWhile !== "-") {
     siguienteButtonWhile.disabled = false;
   } else {
@@ -12,12 +12,12 @@ function toggleSiguienteWhile() {
   }
 }
 
-// Call the function when the modal is shown (e.g., after clicking the "MIENTRAS" button)
+// Llamar a la función cuando se muestra el modal (por ejemplo, después de hacer clic en el botón "MIENTRAS")
 document.getElementById("mientrasModal").addEventListener("shown.bs.modal", function () {
   toggleSiguienteWhile();
 });
 
-// Add event listeners to the dropdowns in the "MIENTRAS" modal to trigger the toggleSiguienteWhile function
+// Agregar event listeners a los desplegables en el modal "MIENTRAS" para activar la función toggleSiguienteWhile
 document.getElementById("attribute1While").addEventListener("change", function () {
   toggleSiguienteWhile();
 });
@@ -26,13 +26,13 @@ document.getElementById("attribute2While").addEventListener("change", function (
   toggleSiguienteWhile();
 });
 
-// Function to dynamically populate the attribute dropdown in "Definir Incremento o Decremento" modal
+// Función para poblar dinámicamente el desplegable de atributos en el modal "Definir Incremento o Decremento"
 document.getElementById("modalIncrementDecrement").addEventListener("show.bs.modal", function () {
-  // Get the available attributes from the "MIENTRAS" modal
+  // Obtener los atributos disponibles del modal "MIENTRAS"
   const attribute1ValueWhile = document.getElementById("attribute1While").value;
   const attribute2ValueWhile = document.getElementById("attribute2While").value;
 
-  // Populate the attribute dropdown in the "Definir Incremento o Decremento" modal
+  // Poblar el desplegable de atributos en el modal "Definir Incremento o Decremento"
   const attributeDropdown = document.getElementById("attributeDropdown");
   attributeDropdown.innerHTML = `
     <option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>
@@ -40,47 +40,47 @@ document.getElementById("modalIncrementDecrement").addEventListener("show.bs.mod
     <option value="${attribute2ValueWhile}" style="background-color: rgba(0, 0, 0, 0.8);">${attribute2ValueWhile}</option>
   `;
 
-  // Disable the "Aceptar" button initially when the modal is shown
+  // Deshabilitar el botón "Aceptar" inicialmente cuando se muestra el modal
   const aceptarButton = document.getElementById("aceptarButton");
   aceptarButton.disabled = true;
 });
 
-// Add an event listener to the attribute dropdown
+// Agregar un event listener al desplegable de atributos
 document.getElementById("attributeDropdown").addEventListener("change", function () {
-  // Get the selected value
-  const selectedValue = this.value; // Use "this" to refer to the attributeDropdown
+  // Obtener el valor seleccionado
+  const selectedValue = this.value; // Usar "this" para referirse al desplegable de atributos
 
-  // Get the "Aceptar" button by its id
+  // Obtener el botón "Aceptar" por su id
   const aceptarButton = document.getElementById("aceptarButton");
 
-  // Check if the selected value is '-'
+  // Comprobar si el valor seleccionado es '-'
   if (selectedValue === '-') {
-    // Disable the "Aceptar" button
+    // Deshabilitar el botón "Aceptar"
     aceptarButton.disabled = true;
   } else {
-    // Enable the "Aceptar" button
+    // Habilitar el botón "Aceptar"
     aceptarButton.disabled = false;
   }
 });
 
-// Add an event listener to the "Siguiente" button in the "MIENTRAS" modal
+// Agregar un event listener al botón "Siguiente" en el modal "MIENTRAS"
 document.getElementById("siguienteButton").addEventListener("click", function () {
-  // Get the values of "Variable 1" and "Variable 2" selected in the "MIENTRAS" modal
+  // Obtener los valores de "Variable 1" y "Variable 2" seleccionados en el modal "MIENTRAS"
   const attribute1ValueWhile = document.getElementById("attribute1While").value;
   const attribute2ValueWhile = document.getElementById("attribute2While").value;
   const comparisonOperation2Value = document.getElementById("comparisonOperation2").value;
 
-  // Rest of your code for handling the "Siguiente" button click...
+  // Resto de tu código para manejar el clic en el botón "Siguiente"...
 });
 
-// Function to create code for the MIENTRAS component
+// Función para crear código para el componente MIENTRAS
 function createMientrasCode(attribute1While, attribute2While, comparisonOperation2, messageWhileValue, selectedAttribute, incrementDecrementValue) {
 
-  // Construct the code for the MIENTRAS component
+  // Construir el código para el componente MIENTRAS
   let mientrasCode = `while (${attribute1While} ${comparisonOperation2} ${attribute2While}) {\n`;
-  mientrasCode += `  System.out.println("${messageWhileValue}");\n`; // Code to execute while the condition is true
+  mientrasCode += `  System.out.println("${messageWhileValue}");\n`; // Código a ejecutar mientras la condición sea verdadera
 
-  // Check if an Increment or Decrement is selected for the selected attribute
+  // Comprobar si se seleccionó un Incremento o Decremento para el atributo seleccionado
   if (incrementDecrementValue === '++') {
     mientrasCode += `  ${selectedAttribute}++;\n`;
   } else if (incrementDecrementValue === '--') {
@@ -92,47 +92,47 @@ function createMientrasCode(attribute1While, attribute2While, comparisonOperatio
   return mientrasCode;
 }
 
-// Function to handle the "Guardar Condición 'MIENTRAS'" button click
+// Función para manejar el clic en el botón "Guardar Condición 'MIENTRAS'"
 function saveWhileCondition() {
-  // Get the values selected in the MIENTRAS modal
+  // Obtener los valores seleccionados en el modal "MIENTRAS"
   const attribute1WhileValue = document.getElementById('attribute1While').value;
   const attribute2WhileValue = document.getElementById('attribute2While').value;
   const comparisonOperation2Value = document.getElementById('comparisonOperation2').value;
 
-  // Get the message from the "Imprimir Mensaje" modal
+  // Obtener el mensaje del modal "Imprimir Mensaje"
   const messageWhileValue = document.getElementById('messageWhile').value;
 
-  // Get the selected value from the Increment/Decrement dropdown
+  // Obtener el valor seleccionado del desplegable Incremento/Decremento
   const attributeDropdownValue = document.getElementById('attributeDropdown').value;
 
-  // Check if message is not empty
+  // Comprobar si el mensaje no está vacío
   if (messageWhileValue.trim() === "") {
-    // Show a warning message using SweetAlert
+    // Mostrar un mensaje de advertencia usando SweetAlert
     swal({
       title: "Error",
       text: "Por favor ingrese un mensaje.",
       icon: "error",
       confirmButtonText: "OK",
     });
-    return; // Exit the function without generating the while structure
+    return; // Salir de la función sin generar la estructura MIENTRAS
   }
 
-  // Check if Increment/Decrement option is not selected (assuming '-' is the default value)
+  // Comprobar si no se ha seleccionado la opción de Incremento/Decremento (asumiendo que '-' es el valor predeterminado)
   if (attributeDropdownValue === '-') {
-    // Show a warning message using SweetAlert for the Increment/Decrement
+    // Mostrar un mensaje de advertencia usando SweetAlert para el Incremento/Decremento
     swal({
       title: "Error",
       text: "Por favor seleccione un Incremento o Decremento.",
       icon: "error",
       confirmButtonText: "OK",
     });
-    return; // Exit the function without generating the while structure
+    return; // Salir de la función sin generar la estructura MIENTRAS
   }
 
-  // Get the selected Increment/Decrement value from the corresponding dropdown
+  // Obtener el valor de Incremento/Decremento seleccionado del desplegable correspondiente
   const incrementDecrementValue = document.getElementById('incrementDecrementDropdown').value;
 
-  // Construct the while loop structure based on the user inputs using createMientrasCode()
+  // Construir la estructura del bucle MIENTRAS basada en las entradas del usuario usando createMientrasCode()
   const whileStructureCode = createMientrasCode(
     attribute1WhileValue,
     attribute2WhileValue,
@@ -142,40 +142,39 @@ function saveWhileCondition() {
     incrementDecrementValue
   );
 
-  // Get the existing procedure name and variables from the variablesModal
+  // Obtener el nombre del procedimiento existente y las variables del variablesModal
   const variablesGuardados = document.getElementById('variablesCargados').value;
 
-  // Get the existing content of the maintextarea
+  // Obtener el contenido existente del maintextarea
   const maintextarea = document.getElementById('maintextarea');
 
-  // Find the position of the last closing curly brace in the existing content
-  const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
+  // Encontrar la posición de la última llave de cierre en el contenido existente
+  const ultimoIndiceLlaveCierre = maintextarea.value.lastIndexOf('}');
 
-  // Insert the generated while structure code either at the clicked line or after the last closing curly brace
-  const updatedContent = insertCodeAtLocation(maintextarea.value, whileStructureCode, clickedLineNumber, lastClosingBraceIndex);
+  // Insertar el código de la estructura MIENTRAS generada ya sea en la línea clicada o después de la última llave de cierre
+  const updatedContent = insertarCodigoEnUbicacion(maintextarea.value, whileStructureCode, numeroLineaClickeado, ultimoIndiceLlaveCierre);
 
-  // After generating code, format the maintextarea
-  formatCodeInTextarea();
+  // Después de generar código, formatear el maintextarea
+  formatearCodigoEnTextarea();
 
-  // Update the maintextarea with the complete procedure
+  // Actualizar el maintextarea con el procedimiento completo
   maintextarea.value = updatedContent;
 
-  // Close the "condicionWhileModal" (optional)
+  // Cerrar el modal "condicionWhileModal"
   const modal = document.getElementById('condicionWhileModal');
   const bsModal = bootstrap.Modal.getInstance(modal);
   bsModal.hide();
 
-  // Show a success message using SweetAlert
+  // Mostrar un mensaje de éxito usando SweetAlert
   swal({
-    title: 'Condición MIENTRAS guardada correctamente!',
+    title: '¡Condición MIENTRAS guardada correctamente!',
     icon: 'success',
     confirmButtonText: 'OK',
   });
 }
 
-
-// Add an event listener to the "Guardar Condicion MIENTRAS" button
+// Agregar un event listener al botón "Guardar Condicion MIENTRAS"
 document.getElementById('guardarCondicionWhile').addEventListener('click', function () {
-  saveWhileCondition(); // Call the function to save the while condition
+  saveWhileCondition(); // Llamar a la función para guardar la condición MIENTRAS
 });
 

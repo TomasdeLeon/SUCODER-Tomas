@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>SUCODER - Generador de Código Java</title>
@@ -14,7 +14,7 @@
 
 <header>
   <a href="/index.html">
-    <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+    <img src="images/SUCODER2.png" alt="Logotipo de SUCODER" style="height: 105px;">
   </a>
   <div class="button-container">
     <button id="verLetraButton" type="button" class="button" data-bs-toggle="modal" data-bs-target="#descripcionModal" style="width: 150px;">Ver Letra</button>
@@ -24,15 +24,15 @@
   </div>
   <nav class="navbar">
     <div class="dropdown">
-      <span type="button" id="userName" data-bs-toggle="dropdown" aria-expanded="false"></span>
-      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userName">
-        <a class="dropdown-item" href="#" id="logoutButton" style="margin-left: 0rem;">Salir</a>
+      <span type="button" id="nombreUsuario" data-bs-toggle="dropdown" aria-expanded="false"></span>
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nombreUsuario">
+        <a class="dropdown-item" href="#" id="btnCerrarSesion" style="margin-left: 0rem;">Salir</a>
       </ul>
     </div>
   </nav>
 </header>
 
-<!-- LETRA Modal -->
+<!-- Modal de la Letra -->
 <div class="modal fade" id="descripcionModal" tabindex="-1" role="dialog" aria-labelledby="descripcionModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">

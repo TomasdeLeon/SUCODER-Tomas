@@ -6,14 +6,14 @@
 
     // Update the mode message and exercise description
     const modo = getQueryParam('modo');
-    const sessionName = getQueryParam('sesion'); // Get the session name from the URL
+    const nombreSesion = getQueryParam('sesion'); // Get the session name from the URL
 
     if (modo === 'Ejercicio') {
         const exerciseName = getQueryParam('exerciseName');
         const exerciseDescription = getQueryParam('exerciseDescription');
 
-        const userNameElement = document.getElementById('userName');
-        userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
+        const userNameElement = document.getElementById('nombreUsuario');
+        userNameElement.innerHTML = nombreSesion ? `<i class='bx bxs-user'></i> ${nombreSesion}` : 'Usuario Desconocido';
 
         // Update the "modoMensaje" element to show the exercise description
         const modoMensaje = document.getElementById('modoMensaje');
@@ -28,8 +28,8 @@
         verLetraButton.style.display = 'block';
     } else if (modo === 'Libre') {
 
-        const userNameElement = document.getElementById('userName');
-        userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
+        const userNameElement = document.getElementById('nombreUsuario');
+        userNameElement.innerHTML = nombreSesion ? `<i class='bx bxs-user'></i> ${nombreSesion}` : 'Usuario Desconocido';
 
         // Update the "modoMensaje" element for "Modo Libre"
         const modoMensaje = document.getElementById('modoMensaje');
@@ -48,11 +48,11 @@ let procedimientoLink = '';
 let codigoLink = '';
 
 if (modo === 'Ejercicio') {
-    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
-    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
 } else if (modo === 'Libre') {
-    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}`;
-    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}`;
+    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}`;
+    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}`;
 }
 
 const generarProcedimientoBtn = document.getElementById('generarProcedimientoBtn');

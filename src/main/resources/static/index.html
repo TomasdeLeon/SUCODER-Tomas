@@ -13,7 +13,7 @@
 
 <header>
     <a href="#">
-        <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+        <img src="images/SUCODER2.png" alt="Logo de SUCODER" style="height: 105px;">
     </a>
     <nav class="navbar">
         <a href="#home">Inicio</a>
@@ -30,9 +30,9 @@
             <p class="lead" style="color: white;">Tu Compañero para Comprender y Crear Código Java</p>
             <a href="#modes" class="btn-box" style="margin: 30px 0; margin-left: 115px;">Comenzar</a>
         </div>
-        <div class="home-img">
-            <img src="images/SUCODER2.png" alt="">
-        </div>
+        <div "home-img">
+        <img src="images/SUCODER2.png" alt="">
+    </div>
     </div>
 </section>
 
@@ -69,7 +69,7 @@
         <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
             <div class="modal-header">
                 <h5 class="modal-title" id="imprimirModalLabel" style="color: white;">Ingrese su Nombre</h5>
-                <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Cerrar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div><br>
@@ -91,7 +91,7 @@
     <br><br><br><br>
     <div class="heading">
         <h2>Ayuda</h2>
-        <!-- Manual de Usuario button -->
+        <!-- Botón de Manual de Usuario -->
         <a href="/files/ManualdeUsuarioSUCODER.pdf" download class="btn-pdf">
             <i class="fas fa-file-pdf"></i> Manual de Usuario
         </a>
@@ -150,41 +150,40 @@
 <script src="/js/sweetalert.min.js"></script>
 
 <script>
-    // JavaScript function to handle mode selection and redirection
+    // Función de JavaScript para manejar la selección de modo y redirección
     function iniciarModo(modo) {
 
-        // Show the modal
+        // Mostrar el modal
         var sesionModal = new bootstrap.Modal(document.getElementById('sesionModal'));
         sesionModal.show();
 
-        // Handle the Accept button click
+        // Manejar el clic del botón Aceptar
         var acceptButton = document.getElementById('aceptarSesion');
         acceptButton.onclick = function() {
             const userName = document.getElementById("sesionNombre").value;
 
-            // Check if a name is entered
+            // Comprobar si se ha ingresado un nombre
             if (!userName) {
-                // Show a Swal (SweetAlert) error
+                // Mostrar un error de Swal (SweetAlert)
                 swal({
                     icon: 'warning',
                     title: 'Por favor, ingrese su nombre',
                 });
-                return; // Exit the function if the name is not entered
+                return; // Salir de la función si no se ha ingresado el nombre
             }
 
-            sesionModal.hide(); // Hide the modal after clicking "Aceptar"
+            sesionModal.hide(); // Ocultar el modal después de hacer clic en "Aceptar"
 
             if (modo === 'Libre') {
-                // Redirect to crear.html with mode and user name as query parameters
+                // Redirigir a crear.html con modo y nombre de usuario como parámetros de consulta
                 window.location.href = `crear.html?modo=Libre&sesion=${userName}`;
             } else if (modo === 'Ejercicio') {
-                // Redirect to ejercicios.html with mode and user name as query parameters
+                // Redirigir a ejercicios.html con modo y nombre de usuario como parámetros de consulta
                 window.location.href = `ejercicios.html?modo=Ejercicio&sesion=${userName}`;
             }
         };
     }
 </script>
-
 
 </body>
 </html>

@@ -1,17 +1,18 @@
-// Function to create code for the COMENTARIO component
-function createComentarioCode(commentMessage) {
-  // Construct the code for the COMENTARIO component
-  const comentarioCode = `// ${commentMessage}`;
-  return comentarioCode;
+// Función para crear código para el componente COMENTARIO
+function crearCodigoComentario(mensajeComentario) {
+
+  // Construir el código para el componente COMENTARIO
+  const codigoComentario = `// ${mensajeComentario}`;
+  return codigoComentario;
 }
 
-// Function to handle the "Guardar Comentario" button click
-function saveComment() {
-  let commentMessage = document.getElementById('mensajeComentado').value;
+// Función para manejar el botón "Guardar Comentario"
+function guardarComentario() {
+  let mensajeComentario = document.getElementById('mensajeComentado').value;
 
-  // Check if the comment is not empty
-  if (commentMessage.trim() === "") {
-    // Show a warning message using SweetAlert
+  // Comprobar si el comentario no está vacío
+  if (mensajeComentario.trim() === "") {
+    // Mostrar un mensaje de advertencia usando SweetAlert
     swal({
       title: "Error",
       text: "Por favor ingrese un comentario.",
@@ -21,27 +22,27 @@ function saveComment() {
     return;
   }
 
-  // Create the COMENTARIO code using the comment message
-  const comentarioCode = createComentarioCode(commentMessage);
+  // Crear el código COMENTARIO utilizando el mensaje
+  const codigoComentario = crearCodigoComentario(mensajeComentario);
 
-  // Get the existing content of the maintextarea
+  // Obtener el contenido existente del maintextarea
   const maintextarea = document.getElementById('maintextarea');
-  const existingContent = maintextarea.value;
+  const contenidoExistente = maintextarea.value;
 
-  // Find the position of the last closing curly brace in the existing content
-  const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
+  // Encontrar la posición de la última llave de cierre en el contenido existente
+  const ultimoIndiceLlaveCierre = maintextarea.value.lastIndexOf('}');
 
-  // Insert the generated comentario code using the generalized function
-  const updatedContent = insertCodeAtLocation(existingContent, comentarioCode, clickedLineNumber, lastClosingBraceIndex);
+  // Insertar el código de comentario generado usando la función generalizada
+  const contenidoActualizado = insertarCodigoEnUbicacion(contenidoExistente, codigoComentario, numeroLineaClickeado, ultimoIndiceLlaveCierre);
 
-  // Update the maintextarea with the new content
-  maintextarea.value = updatedContent;
+  // Actualizar el maintextarea con el nuevo contenido
+  maintextarea.value = contenidoActualizado;
 
   const modal = document.getElementById('comentarModal');
   const bsModal = bootstrap.Modal.getInstance(modal);
   bsModal.hide();
 
-  // Show a success message using SweetAlert
+  // Mostrar un mensaje de éxito usando SweetAlert
   swal({
     title: 'Mensaje guardado correctamente!',
     icon: 'success',
@@ -49,7 +50,7 @@ function saveComment() {
   });
 }
 
-// Add an event listener to the "Guardar Comentario" button
+// Agregar un event listener al botón "Guardar Comentario"
 document.getElementById('guardarComentarioBtn').addEventListener('click', function () {
-  saveComment(); // Call the function to save the comment
+  guardarComentario(); // Llamar a la función para guardar el comentario
 });

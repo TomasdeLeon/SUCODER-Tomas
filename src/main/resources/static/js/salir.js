@@ -1,11 +1,11 @@
-document.getElementById('logoutButton').addEventListener('click', function () {
-    // Clear the username display
-    document.getElementById('userName').textContent = '';
-    // Clear the stored session name
-    localStorage.removeItem('sessionName');
-    // Remove URL parameters
+document.getElementById('btnCerrarSesion').addEventListener('click', function () {
+    // Limpiar la visualización del nombre de usuario
+    document.getElementById('nombreUsuario').textContent = '';
+    // Eliminar el nombre de sesión almacenado
+    localStorage.removeItem('nombreSesion');
+    // Eliminar los parámetros de la URL
     history.replaceState({}, document.title, window.location.pathname);
-    // Redirect to index.html
+    // Redirigir a index.html
     window.location.href = 'index.html';
 });
 

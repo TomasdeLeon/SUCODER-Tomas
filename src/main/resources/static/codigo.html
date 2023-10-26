@@ -32,9 +32,9 @@
             </ul>
         </div>
         <div class="dropdown">
-            <span type="button" id="userName" data-bs-toggle="dropdown" aria-expanded="false"></span>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userName">
-                <a class="dropdown-item" href="#" id="logoutButton" style="margin-left: 0rem;">Salir</a>
+            <span type="button" id="nombreUsuario" data-bs-toggle="dropdown" aria-expanded="false"></span>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nombreUsuario">
+                <a class="dropdown-item" href="#" id="btnCerrarSesion" style="margin-left: 0rem;">Salir</a>
             </ul>
         </div>
     </nav>
@@ -590,17 +590,17 @@ dividirse en muchas líneas */
                             </div><br>
                             <div class="modal-body">
                                 <div class="procedure-name">
-                                    <input type="text" id="procedimientoName" placeholder="Ingrese nombre procedimiento" autocomplete="off" required>
+                                    <input type="text" id="nombreProcedimiento" placeholder="Ingrese nombre procedimiento" autocomplete="off" required>
                                 </div><br>
                                 <div class="form-group">
-                                    <button id="searchProcedimiento" class="button-63">Buscar</button>
+                                    <button id="buscarProcedimiento" class="button-63">Buscar</button>
                                 </div><br>
                                 <div class="procedure-charge">
-                                    <textarea id="procedimientoText" rows="6" cols="50" readonly></textarea>
+                                    <textarea id="textoProcedimiento" rows="6" cols="50" readonly></textarea>
                                 </div>
                             </div><br>
                             <div class="modal-footer">
-                                <button id="insertProcedimiento" class="button" disabled>Insertar Procedimiento</button>
+                                <button id="insertarProcedimiento" class="button" disabled>Insertar Procedimiento</button>
                             </div>
                         </div>
                     </div>
@@ -715,63 +715,63 @@ mostrarSolucionButton.addEventListener('click', mostrarSolucion);
 </script>
 
 <script>
-    function getQueryParam(name) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
-}
-
-document.getElementById("searchProcedimiento").addEventListener("click", function () {
-    const procedimientoName = document.getElementById("procedimientoName").value;
-
-    // Check if the procedimientoName is empty
-    if (procedimientoName.trim() === '') {
-        swal("Por favor, ingrese un nombre de procedimiento.", "", "error");
-        // Enable the "Insertar Procedimiento" button
-        document.getElementById('insertProcedimiento').disabled = true;
-        return; // Stop further execution
+    function obtenerQueryParam(nombre) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(nombre);
     }
 
-    // Get the session name from the query parameter
-    const sessionName = getQueryParam('sesion');
+    document.getElementById("buscarProcedimiento").addEventListener("click", function () {
+        const nombreProcedimiento = document.getElementById("nombreProcedimiento").value;
 
-    // Create a request object with the procedure name and session name
-    const requestData = {
-        nombre_procedimiento: procedimientoName,
-        nombre_usuario: sessionName
-    };
+        // Comprueba si el nombre del procedimiento está vacío
+        if (nombreProcedimiento.trim() === '') {
+            swal("Por favor, ingrese un nombre de procedimiento.", "", "error");
+            // Habilita el botón "Insertar Procedimiento"
+            document.getElementById('insertarProcedimiento').disabled = true;
+            return; // Detén la ejecución adicional
+        }
 
-    // Check if the user is allowed to search for this procedure
-    fetch("/api/fetchProcedureByUser", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestData)
-    })
-    .then((response) => {
-        if (response.status === 403 || response.status === 404) {
-            return response.text();
-        }
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json();
-    })
-    .then((data) => {
-        if (data.line_charger) {
-            document.getElementById("procedimientoText").value = data.line_charger;
-        } else {
-            // Display a SweetAlert warning
-            swal("Procedimiento '" + procedimientoName + "' no existe para este usuario.", "", "warning");
-            // Enable the "Insertar Procedimiento" button
-            document.getElementById('insertProcedimiento').disabled = true;
-        }
-    })
-    .catch((error) => {
-        console.error("Error fetching procedure:", error);
-        alert("An error occurred while fetching the procedure.");
+        // Obtiene el nombre de sesión del parámetro de consulta
+        const nombreSesion = obtenerQueryParam('sesion');
+
+        // Crea un objeto de solicitud con el nombre del procedimiento y el nombre de la sesión
+        const datosSolicitud = {
+            nombre_procedimiento: nombreProcedimiento,
+            nombre_usuario: nombreSesion
+        };
+
+        // Comprueba si el usuario tiene permiso para buscar este procedimiento
+        fetch("/api/obtenerProcedimientoPorUsuario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datosSolicitud)
+        })
+        .then((respuesta) => {
+            if (respuesta.status === 403 || respuesta.status === 404) {
+                return respuesta.text();
+            }
+            if (!respuesta.ok) {
+                throw new Error("La respuesta de la red no fue exitosa");
+            }
+            return respuesta.json();
+        })
+        .then((datos) => {
+            if (datos.linea_cargadora) {
+                document.getElementById("textoProcedimiento").value = datos.linea_cargadora;
+            } else {
+                // Muestra una advertencia SweetAlert
+                swal("El procedimiento '" + nombreProcedimiento + "' no existe para este usuario.", "", "warning");
+                // Habilita el botón "Insertar Procedimiento"
+                document.getElementById('insertarProcedimiento').disabled = true;
+            }
+        })
+        .catch((error) => {
+            console.error("Error al obtener el procedimiento:", error);
+            alert("Se produjo un error al obtener el procedimiento.");
+        });
     });
-});
 </script>
 
 </body>

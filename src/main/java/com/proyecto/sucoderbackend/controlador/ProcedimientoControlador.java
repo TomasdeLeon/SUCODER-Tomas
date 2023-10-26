@@ -44,24 +44,25 @@ public class ProcedimientoControlador {
         }
     }
 
-    @RequestMapping("/fetchProcedureByUser")
-    public ResponseEntity<?> fetchProcedureByUser(@RequestBody Map<String, String> requestData, Principal principal) {
+    @RequestMapping("/obtenerProcedimientoPorUsuario")
+    public ResponseEntity<?> obtenerProcedimientoPorUsuario(@RequestBody Map<String, String> datosSolicitud, Principal principal) {
         try {
-            String nombreProcedimiento = requestData.get("nombre_procedimiento");
-            String nombreUsuario = requestData.get("nombre_usuario");
+            String nombreProcedimiento = datosSolicitud.get("nombre_procedimiento");
+            String nombreUsuario = datosSolicitud.get("nombre_usuario");
 
-            // Check if the procedure exists for the given user
+            // Comprobar si el procedimiento existe para el usuario proporcionado
             Procedimiento procedimiento = procedimientoServicio.obtenerProcedimientoPorNombreYUsuario(nombreProcedimiento, nombreUsuario);
 
             if (procedimiento != null) {
-                return ResponseEntity.ok(Map.of("line_charger", procedimiento.getLine()));
+                return ResponseEntity.ok(Map.of("linea_cargadora", procedimiento.getLine()));
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedure not found for this user or access denied.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Procedimiento no encontrado para este usuario o acceso denegado.");
             }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
 }

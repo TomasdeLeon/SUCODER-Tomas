@@ -1,85 +1,86 @@
-// Function to create the PROCEDIMIENTO code
-function createProcedimientoCode(procedureName) {
-  const procedureCallCode = `${procedureName}();`;
-  return procedureCallCode;
+// Función para crear el código PROCEDIMIENTO
+function crearCodigoProcedimiento(nombreProcedimiento) {
+  const codigoProcedimiento = `${nombreProcedimiento}();`;
+  return codigoProcedimiento;
 }
 
-// Function to populate procedimientoText
-function populateProcedimientoText() {
-  const procedimientoName = document.getElementById('procedimientoName').value;
+// Función para poblar procedimientoText
+function poblarTextoProcedimiento() {
+  const nombreProcedimiento = document.getElementById('nombreProcedimiento').value;
 
-  // Replace this logic with your own to fetch the procedure for the user.
-  // For this example, we'll use an empty string.
-  const fetchedProcedimientoText = ''; // Fetch the procedure content
+  // Reemplace esta lógica con la suya para obtener el procedimiento del usuario.
+  // Para este ejemplo, usaremos una cadena vacía.
+  const textoProcedimientoObtenido = ''; // Obtenga el contenido del procedimiento
 
-  const procedimientoText = document.getElementById('procedimientoText');
-  procedimientoText.value = fetchedProcedimientoText;
+  const textoProcedimiento = document.getElementById('textoProcedimiento');
+  textoProcedimiento.value = textoProcedimientoObtenido;
 
-  // After populating procedimientoText, check if it's empty and hide/show the button
-  const insertButton = document.getElementById('insertProcedimiento');
-  if (procedimientoText.value.trim() === '') {
-    insertButton.disabled = false; // Hide the button
+  // Después de poblar textoProcedimiento, verifique si está vacío y muestre/oculte el botón
+  const botonInsertar = document.getElementById('insertarProcedimiento');
+  if (textoProcedimiento.value.trim() === '') {
+    botonInsertar.disabled = false; // Ocultar el botón
   } else {
-    insertButton.disabled = true; // Show the button
+    botonInsertar.disabled = true; // Mostrar el botón
   }
 }
 
-// Add an event listener to the "searchProcedimiento" button
-document.getElementById('searchProcedimiento').addEventListener('click', function () {
-  populateProcedimientoText();
+// Agregar un event listener al botón "Buscar Procedimiento"
+document.getElementById('buscarProcedimiento').addEventListener('click', function () {
+  poblarTextoProcedimiento();
 });
 
-// Function to generate the procedure code and insert it
-function generateProcedureCode() {
-  const procedimientoName = document.getElementById('procedimientoName').value;
-  const procedureCallCode = createProcedimientoCode(procedimientoName);
+// Función para generar el código del procedimiento e insertarlo
+function generarCodigoProcedimiento() {
+  const nombreProcedimiento = document.getElementById('nombreProcedimiento').value;
+  const llamadaProcedimiento = crearCodigoProcedimiento(nombreProcedimiento);
   const maintextarea = document.getElementById('maintextarea');
-  const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
-  const updatedContent = insertCodeAtLocation(maintextarea.value, procedureCallCode, clickedLineNumber, lastClosingBraceIndex);
-  maintextarea.value = updatedContent;
+  const ultimoIndiceLlaveCierre = maintextarea.value.lastIndexOf('}');
+  const contenidoActualizado = insertarCodigoEnUbicacion(maintextarea.value, llamadaProcedimiento, numeroLineaClickeado, ultimoIndiceLlaveCierre);
+  maintextarea.value = contenidoActualizado;
 
-  // Get the procedimientoText and split it into lines
-  const procedimientoText = document.getElementById('procedimientoText').value;
-  const procedimientoTextLines = procedimientoText.split('\n');
+  // Obtenga el texto del procedimiento y divídalo en líneas
+  const textoProcedimiento = document.getElementById('textoProcedimiento').value;
+  const lineasTextoProcedimiento = textoProcedimiento.split('\n');
 
-  // Add a comment message
-  maintextarea.value += `\n// Procedimiento ${procedimientoName}\n`;
+  // Agregue un mensaje de comentario
+  maintextarea.value += `\n// Procedimiento ${nombreProcedimiento}\n`;
 
-  // Add procedimientoText lines as comments outside the main method code
-  for (const line of procedimientoTextLines) {
-    maintextarea.value += `\n// ${line}`;
+  // Agregue las líneas del texto del procedimiento como comentarios fuera del código del método principal
+  for (const linea of lineasTextoProcedimiento) {
+    maintextarea.value += `\n// ${linea}`;
   }
-  maintextarea.value += '\n'; // Add an extra line for separation
+  maintextarea.value += '\n'; // Agregue una línea adicional para separación
 
-  // Close the modal
+  // Cierre el modal
   const modal = document.getElementById('procedimientoModal');
   const bsModal = bootstrap.Modal.getInstance(modal);
   bsModal.hide();
 
-  // Clear the procedimientoName field
-  document.getElementById('procedimientoName').value = '';
+  // Borre el campo de nombreProcedimiento
+  document.getElementById('nombreProcedimiento').value = '';
 
-  // Hide the "Insertar Procedimiento" button after the procedure is inserted
-  const insertButton = document.getElementById('insertProcedimiento');
-  insertButton.style.display = 'none';
+  // Oculte el botón "Insertar Procedimiento" después de insertar el procedimiento
+  const botonInsertar = document.getElementById('insertarProcedimiento');
+  botonInsertar.style.display = 'none';
 }
 
-// Add an event listener to the "Insertar Procedimiento" button
-document.getElementById('insertProcedimiento').addEventListener('click', function () {
-  generateProcedureCode();
+// Agregar un event listener al botón "Insertar Procedimiento"
+document.getElementById('insertarProcedimiento').addEventListener('click', function () {
+  generarCodigoProcedimiento();
 });
 
-// Function to clear procedimientoText and procedimientoName
-function clearProcedimientoFields() {
-  document.getElementById('procedimientoName').value = '';
-  document.getElementById('procedimientoText').value = '';
+// Función para limpiar los campos de procedimientoText y nombreProcedimiento
+function limpiarCamposProcedimiento() {
+  document.getElementById('nombreProcedimiento').value = '';
+  document.getElementById('textoProcedimiento').value = '';
 
-  // Hide the "Insertar Procedimiento" button when clearing the fields
-  const insertButton = document.getElementById('insertProcedimiento');
-  insertButton.disabled = true;
+  // Oculte el botón "Insertar Procedimiento" al limpiar los campos
+  const botonInsertar = document.getElementById('insertarProcedimiento');
+  botonInsertar.disabled = true;
 }
 
-// Add an event listener to clear the fields when the modal is hidden
+// Agregar un event listener para limpiar los campos cuando se oculta el modal
 $('#procedimientoModal').on('hidden.bs.modal', function () {
-  clearProcedimientoFields();
+  limpiarCamposProcedimiento();
 });
+

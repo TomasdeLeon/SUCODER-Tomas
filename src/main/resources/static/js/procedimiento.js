@@ -1,69 +1,69 @@
-let procedureName = '';
-let components = [];
+let nombreProcedimiento = '';
+let componentes = [];
 
-function isProcedureNameEmpty() {
-  const procedureName = document.getElementById('procedureName').value;
-  return procedureName.trim() === '';
+function esNombreProcedimientoVacio() {
+  const nombreProcedimiento = document.getElementById('procedureName').value;
+  return nombreProcedimiento.trim() === '';
 }
 
-function isValidProcedureName() {
-  const procedureName = document.getElementById('procedureName').value;
-  // Check if the procedure name contains spaces and starts with a lowercase letter
-  return /^[a-z][a-zA-Z0-9]*$/.test(procedureName);
+function esNombreProcedimientoValido() {
+  const nombreProcedimiento = document.getElementById('procedureName').value;
+
+  // Verifica si el nombre del procedimiento contiene espacios y comienza con una letra minúscula
+  return /^[a-z][a-zA-Z0-9]*$/.test(nombreProcedimiento);
 }
 
-function validateProcedureName() {
-  if (isProcedureNameEmpty()) {
+function validarNombreProcedimiento() {
+  if (esNombreProcedimientoVacio()) {
     swal("El nombre del procedimiento no puede estar vacío.", "", "warning");
-  } else if (!isValidProcedureName()) {
+  } else if (!esNombreProcedimientoValido()) {
     swal("El nombre del procedimiento no puede contener espacios y debe comenzar con una letra minúscula.", "", "warning");
   }
 }
 
-function openModal(modalId) {
-  if (isProcedureNameEmpty()) {
-    // Display a SweetAlert warning when the procedure name is empty or invalid
+function abrirModal(modalId) {
+  if (esNombreProcedimientoVacio()) {
+
+    // Muestra una advertencia SweetAlert cuando el nombre del procedimiento está vacío o no válido
     swal("El nombre del procedimiento no puede estar vacío.", "", "warning");
+  } else if (!esNombreProcedimientoValido()) {
+    swal("El nombre del procedimiento no es válido.", "Debe comenzar con una letra minúscula y no contener espacios.", "error");
+  } else {
 
-  } else if(!isValidProcedureName()) {
-    swal("El nombre del procedimiento no es válido.", "Debe empezar con letra minúscula y no contener espacios.", "error");
-
-  }
-  else {
-    // Procedure name is not empty and valid, open the specified modal
+    // El nombre del procedimiento no está vacío y es válido, abre el modal especificado
     $(modalId).modal('show');
   }
 }
 
-function updateProcedureName() {
-    procedureName = document.getElementById('procedureName').value;
-    updateTextArea();
+function actualizarNombreProcedimiento() {
+  nombreProcedimiento = document.getElementById('procedureName').value;
+  actualizarAreaTexto();
 }
 
-function updateComponents(component) {
-    components.push(component);
-    updateTextArea();
+function actualizarComponentes(componente) {
+  componentes.push(componente);
+  actualizarAreaTexto();
 }
 
-function updateTextArea() {
-    const formattedProcedure = createJavaProcedure(procedureName, components);
-    document.getElementById('maintextarea').value = formattedProcedure;
+function actualizarAreaTexto() {
+  const procedimientoFormateado = crearProcedimientoJava(nombreProcedimiento, componentes);
+  document.getElementById('maintextarea').value = procedimientoFormateado;
 }
 
-function createJavaProcedure(name, components) {
-    let procedureCode = '';
+function crearProcedimientoJava(nombre, componentes) {
+  let codigoProcedimiento = '';
 
-    if (name) {
-        procedureCode = `public void ${name}() {\n`;
-    }
+  if (nombre) {
+    codigoProcedimiento = `public void ${nombre}() {\n`;
+  }
 
-    for (const component of components) {
-        procedureCode += component + '\n';
-    }
+  for (const componente of componentes) {
+    codigoProcedimiento += componente + '\n';
+  }
 
-    if (name) {
-        procedureCode += '}\n';
-    }
+  if (nombre) {
+    codigoProcedimiento += '}\n';
+  }
 
-    return procedureCode;
+  return codigoProcedimiento;
 }

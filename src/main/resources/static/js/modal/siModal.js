@@ -1,191 +1,191 @@
-// Function to enable or disable the "Siguiente" button based on the selected values of "Variable 1" and "Variable 2"
-function toggleSiguienteButton() {
-  const attribute1Value = document.getElementById("attribute1").value;
-  const attribute2Value = document.getElementById("attribute2").value;
-  const siguienteButton = document.querySelector("#siModal .modal-footer button");
+// Función para habilitar o deshabilitar el botón "Siguiente" basándose en los valores seleccionados de "Variable 1" y "Variable 2"
+function alternarBotonSiguiente() {
+  const atributo1 = document.getElementById("attribute1").value;
+  const atributo2 = document.getElementById("attribute2").value;
+  const botonSiguiente = document.querySelector("#siModal .modal-footer button");
 
-  if (attribute1Value !== "-" && attribute2Value !== "-") {
-    siguienteButton.disabled = false;
+  if (atributo1 !== "-" && atributo2 !== "-") {
+    botonSiguiente.disabled = false;
   } else {
-    siguienteButton.disabled = true;
+    botonSiguiente.disabled = true;
   }
 }
 
-// Call the function when the modal is shown (e.g., after clicking the "SI" button)
+// Llamar a la función cuando se muestra el modal (por ejemplo, después de hacer clic en el botón "SI")
 document.getElementById("siModal").addEventListener("shown.bs.modal", function () {
-  toggleSiguienteButton();
+  alternarBotonSiguiente();
 });
 
-// Call the function whenever "Variable 1" or "Variable 2" selection changes
+// Llamar a la función cada vez que cambie la selección de "Variable 1" o "Variable 2"
 document.getElementById("attribute1").addEventListener("change", function () {
-  toggleSiguienteButton();
+  alternarBotonSiguiente();
 });
 
 document.getElementById("attribute2").addEventListener("change", function () {
-  toggleSiguienteButton();
+  alternarBotonSiguiente();
 });
 
-let trueConditionStatements = '';
-let falseConditionStatements = '';
+let condicionVerdadera = '';
+let condicionFalsa = '';
 
-// Function to check the condition based on the selected values and operator
-function checkCondition(attribute1Value, attribute2Value, comparisonOperation) {
-  // Your logic to check the condition and return a boolean value
-  // For example:
-  switch (comparisonOperation) {
+// Función para verificar la condición basada en los valores seleccionados y el operador
+function verificarCondicion(valorAtributo1, valorAtributo2, operacionComparacion) {
+  // Tu lógica para verificar la condición y devolver un valor booleano
+  // Por ejemplo:
+  switch (operacionComparacion) {
     case "==":
-      return attribute1Value == attribute2Value;
+      return valorAtributo1 == valorAtributo2;
     case "!=":
-      return attribute1Value != attribute2Value;
+      return valorAtributo1 != valorAtributo2;
     case ">":
-      return attribute1Value > attribute2Value;
+      return valorAtributo1 > valorAtributo2;
     case ">=":
     case ">=":
-      return attribute1Value >= attribute2Value;
+      return valorAtributo1 >= valorAtributo2;
     case "<":
-      return attribute1Value < attribute2Value;
+      return valorAtributo1 < valorAtributo2;
     case "<=":
-      return attribute1Value <= attribute2Value;
+      return valorAtributo1 <= valorAtributo2;
     default:
       return false;
   }
 }
 
-// Function to create code for the SI component
-function createSiCode(attribute1, attribute2, comparisonOperation, trueConditionStatements, falseConditionStatements) {
-  // Get the SI component data from the modal fields
-  const attribute1Input = document.getElementById('attribute1').value;
-  const attribute2Input = document.getElementById('attribute2').value;
+// Función para crear código para el componente SI
+function crearCodigoSi(attribute1, attribute2, operacionComparacion, condicionVerdadera, condicionFalsa) {
+  // Obtener los datos del componente SI de los campos del modal
+  const entradaAtributo1 = document.getElementById('attribute1').value;
+  const entradaAtributo2 = document.getElementById('attribute2').value;
 
-  let siCode = `if (${attribute1} ${comparisonOperation} ${attribute2}) {\n`;
-  siCode += `  System.out.println("${trueConditionStatements}");\n`; // Code to execute when the condition is true
-  siCode += "} else {\n";
-  siCode += `  System.out.println("${falseConditionStatements}");\n`; // Code to execute when the condition is false
-  siCode += "}";
+  let codigoSi = `if (${attribute1} ${operacionComparacion} ${attribute2}) {\n`;
+  codigoSi += `  System.out.println("${condicionVerdadera}");\n`; // Código a ejecutar cuando la condición es verdadera
+  codigoSi += "} else {\n";
+  codigoSi += `  System.out.println("${condicionFalsa}");\n`; // Código a ejecutar cuando la condición es falsa
+  codigoSi += "}";
 
-  return siCode;
+  return codigoSi;
 }
 
-// Function to insert code at a specific location
-function insertCodeAtLocation(existingContent, codeToInsert, clickedLineNumber, lastClosingBraceIndex) {
+// Función para insertar código en una ubicación específica
+function insertarCodigoEnUbicacion(contenidoExistente, codigoAInsertar, numeroLineaClicado, ultimoIndiceLlaveCierre) {
     const textarea = document.getElementById('maintextarea');
-    const currentContent = existingContent;
+    const contenidoActual = contenidoExistente;
 
-    if (clickedLineNumber !== -1 && clickedLineNumber < currentContent.split('\n').length) {
-        // Insert the code at the clicked line
-        const lines = currentContent.split('\n');
-        lines.splice(clickedLineNumber - 1, 0, '');
-        lines.splice(clickedLineNumber, 0, codeToInsert, '');
-        return lines.join('\n');
-    } else if (lastClosingBraceIndex !== -1) {
-        // Insert the code after the last closing curly brace
-        return currentContent.slice(0, lastClosingBraceIndex) +
-            '\n' + codeToInsert + '\n' +
-            currentContent.slice(lastClosingBraceIndex);
+    if (numeroLineaClickeado !== -1 && numeroLineaClickeado < contenidoActual.split('\n').length) {
+        // Insertar el código en la línea clicada
+        const lineas = contenidoActual.split('\n');
+        lineas.splice(numeroLineaClickeado - 1, 0, '');
+        lineas.splice(numeroLineaClickeado, 0, codigoAInsertar, '');
+        return lineas.join('\n');
+    } else if (ultimoIndiceLlaveCierre !== -1) {
+        // Insertar el código después de la última llave de cierre
+        return contenidoActual.slice(0, ultimoIndiceLlaveCierre) +
+            '\n' + codigoAInsertar + '\n' +
+            contenidoActual.slice(ultimoIndiceLlaveCierre);
     } else {
-        // If there is no closing curly brace and no line is clicked, simply add the code at the start of the code
-        return codeToInsert + '\n' + currentContent;
+        // Si no hay llave de cierre y no se ha hecho clic en una línea, simplemente agregar el código al principio del código
+        return codigoAInsertar + '\n' + contenidoActual;
     }
 }
 
-// Function to format the code in maintextarea
-function formatCodeInTextarea() {
-  // Get the content of the maintextarea
+// Función para dar formato al código en el área de texto
+function formatearCodigoEnTextarea() {
+  // Obtener el contenido del área de texto principal
   const textarea = document.getElementById('maintextarea');
-  const code = textarea.value;
+  const codigo = textarea.value;
 
-  // Split the code into lines and trim each line
-  const lines = code.split('\n').map(line => line.trim());
+  // Dividir el código en líneas y eliminar el espacio en blanco en cada línea
+  const lineas = codigo.split('\n').map(linea => linea.trim());
 
-  // Create an indentation level variable
-  let indentationLevel = 0;
+  // Crear una variable de nivel de sangría
+  let nivelSangria = 0;
 
-  // Initialize the formatted code as an empty string
-  let formattedCode = '';
+  // Inicializar el código formateado como una cadena vacía
+  let codigoFormateado = '';
 
-  // Iterate through the lines of code
-  for (let line of lines) {
-    // Remove any existing leading indentation
-    line = line.trimStart();
+  // Iterar a través de las líneas de código
+  for (let linea of lineas) {
+    // Eliminar cualquier sangría inicial existente
+    linea = linea.trimStart();
 
-    // Add the appropriate indentation based on the level
-    for (let i = 0; i < indentationLevel; i++) {
-      formattedCode += '  '; // You can adjust the number of spaces per level
+    // Agregar la sangría apropiada basándose en el nivel
+    for (let i = 0; i < nivelSangria; i++) {
+      codigoFormateado += '  '; // Puedes ajustar la cantidad de espacios por nivel
     }
 
-    // Add the line to the formatted code
-    formattedCode += line + '\n';
+    // Agregar la línea al código formateado
+    codigoFormateado += linea + '\n';
 
-    // Adjust the indentation level based on the code structure
-    if (line.includes('{')) {
-      indentationLevel++;
-    } else if (line.includes('}')) {
-      indentationLevel--;
+    // Ajustar el nivel de sangría basándose en la estructura del código
+    if (linea.includes('{')) {
+      nivelSangria++;
+    } else if (linea.includes('}')) {
+      nivelSangria--;
     }
   }
 
-  // Update the maintextarea with the formatted code
-  textarea.value = formattedCode;
+  // Actualizar el área de texto con el código formateado
+  textarea.value = codigoFormateado;
 }
 
-// Function to handle the "Guardar Condición 'SI'" button click
-function generateIfStructure() {
-  // Get the SI component data from the modal fields
-  const attribute1Value = document.getElementById("attribute1").value;
-  const attribute2Value = document.getElementById("attribute2").value;
-  const comparisonOperation = document.getElementById("comparisonOperation").value;
+// Función para manejar el clic en el botón "Guardar Condición 'SI'"
+function generarEstructuraSi() {
+  // Obtener los datos del componente SI del modal
+  const valorAtributo1 = document.getElementById("attribute1").value;
+  const valorAtributo2 = document.getElementById("attribute2").value;
+  const operacionComparacion = document.getElementById("operacionComparacion").value;
 
-  // Your logic to check the condition based on the selected values and operator
-  const conditionMet = checkCondition(attribute1Value, attribute2Value, comparisonOperation);
+  // Tu lógica para verificar la condición basada en los valores seleccionados y el operador
+  const condicionCumplida = verificarCondicion(valorAtributo1, valorAtributo2, operacionComparacion);
 
-  // Get the true and false messages from the input fields
-  const trueConditionStatements = document.getElementById("trueConditionStatements").value;
-  const falseConditionStatements = document.getElementById("falseConditionStatements").value;
+  // Obtener los mensajes verdaderos y falsos de los campos de entrada
+  const verdaderaCondicion = document.getElementById("condicionVerdadera").value;
+  const falsaCondicion = document.getElementById("condicionFalsa").value;
 
-  // Check if both true and false condition messages are not empty
-  if (trueConditionStatements.trim() === "" && falseConditionStatements.trim() === "") {
-    // Show a warning message using SweetAlert
+  // Verificar si tanto los mensajes verdaderos como los mensajes falsos de la condición no están vacíos
+  if (verdaderaCondicion.trim() === "" && falsaCondicion.trim() === "") {
+    // Mostrar un mensaje de advertencia usando SweetAlert
     swal({
       title: "Error",
-      text: "Por favor ingrese por lo menos un mensaje.",
+      text: "Por favor, ingrese al menos un mensaje.",
       icon: "error",
       confirmButtonText: "OK",
     });
-    return; // Exit the function without generating the if structure
+    return; // Salir de la función sin generar la estructura SI
   }
 
-  // Generate the if structure based on the condition using createSiCode()
-  const ifStructureCode = createSiCode(attribute1Value, attribute2Value, comparisonOperation, trueConditionStatements, falseConditionStatements);
+  // Generar la estructura SI basada en la condición usando createSiCode()
+  const codigoEstructuraSi = crearCodigoSi(valorAtributo1, valorAtributo2, operacionComparacion, verdaderaCondicion, falsaCondicion);
 
-  // Get the existing content of the maintextarea
+  // Obtener el contenido existente del área de texto principal
   const maintextarea = document.getElementById("maintextarea");
 
-  // Find the position of the last closing curly brace in the existing content
-  const lastClosingBraceIndex = maintextarea.value.lastIndexOf('}');
+  // Encontrar la posición de la última llave de cierre en el contenido existente
+  const ultimoIndiceLlaveCierre = maintextarea.value.lastIndexOf('}');
 
-  // Insert the generated if structure code either at the clicked line or after the last closing curly brace
-  const updatedContent = insertCodeAtLocation(maintextarea.value, ifStructureCode, clickedLineNumber, lastClosingBraceIndex);
+  // Insertar el código de la estructura SI generada ya sea en la línea clicada o después de la última llave de cierre
+  const contenidoActualizado = insertarCodigoEnUbicacion(maintextarea.value, codigoEstructuraSi, numeroLineaClickeado, ultimoIndiceLlaveCierre);
 
-  // After generating code, format the maintextarea
-  formatCodeInTextarea();
+  // Después de generar el código, formatear el área de texto
+  formatearCodigoEnTextarea();
 
-  // Update the maintextarea with the complete procedure
-  maintextarea.value = updatedContent;
+  // Actualizar el área de texto con el procedimiento completo
+  maintextarea.value = contenidoActualizado;
 
-  // Close the "Imprimir" modals (optional)
+  // Cerrar los modales "Imprimir" (opcional)
   const modal = document.getElementById('exampleModalToggle2');
   const bsModal = bootstrap.Modal.getInstance(modal);
   bsModal.hide();
 
-  // Show a success message using SweetAlert
+  // Mostrar un mensaje de éxito usando SweetAlert
   swal({
-    title: 'Condición SI guardada correctamente!',
+    title: '¡Condición SI guardada correctamente!',
     icon: 'success',
     confirmButtonText: 'OK',
   });
 }
 
-// Add an event listener to the "Guardar Condicion Si" button
+// Agregar un event listener al botón "Guardar Condición Si"
 document.getElementById("guardarCondicionSiBtn").addEventListener("click", function () {
-  generateIfStructure(); // Call the function to generate the if structure
+  generarEstructuraSi(); // Llamar a la función para generar la estructura SI
 });

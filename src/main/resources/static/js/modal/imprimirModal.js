@@ -1,62 +1,64 @@
-// Function to create code for the IMPRIMIR component
-function createImprimirCode() {
-  // Get the IMPRIMIR component data from the modal fields
+// Función para crear código para el componente IMPRIMIR
+function crearCodigoImprimir() {
+
+  // Obtener los datos del componente IMPRIMIR de los campos del modal
   const imprimirMensaje = document.getElementById('imprimirMensaje').value;
 
-  // Check if the message is empty
+  // Comprobar si el mensaje está vacío
   if (imprimirMensaje.trim() === "") {
-    // Show error message
+
+    // Mostrar mensaje de error
     swal({
       title: "Error",
       text: "Por favor ingrese un mensaje.",
       icon: "error",
       confirmButtonText: "OK",
     });
-    return null; // Return null to indicate an error
+    return null;
   }
 
-  // Construct the code for the IMPRIMIR component
-  const imprimirCode = `System.out.println("${imprimirMensaje}");`;
+  // Construir el código para el componente IMPRIMIR
+  const codigoImprimir = `System.out.println("${imprimirMensaje}");`;
 
-  // Show a success message using SweetAlert
+  // Mostrar un mensaje de éxito usando SweetAlert
   swal({
     title: 'Mensaje guardado correctamente!',
     icon: 'success',
     confirmButtonText: 'OK',
   });
 
-  return imprimirCode; // Return the generated code
+  return codigoImprimir; // Devolver el código generado
 }
 
-// Add an event listener to the "Guardar Mensaje" button
-const guardarMensajeButton = document.getElementById('guardarMensajeButton');
-guardarMensajeButton.addEventListener('click', function() {
-  const imprimirCode = createImprimirCode();
+// Agregar un event listener al botón "Guardar Mensaje"
+const botonGuardarMensaje = document.getElementById('guardarMensajeButton');
+botonGuardarMensaje.addEventListener('click', function() {
+  const codigoImprimir = crearCodigoImprimir();
 
-  if (imprimirCode !== null) {
-    // Get the existing content of the maintextarea
+  if (codigoImprimir !== null) {
+    // Obtener el contenido existente del maintextarea
     const maintextarea = document.getElementById('maintextarea');
-    const existingContent = maintextarea.value;
+    const contenidoExistente = maintextarea.value;
 
-    // Find the position of the last closing curly brace in the existing content
-    const lastClosingBraceIndex = existingContent.lastIndexOf('}');
+    // Encontrar la posición de la última llave de cierre en el contenido existente
+    const ultimoIndiceLlaveCierre = contenidoExistente.lastIndexOf('}');
 
-    // Insert the generated code using the generalized function
-      const updatedContent = insertCodeAtLocation(existingContent, imprimirCode, clickedLineNumber, lastClosingBraceIndex);
+    // Insertar el código generado usando la función generalizada
+    const contenidoActualizado = insertarCodigoEnUbicacion(contenidoExistente, codigoImprimir, numeroLineaClickeado, ultimoIndiceLlaveCierre);
 
-    // Update the maintextarea with the updated content
-    maintextarea.value = updatedContent;
+    // Actualizar el maintextarea con el contenido actualizado
+    maintextarea.value = contenidoActualizado;
 
-    // Hide the modal
+    // Ocultar el modal
     const modal = document.getElementById('imprimirModal');
     const bsModal = bootstrap.Modal.getInstance(modal);
     bsModal.hide();
 
-    // Show a success message using SweetAlert
-        swal({
-          title: 'Mensaje guardado correctamente!',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
+    // Mostrar un mensaje de éxito usando SweetAlert
+    swal({
+      title: 'Mensaje guardado correctamente!',
+      icon: 'success',
+      confirmButtonText: 'OK',
+    });
   }
 });

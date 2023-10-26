@@ -1,214 +1,216 @@
-// Create an array to store the names of the variables
-const variableNames = [];
+// Crear un arreglo para almacenar los nombres de las variables
+const nombresVariables = [];
 
-// Function to toggle the visibility and disabled state of the "Guardar Variables" button
-function updateGuardarVariablesButton() {
-    const variablesCargadosValue = document.getElementById('variablesCargados').value.trim();
-    const guardarVariablesBtn = document.getElementById('guardarVariablesBtn');
-    guardarVariablesBtn.disabled = variablesCargadosValue === ''; // Disable the button if the textarea is empty
+// Función para alternar la visibilidad y el estado deshabilitado del botón "Guardar Variables"
+function actualizarBotonGuardarVariables() {
+    const valorVariablesCargadas = document.getElementById('variablesCargados').value.trim();
+    const botonGuardarVariables = document.getElementById('guardarVariablesBtn');
+    botonGuardarVariables.disabled = valorVariablesCargadas === ''; // Deshabilitar el botón si el área de texto está vacía
 }
 
-// Function to create code for declaring variables
-function createVariablesCode(variableDeclarations) {
-    // Construct the code for declaring the variables
-    const variableCode = variableDeclarations.join('\n');
+// Función para crear código de declaración de variables
+function crearCodigoVariables(declaracionesVariables) {
+    // Construir el código para declarar las variables
+    const codigoVariables = declaracionesVariables.join('\n');
 
-    return variableCode;
+    return codigoVariables;
 }
 
-// Function to clear the variables textarea
-function clearVariablesTextarea() {
+// Función para borrar el área de texto de variables
+function borrarAreaTextoVariables() {
     document.getElementById('variablesCargados').value = '';
-    variableNames.length = 0; // Clear the variable names array
-    updateGuardarVariablesButton(); // Update the button state
+    nombresVariables.length = 0; // Limpiar el arreglo de nombres de variables
+    actualizarBotonGuardarVariables(); // Actualizar el estado del botón
 }
 
-// Function to get the line number where the cursor is
-function getLineNumber(textarea, cursorPosition) {
-    const textBeforeCursor = textarea.value.substring(0, cursorPosition);
-    const lines = textBeforeCursor.split('\n');
-    return lines.length;
+// Función para obtener el número de línea donde se encuentra el cursor
+function obtenerNumeroLinea(textarea, posicionCursor) {
+    const textoAntesCursor = textarea.value.substring(0, posicionCursor);
+    const lineas = textoAntesCursor.split('\n');
+    return lineas.length;
 }
 
-let clickedLineNumber = -1; // Initialize to -1 when no line is clicked
-let clickedCursorPosition = -1; // Initialize to -1 when no line is clicked
+let numeroLineaClickeado = -1; // Inicializar en -1 cuando no se ha hecho clic en ninguna línea
+let posicionCursorClickeado = -1; // Inicializar en -1 cuando no se ha hecho clic en ninguna línea
 
-// Event listener for clicking on a line in the textarea
-document.getElementById('maintextarea').addEventListener('click', function (event) {
-    const textarea = event.target;
-    const cursorPosition = textarea.selectionStart;
-    clickedLineNumber = getLineNumber(textarea, cursorPosition);
-    clickedCursorPosition = cursorPosition;
+// Evento para hacer clic en una línea en el área de texto
+document.getElementById('maintextarea').addEventListener('click', function (evento) {
+    const textarea = evento.target;
+    const posicionCursor = textarea.selectionStart;
+    numeroLineaClickeado = obtenerNumeroLinea(textarea, posicionCursor);
+    posicionCursorClickeado = posicionCursor;
 });
 
-// Function to add a variable declaration inside the procedure or at the clicked line
-function addVariableAtClickedLineOrInsertOfProcedure(variableDeclaration) {
+// Función para agregar una declaración de variable dentro del procedimiento o en la línea clicada
+function agregarVariableEnLineaClicadaOInsertarEnProcedimiento(declaracionVariable) {
     const textarea = document.getElementById('maintextarea');
-    const currentContent = textarea.value;
+    const contenidoActual = textarea.value;
 
-    // Find the position of the last closing curly brace '}' within the procedure
-    const lastClosingBraceIndex = currentContent.lastIndexOf('}');
+    // Encontrar la posición de la última llave de cierre '}' dentro del procedimiento
+    const indiceUltimaLlaveCierre = contenidoActual.lastIndexOf('}');
 
-    if (clickedLineNumber !== -1 && clickedLineNumber < currentContent.split('\n').length) {
-        // Insert the variable declaration at the clicked line
-        const lines = currentContent.split('\n');
-        // Insert a blank line before the clicked line
-        lines.splice(clickedLineNumber - 1, 0, '');
-        // Insert the variable declaration at the clicked line
-        lines.splice(clickedLineNumber, 0, variableDeclaration);
-        // Update the textarea with the modified content, joining lines with '\n'
-        textarea.value = lines.join('\n');
-    } else if (lastClosingBraceIndex !== -1) {
-        // Insert the variable declaration after the last closing curly brace
-        const updatedContent =
-            currentContent.slice(0, lastClosingBraceIndex) +
-            '\n' + variableDeclaration + '\n' +
-            currentContent.slice(lastClosingBraceIndex);
-        textarea.value = updatedContent;
+    if (numeroLineaClickeado !== -1 && numeroLineaClickeado < contenidoActual.split('\n').length) {
+        // Insertar la declaración de variable en la línea clicada
+        const lineas = contenidoActual.split('\n');
+
+        // Insertar una línea en blanco antes de la línea clicada
+        lineas.splice(numeroLineaClickeado - 1, 0, '');
+
+        // Insertar la declaración de variable en la línea clicada
+        lineas.splice(numeroLineaClickeado, 0, declaracionVariable);
+
+        // Actualizar el área de texto con el contenido modificado, uniendo las líneas con '\n'
+        textarea.value = lineas.join('\n');
+    } else if (indiceUltimaLlaveCierre !== -1) {
+
+        // Insertar la declaración de variable después de la última llave de cierre
+        const contenidoActualizado =
+            contenidoActual.slice(0, indiceUltimaLlaveCierre) +
+            '\n' + declaracionVariable + '\n' +
+            contenidoActual.slice(indiceUltimaLlaveCierre);
+        textarea.value = contenidoActualizado;
     } else {
-        // If there is no closing curly brace and no line is clicked, simply add the variable declaration at the start of the code
-        textarea.value = variableDeclaration + '\n' + currentContent;
+        // Si no hay llave de cierre y no se ha hecho clic en una línea, simplemente agregar la declaración de variable al principio del código
+        textarea.value = declaracionVariable + '\n' + contenidoActual;
     }
 
-    // Reset the clicked line number
-    clickedLineNumber = -1;
+    // Restablecer el número de línea clicada
+    numeroLineaClickeado = -1;
 }
 
-// Add an input event listener to the variablesCargados textarea to trigger the toggle function
-document.getElementById('variablesCargados').addEventListener('input', updateGuardarVariablesButton);
+// Agregar un evento de entrada al área de texto "variablesCargados" para activar la función de alternar
+document.getElementById('variablesCargados').addEventListener('input', actualizarBotonGuardarVariables);
 
-// Define a list to store used variable names
-const usedVariableNames = [];
-// Regular expression for variable name validation
-const variableNamePattern = /^[a-z][a-zA-Z0-9]*$/;
+// Definir una lista para almacenar nombres de variables utilizados
+const nombresVariablesUsados = [];
 
-// Event listener for "Cargar Variables" button
+// Expresión regular para la validación de nombres de variables
+const patronNombreVariable = /^[a-z][a-zA-Z0-9]*$/;
+
+// Evento para el botón "Cargar Variables"
 document.getElementById('cargarVariablesBtn').addEventListener('click', function () {
-    const variableNombre = document.getElementById('variableNombre').value;
-    const variableTipo = document.getElementById('variableTipo').value;
-    let variableValor = document.getElementById('variableValor').value;
+    const nombreVariable = document.getElementById('variableNombre').value;
+    const tipoVariable = document.getElementById('variableTipo').value;
+    let valorVariable = document.getElementById('variableValor').value;
 
-    // Check if all fields are filled
-    if (!variableNombre || !variableTipo || !variableValor) {
-        // Show warning message for incomplete inputs
+    // Verificar si todos los campos están completos
+    if (!nombreVariable || !tipoVariable || !valorVariable) {
+        // Mostrar un mensaje de advertencia por entradas incompletas
         swal({
             text: 'Por favor, complete todos los campos.',
             icon: 'warning',
             confirmButtonText: 'OK'
         });
-        return; // Exit the function without adding the variable
+        return; // Salir de la función sin agregar la variable
     }
 
-   // Check if the variable name is already in use
-       if (usedVariableNames.includes(variableNombre)) {
-           swal({
-               title: 'Nombre de Variable Repetido',
-               text: 'El nombre de la variable ya se encuentra en uso.',
-               icon: 'error',
-               confirmButtonText: 'OK'
-           });
-           return; // Exit the function without adding the variable
-       }
+    // Verificar si el nombre de la variable ya está en uso
+    if (nombresVariablesUsados.includes(nombreVariable)) {
+        swal({
+            title: 'Nombre de Variable Repetido',
+            text: 'El nombre de la variable ya se encuentra en uso.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
 
-        // Check if the variable name matches the pattern
-            if (!variableNamePattern.test(variableNombre)) {
-                swal({
-                    title: 'Nombre de Variable Inválido',
-                    text: 'Debe empezar con letra minúscula y no contener espacios.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return; // Exit the function without adding the variable
-            }
+    // Verificar si el nombre de la variable coincide con el patrón
+    if (!patronNombreVariable.test(nombreVariable)) {
+        swal({
+            title: 'Nombre de Variable Inválido',
+            text: 'Debe comenzar con una letra minúscula y no contener espacios.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
 
-    // Regular expressions for validation based on variable type
-    const intPattern = /^[+-]?\d+$/;
-    const doublePattern = /^[+-]?\d+(\.\d+)?$/;
-    const stringPattern = /^[A-Za-z]+$/;
+    // Expresiones regulares para la validación basada en el tipo de variable
+    const patronEntero = /^[+-]?\d+$/;
+    const patronDecimal = /^[+-]?\d+(\.\d+)?$/;
+    const patronCadena = /^[A-Za-z]+$/;
 
-    // Check the value format based on the variable type
-    let isValidValue = true;
-    switch (variableTipo) {
+    // Verificar el formato del valor basado en el tipo de variable
+    let esValorValido = true;
+    switch (tipoVariable) {
         case 'int':
-            isValidValue = intPattern.test(variableValor);
+            esValorValido = patronEntero.test(valorVariable);
             break;
         case 'double':
-            isValidValue = doublePattern.test(variableValor) && variableValor.includes('.');
+            esValorValido = patronDecimal.test(valorVariable) && valorVariable.includes('.');
             break;
         case 'String':
-            isValidValue = stringPattern.test(variableValor);
-            variableValor = `"${variableValor}"`;
+            esValorValido = patronCadena.test(valorVariable);
+            valorVariable = `"${valorVariable}"`;
             break;
-        // Add more cases for other variable types if needed
         default:
             break;
     }
 
-    if (!isValidValue) {
-        // Show warning message for incorrect value format
+    if (!esValorValido) {
+        // Mostrar un mensaje de advertencia por formato de valor incorrecto
         swal({
             title: 'Formato Incorrecto',
-            text: `El formato del valor de ${variableTipo} es incorrecto.`,
+            text: `El formato del valor de ${tipoVariable} es incorrecto.`,
             icon: 'error',
             confirmButtonText: 'OK'
         });
-        return; // Exit the function without adding the variable
+        return;
     }
 
-    const variableName = document.getElementById('variableNombre').value;
-    const variableType = document.getElementById('variableTipo').value;
-    const variableValue = document.getElementById('variableValor').value;
+    // Si el formato del valor es correcto, agregar la variable al área de texto
+    const entradaVariable = `${tipoVariable} ${nombreVariable} = ${valorVariable};`;
+    document.getElementById('variablesCargados').value += entradaVariable + '\n';
 
-    // If the value format is correct, add the variable to the textarea
-    const variableEntry = `${variableTipo} ${variableNombre} = ${variableValor};`;
-    document.getElementById('variablesCargados').value += variableEntry + '\n';
+    // Agregar el nombre de la variable a la lista de nombres de variables utilizados
+    nombresVariablesUsados.push(nombreVariable);
 
-    // Add the variable name to the list of used variable names
-    usedVariableNames.push(variableNombre);
-
-    // Clear the form fields after adding the variable
+    // Borrar los campos del formulario después de agregar la variable
     document.getElementById('variableNombre').value = '';
     document.getElementById('variableValor').value = '';
 
-    variableNames.push(variableNombre);
+    nombresVariables.push(nombreVariable);
 
-    // Call the toggle function after adding the variable to update the "Guardar Variables" button
-    updateGuardarVariablesButton();
+    // Llamar a la función de alternar después de agregar la variable para actualizar el estado del botón "Guardar Variables"
+    actualizarBotonGuardarVariables();
 });
 
-// Event listener for "Guardar Variables" button
+// Evento para el botón "Guardar Variables"
 document.getElementById('guardarVariablesBtn').addEventListener('click', function () {
-    // If the user clicks the "Guardar Variables" button, append the variables to the main textarea
-    const variablesGuardados = document.getElementById('variablesCargados').value;
 
-    // Split the textarea content into individual lines
-    const variableLines = variablesGuardados.trim().split('\n');
+    // Si el usuario hace clic en el botón "Guardar Variables", agregar las variables al área de texto principal
+    const variablesGuardadas = document.getElementById('variablesCargados').value;
 
-    // Generate variable declaration code for each line
-    const variableDeclarations = variableLines.map((line) => {
-        const assignmentIndex = line.indexOf('=');
-        if (assignmentIndex !== -1) {
-            const variableName = line.slice(0, assignmentIndex).trim();
-            const variableDeclaration = variableName + ' = ' + line.slice(assignmentIndex + 1).trim();
-            return variableDeclaration;
+    // Dividir el contenido del área de texto en líneas individuales
+    const lineasVariables = variablesGuardadas.trim().split('\n');
+
+    // Generar código de declaración de variables para cada línea
+    const declaracionesVariables = lineasVariables.map((linea) => {
+        const indiceAsignacion = linea.indexOf('=');
+        if (indiceAsignacion !== -1) {
+            const nombreVariable = linea.slice(0, indiceAsignacion).trim();
+            const declaracionVariable = nombreVariable + ' = ' + linea.slice(indiceAsignacion + 1).trim();
+            return declaracionVariable;
         } else {
-            return line.trim(); // Handle lines without assignments (e.g., comments)
+            return linea.trim();
         }
     });
 
-    // Call createVariablesCode() to generate the variable code
-    const variableCode = createVariablesCode(variableDeclarations);
+    // Llamar a la función crearCodigoVariables() para generar el código de variables
+    const codigoVariables = crearCodigoVariables(declaracionesVariables);
 
-    if (variableCode !== null) {
-        // Insert the variable declaration at the clicked line or inside the procedure
-        addVariableAtClickedLineOrInsertOfProcedure(variableCode);
+    if (codigoVariables !== null) {
 
-        // Close the modal after saving variables
+        // Insertar la declaración de variable en la línea clicada o dentro del procedimiento
+        agregarVariableEnLineaClicadaOInsertarEnProcedimiento(codigoVariables);
+
+        // Cerrar el modal después de guardar las variables
         const modal = document.getElementById('variablesModal');
         const bsModal = bootstrap.Modal.getInstance(modal);
         bsModal.hide();
 
-        // Show a success message using SweetAlert
+        // Mostrar un mensaje de éxito utilizando SweetAlert
         swal({
             title: 'Variables guardadas!',
             icon: 'success',
@@ -217,69 +219,69 @@ document.getElementById('guardarVariablesBtn').addEventListener('click', functio
     }
 });
 
-// Function to populate the dropdowns in the "SI" modal with the names of the variables
-function refereeVariableNames() {
-    // Get the values selected in the SI modal
-    const attribute1Dropdown = document.getElementById('attribute1');
-    const attribute2Dropdown = document.getElementById('attribute2');
+// Función para llenar los menús desplegables en el modal "SI" con los nombres de las variables
+function llenarNombresVariables() {
+    // Obtener los valores seleccionados en el modal "SI"
+    const atributo1 = document.getElementById('attribute1');
+    const atributo2 = document.getElementById('attribute2');
 
-    // Clear existing options
-    attribute1Dropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
-    attribute2Dropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
+    // Borrar las opciones existentes
+    atributo1.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
+    atributo2.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
 
-    // Populate the dropdowns with variable names from the array
-    for (const name of variableNames) {
-        const option = document.createElement('option');
-        option.value = name;
-        option.textContent = name;
-        option.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        attribute1Dropdown.appendChild(option);
+    // Llenar los menús desplegables con los nombres de las variables del arreglo
+    for (const nombre of nombresVariables) {
+        const opcion = document.createElement('option');
+        opcion.value = nombre;
+        opcion.textContent = nombre;
+        opcion.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        atributo1.appendChild(opcion);
 
-        const option2 = document.createElement('option');
-        option2.value = name;
-        option2.textContent = name;
-        option2.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        attribute2Dropdown.appendChild(option2);
+        const opcion2 = document.createElement('option');
+        opcion2.value = nombre;
+        opcion2.textContent = nombre;
+        opcion2.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        atributo2.appendChild(opcion2);
     }
 }
 
-// Function to populate the dropdowns in the "MIENTRAS" modal with the names of the variables
-function refereeVariableNamesMientras() {
-    // Get the values selected in the MIENTRAS modal
-    const attribute1WhileDropdown = document.getElementById('attribute1While');
-    const attribute2WhileDropdown = document.getElementById('attribute2While');
+// Función para llenar los menús desplegables en el modal "MIENTRAS" con los nombres de las variables
+function llenarNombresVariablesMientras() {
+    // Obtener los valores seleccionados en el modal "MIENTRAS"
+    const atributo1Mientras = document.getElementById('attribute1While');
+    const atributo2Mientras = document.getElementById('attribute2While');
 
-    // Clear existing options
-    attribute1WhileDropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
-    attribute2WhileDropdown.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
+    // Borrar las opciones existentes
+    atributo1Mientras.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
+    atributo2Mientras.innerHTML = '<option value="-" style="background-color: rgba(0, 0, 0, 0.8);">-</option>';
 
-    // Populate the dropdowns with variable names from the array (assuming you have a variableNamesMientras array)
-    for (const name of variableNames) {
-        const option = document.createElement('option');
-        option.value = name;
-        option.textContent = name;
-        option.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Set background color
-        attribute1WhileDropdown.appendChild(option);
+    // Llenar los menús desplegables con los nombres de las variables del arreglo (asumiendo que tienes un arreglo nombresVariablesMientras)
+    for (const nombre of nombresVariables) {
+        const opcion = document.createElement('option');
+        opcion.value = nombre;
+        opcion.textContent = nombre;
+        opcion.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Establecer el color de fondo
+        atributo1Mientras.appendChild(opcion);
 
-        const option2 = document.createElement('option');
-        option2.value = name;
-        option2.textContent = name;
-        option2.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Set background color
-        attribute2WhileDropdown.appendChild(option2);
+        const opcion2 = document.createElement('option');
+        opcion2.value = nombre;
+        opcion2.textContent = nombre;
+        opcion2.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Establecer el color de fondo
+        atributo2Mientras.appendChild(opcion2);
     }
 }
 
-// When the modal is opened, update the "Guardar Variables" button state
+// Cuando se abre el modal, actualizar el estado del botón "Guardar Variables"
 document.getElementById('variablesModal').addEventListener('show.bs.modal', function () {
-    clearVariablesTextarea();
-    updateGuardarVariablesButton();
+    borrarAreaTextoVariables();
+    actualizarBotonGuardarVariables();
 });
 
 document.getElementById('siModal').addEventListener('show.bs.modal', function () {
-    refereeVariableNames();
+    llenarNombresVariables();
 });
 
-// Call the functions when the "MIENTRAS" button is clicked
+// Llamar a las funciones cuando se hace clic en el botón "MIENTRAS"
 document.getElementById('mientrasModal').addEventListener('show.bs.modal', function () {
-    refereeVariableNamesMientras(); // Call for MIENTRAS modal
+    llenarNombresVariablesMientras(); // Llamada para el modal "MIENTRAS"
 });

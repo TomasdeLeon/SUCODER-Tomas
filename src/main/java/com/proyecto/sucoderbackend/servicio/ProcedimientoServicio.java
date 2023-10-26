@@ -21,14 +21,6 @@ public class ProcedimientoServicio {
         procedimientoRepositorio.save(procedimiento);
     }
 
-    public String obtenerLineChargerPorNombre(String nombreProcedimiento) {
-        Procedimiento procedimiento = procedimientoRepositorio.findByProcedureName(nombreProcedimiento);
-        if (procedimiento != null) {
-            return procedimiento.getLine();
-        }
-        return null;
-    }
-
     public Procedimiento obtenerProcedimientoPorNombreYUsuario(String nombreProcedimiento, String nombreUsuario) {
         // Find the procedure by name and user
         return procedimientoRepositorio.findByProcedureNameAndNombreUsuario(nombreProcedimiento, nombreUsuario);

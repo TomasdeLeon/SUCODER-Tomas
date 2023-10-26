@@ -11,13 +11,12 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
 </head>
 
 <body>
 <header>
   <a href="/index.html">
-    <img src="images/SUCODER2.png" alt="SUCODER Logo" style="height: 105px;">
+    <img src="images/SUCODER2.png" alt="Logo de SUCODER" style="height: 105px;">
   </a>
   <nav class="navbar">
     <h1 style="color: white;">Lista de Ejercicios</h1>
@@ -30,17 +29,16 @@
 <div class="space"></div>
 
 <div class="container">
-    <a href="#" class="btn-box" style="background: lightgrey;" data-bs-toggle="modal" data-bs-target="#contraseniaModal">Subir Ejercicio</a>
-    <hr style="color: white;"><br>
+  <a href="#" class="btn-box" style="background: lightgrey;" data-bs-toggle="modal" data-bs-target="#contraseniaModal">Subir Ejercicio</a>
+  <hr style="color: white;"><br>
 
-
-  <!-- CONTRASENIA Modal -->
+  <!-- Modal de CONTRASEÑA -->
   <div class="modal fade" id="contraseniaModal" tabindex="-1" role="dialog" aria-labelledby="contraseniaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
         <div class="modal-header">
           <h5 class="modal-title" id="contraseniaModalLabel" style="color: white;">Ingrese Contraseña</h5>
-          <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Cerrar">
             <span aria-hidden="true">&times;</span>
           </button>
         </div><br>
@@ -49,7 +47,7 @@
             <label for="contrasenia" style="color: white;">Contraseña:</label><br>
             <div class="password-input">
               <input type="password" id="contrasenia" name="contrasenia" style="width:70%;" required>&nbsp;&nbsp;
-              <span id="togglePassword" style="color: white;" class="eye-icon" onclick="togglePasswordVisibility()">
+              <span id="togglePassword" style="color: white;" class="eye-icon" onclick="toggleVisibilityContraseña()">
                   <i class="fas fa-eye"></i>
               </span>
             </div>
@@ -62,13 +60,13 @@
     </div>
   </div>
 
-  <!-- SUBIR EJERCICIO Modal -->
+  <!-- Modal de SUBIR EJERCICIO -->
   <div class="modal fade" id="subirEjercicioModal" tabindex="-1" role="dialog" aria-labelledby="subirEjercicioLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content" style="background-color: black; border: .2rem solid #fff;">
         <div class="modal-header">
           <h5 class="modal-title" id="subirEjercicioLabel" style="color: white;">Subir Ejercicio</h5>
-          <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="custom-close-button" data-bs-dismiss="modal" aria-label="Cerrar">
             <span aria-hidden="true">&times;</span>
           </button>
         </div><br>
@@ -82,7 +80,7 @@
             <textarea id="exerciseDescription" name="exerciseDescription" rows="4" cols="50" style="height: 30%;" required></textarea>
           </div><br>
           <div class="exercises-solution">
-            <label for="exerciseSolution" style="color: white;">Solución</label>
+            <label for= "exerciseSolution" style="color: white;">Solución</label>
             <textarea id="exerciseSolution" name="exerciseSolution" rows="4" cols="50" style="height: 30%;" required></textarea>
           </div>
         </div><br>
@@ -93,31 +91,29 @@
     </div>
   </div>
 
-    <table border="1">
-      <thead>
-      <tr>
-        <th>Ejercicio</th>
-        <th>Descripcion</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Ejercicio</th>
+      <th>Descripción</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
 
-  <tbody id="exercise-table-body">
-  <!-- Table rows will be populated here -->
-  </tbody>
-</table>
+    <tbody id="exercise-table-body">
+    <!-- Aquí se poblarán las filas de la tabla -->
+    </tbody>
+  </table>
 </div>
 
 <div class="space"></div>
-
-
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/sweetalert.min.js"></script>
 
 <script>
-
-  function togglePasswordVisibility() {
+  // Función para alternar la visibilidad de la contraseña
+  function toggleVisibilityContraseña() {
     const passwordInput = document.getElementById("contrasenia");
     const togglePassword = document.getElementById("togglePassword");
 
@@ -130,166 +126,163 @@
         togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
     }
 }
-
 </script>
 
 <script>
-    // Function to extract query parameters from URL
-    function getQueryParam(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
+    // Función para extraer los parámetros de consulta de la URL
+    function obtenerParametroConsulta(nombre) {
+        const parametrosURL = new URLSearchParams(window.location.search);
+        return parametrosURL.get(nombre);
     }
 
-    // Function to format the exercise description as a list without bullet points
-    function formatDescription(description) {
-        const lines = description.split('\n'); // Split the description into lines
-        if (lines.length === 1) {
-            return lines[0]; // If there's only one line, return it as is
+    // Función para formatear la descripción del ejercicio como una lista sin viñetas
+    function formatearDescripcion(descripcion) {
+        const lineas = descripcion.split('\n'); // Dividir la descripción en líneas
+        if (lineas.length === 1) {
+            return lineas[0]; // Si hay una sola línea, devolverla tal cual
         } else {
-            // If there are multiple lines, format them as a list without bullet points
-            const listItems = lines.map(line => `<li>${line}</li>`).join('');
-            return `<ul style="list-style-type: none;">${listItems}</ul>`;
+            // Si hay varias líneas, formatearlas como una lista sin viñetas
+            const elementosLista = lineas.map(linea => `<li>${linea}</li>`).join('');
+            return `<ul style="list-style-type: none;">${elementosLista}</ul>`;
         }
     }
 
-    // Fetch data and populate the table
-    fetch('/api/ejercicios') // Replace with the correct URL for your controller
-        .then(response => response.json())
+    // Obtener datos y poblar la tabla
+    fetch('/api/ejercicios') // Reemplaza con la URL correcta para tu controlador
+        .then(respuesta => respuesta.json())
         .then(data => {
-            const tableBody = document.getElementById('exercise-table-body');
-            const sessionName = getQueryParam('sesion'); // Get the sessionName from the URL
+            const cuerpoTabla = document.getElementById('exercise-table-body');
+            const nombreSesion = obtenerParametroConsulta('sesion'); // Obtener el nombre de sesión de la URL
 
-            data.forEach(exercise => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${exercise.nombre}</td>
-                    <td>${formatDescription(exercise.descripcion)}</td>
-                    <td style="display: none;">${exercise.solucion}</td>
+            data.forEach(ejercicio => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${ejercicio.nombre}</td>
+                    <td>${formatearDescripcion(ejercicio.descripcion)}</td>
+                    <td style="display: none;">${ejercicio.solucion}</td>
                     <td>
-                        <a href="crear.html?modo=Ejercicio&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exercise.nombre)}&exerciseDescription=${encodeURIComponent(exercise.descripcion)}" class="btn-box" style="font-size: 16px;">Iniciar</a>
+                        <a href="crear.html?modo=Ejercicio&sesion=${encodeURIComponent(nombreSesion)}&exerciseName=${encodeURIComponent(ejercicio.nombre)}&exerciseDescription=${encodeURIComponent(ejercicio.descripcion)}" class="btn-box" style="font-size: 16px;">Iniciar</a>
                     </td>
                 `;
-                tableBody.appendChild(row);
+                cuerpoTabla.appendChild(fila);
             });
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+            console.error('Error al obtener datos:', error);
         });
 </script>
 
-
-
 <script>
-    // Function to check the password when the "Ingresar" button is clicked
-function checkPassword(claveData) {
-    fetch('/api/validateClave', {
+    // Función para comprobar la contraseña cuando se hace clic en "Ingresar"
+    function comprobarContrasenia(datosClave) {
+
+    fetch('/api/validarClave', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(claveData)
+        body: JSON.stringify(datosClave)
     })
-    .then(response => {
-        if (response.ok) {
-            // Password is correct, trigger the modal using Bootstrap's data attributes
+    .then(respuesta => {
+        if (respuesta.ok) {
+
+            // La contraseña es correcta, activar el modal utilizando los atributos de datos de Bootstrap
             const subirEjercicioModal = new bootstrap.Modal(document.getElementById('subirEjercicioModal'));
             subirEjercicioModal.show();
         } else {
             swal({
                 title: "Error",
-                text: "Contraseña Incorrecta!",
+                text: "¡Contraseña Incorrecta!",
                 icon: "error",
                 confirmButtonText: "OK",
             });
         }
     })
     .catch(error => {
-        console.error('Error checking password:', error);
+        console.error('Error al comprobar la contraseña:', error);
     });
 }
 
-// Event listener for the "Ingresar" button in the first modal
+// Escuchar eventos para el botón "Ingresar" en el primer modal
 document.getElementById('contraseniaModalIngresar').addEventListener('click', function() {
     const clave = document.getElementById('contrasenia').value;
 
-    const claveData = {
+    const datosClave = {
         password: clave
     };
 
-    // Call the checkPassword function with the JSON data
-    checkPassword(claveData);
+    // Llamar a la función comprobarContrasenia con los datos JSON
+    comprobarContrasenia(datosClave);
 });
 </script>
 
-
 <script>
-    // Function to handle button click
-function submitExercise() {
-    // Get input values
-    const exerciseName = document.getElementById("exerciseName").value;
-    const exerciseDescription = document.getElementById("exerciseDescription").value;
-    const exerciseSolution = document.getElementById("exerciseSolution").value;
+    // Función para manejar el clic del botón
+function enviarEjercicio() {
 
-    // Check if any of the input values are empty
-    if (!exerciseName || !exerciseDescription || !exerciseSolution) {
-        // Show a SweetAlert error message
+    // Obtener los valores de entrada
+    const nombreEjercicio = document.getElementById("exerciseName").value;
+    const descripcionEjercicio = document.getElementById("exerciseDescription").value;
+    const solucionEjercicio = document.getElementById("exerciseSolution").value;
+
+    // Comprobar si alguno de los valores de entrada está vacío
+    if (!nombreEjercicio || !descripcionEjercicio || !solucionEjercicio) {
+        // Mostrar un mensaje de error SweetAlert
         swal({
-            title: 'Error!',
-            text: 'Debes completar todos los valores para subir el ejercicio.',
+            title: 'Debes completar todos los campos para subir el ejercicio.',
             icon: 'error',
             confirmButtonText: 'OK',
         });
-        return; // Exit the function to prevent submitting the exercise
+        return; // Salir de la función para evitar enviar el ejercicio
     }
 
-    // Create an object to hold the data
-    const exerciseData = {
-        nombre: exerciseName,
-        descripcion: exerciseDescription,
-        solucion: exerciseSolution
+    // Crear un objeto para contener los datos
+    const datosEjercicio = {
+        nombre: nombreEjercicio,
+        descripcion: descripcionEjercicio,
+        solucion: solucionEjercicio
     };
 
-    // Send a POST request to the backend
-    fetch("/api/uploadEjercicios", {
+    // Enviar una solicitud POST al servidor
+    fetch("/api/subirEjercicios", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(exerciseData)
+        body: JSON.stringify(datosEjercicio)
     })
-    .then(response => {
-        if (response.ok) {
-            // Handle success with SweetAlert
+    .then(respuesta => {
+        if (respuesta.ok) {
+            // Manejar el éxito con SweetAlert
             swal({
-                title: 'Éxito!',
+                title: '¡Éxito!',
                 text: 'Ejercicio guardado correctamente!',
                 icon: 'success',
                 confirmButtonText: 'OK',
             }).then(() => {
-                // Reset the input fields
+                // Restablecer los campos de entrada
                 document.getElementById("exerciseName").value = "";
                 document.getElementById("exerciseDescription").value = "";
                 document.getElementById("exerciseSolution").value = "";
-                // Close the modal
+                // Cerrar el modal
                 const subirEjercicioModal = new bootstrap.Modal(document.getElementById('subirEjercicioModal'));
                 subirEjercicioModal.hide();
-                // Optionally, reload the page
+                // Opcionalmente, recargar la página
                 window.location.reload();
             });
         } else {
-            // Handle errors, e.g., show an error message to the user
+            // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario
             alert("Error al subir el ejercicio");
         }
     })
     .catch(error => {
-        // Handle network errors
+        // Manejar errores de red
         alert("Error de red: " + error.message);
     });
 }
 
-document.getElementById("subirEjercicioButton").addEventListener("click", submitExercise);
+document.getElementById("subirEjercicioButton").addEventListener("click", enviarEjercicio);
 </script>
-
 
 </body>
 </html>

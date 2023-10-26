@@ -32,9 +32,9 @@
       </ul>
     </div>
     <div class="dropdown">
-      <span type="button" id="userName" data-bs-toggle="dropdown" aria-expanded="false"></span>
-      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userName">
-        <a class="dropdown-item" href="#" id="logoutButton" style="margin-left: 0rem;">Salir</a>
+      <span type="button" id="nombreUsuario" data-bs-toggle="dropdown" aria-expanded="false"></span>
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nombreUsuario">
+        <a class="dropdown-item" href="#" id="btnCerrarSesion" style="margin-left: 0rem;">Salir</a>
       </ul>
     </div>
   </nav>
@@ -72,7 +72,7 @@
         <br><br><br>
         <h4>Nombre Procedimiento</h4>
           <div class="input-box">
-            <input type="text" id="procedureName" name="procedureName" onkeyup="updateProcedureName()" required autocomplete="off">
+            <input type="text" id="procedureName" name="procedureName" onkeyup="actualizarNombreProcedimiento()" required autocomplete="off">
           </div><br><br>
 
         <!-- Información PROCEDIMIENTO Modal -->
@@ -111,13 +111,13 @@ public void mostrarMensaje()
         </div>
 
         <div class="button-container">
-          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" onclick="openModal('#variablesModal')"><span class="text">VARIABLES</span></button>
-          <button class="button-64" type="button" onclick="openModal('#siModal')"><span class="text">SI</span></button>
-          <button class="button-64" type="button" onclick="openModal('#mientrasModal')"><span class="text">MIENTRAS</span></button>
+          <button class="button-64" type="button" style="margin-right: 10px; margin-left: 10px;" onclick="abrirModal('#variablesModal')"><span class="text">VARIABLES</span></button>
+          <button class="button-64" type="button" onclick="abrirModal('#siModal')"><span class="text">SI</span></button>
+          <button class="button-64" type="button" onclick="abrirModal('#mientrasModal')"><span class="text">MIENTRAS</span></button>
         </div><br>
         <div class="button-container">
-          <button class="button-64" type="button" onclick="openModal('#imprimirModal')"><span class="text">IMPRIMIR</span></button>
-          <button class="button-64" type="button" onclick="openModal('#comentarModal')"><span class="text">COMENTARIO</span></button>
+          <button class="button-64" type="button" onclick="abrirModal('#imprimirModal')"><span class="text">IMPRIMIR</span></button>
+          <button class="button-64" type="button" onclick="abrirModal('#comentarModal')"><span class="text">COMENTARIO</span></button>
         </div><br><br>
 
           <!-- Variables Modal -->
@@ -225,8 +225,8 @@ int numero2 = 4;
                     </select>
                   </div><br>
                   <div class="operator">
-                    <label for="comparisonOperation" style="color: white;">Operador de Comparación</label>
-                    <select id="comparisonOperation" name="comparisonOperation" style="height: 90px">
+                    <label for="operacionComparacion" style="color: white;">Operador de Comparación</label>
+                    <select id="operacionComparacion" name="operacionComparacion" style="height: 90px">
                       <option value="==" style="background-color: rgba(0, 0, 0, 0.8);">Igual (==)</option>
                       <option value="!=" style="background-color: rgba(0, 0, 0, 0.8);">Distinto (!=)</option>
                       <option value=">" style="background-color: rgba(0, 0, 0, 0.8);">Es Mayor (>)</option>
@@ -279,8 +279,8 @@ int numero2 = 4;
                 </div><br>
                 <div class="modal-body">
                   <div class="true_message">
-                    <label for="trueConditionStatements" style="color: white;">Mensaje si es Verdadero:</label>
-                    <input type="text" id="trueConditionStatements" name="trueConditionStatements" required>
+                    <label for="condicionVerdadera" style="color: white;">Mensaje si es Verdadero:</label>
+                    <input type="text" id="condicionVerdadera" name="condicionVerdadera" required>
                   </div>
                 </div><br>
                 <div class="modal-footer">
@@ -301,8 +301,8 @@ int numero2 = 4;
                 </div><br>
                 <div class="modal-body">
                   <div class="false_message">
-                    <label for="falseConditionStatements" style="color: white;">Mensaje si es Falso:</label>
-                    <input type="text" id="falseConditionStatements" name="falseConditionStatements" required>
+                    <label for="condicionFalsa" style="color: white;">Mensaje si es Falso:</label>
+                    <input type="text" id="condicionFalsa" name="condicionFalsa" required>
                   </div>
                 </div><br>
                 <div class="modal-footer">
@@ -575,7 +575,7 @@ System.out.println( "Bienvenido a la programacion en Java!" );
                   </div>
                 </div><br>
                 <div class="modal-footer">
-                  <button type="button" class="button" style="background: #fff;" onclick="saveComment()">Guardar Comentario</button>
+                  <button id="guardarComentarioBtn" type="button" class="button" style="background: #fff;">Guardar Comentario</button>
                 </div>
               </div>
             </div>
@@ -641,78 +641,77 @@ dividirse en muchas líneas */
 
 <script>
     document.getElementById("guardarProcedimiento").addEventListener("click", function () {
-    const nombreProcedimiento = document.getElementById("procedureName").value;
-    const lineasProcedimiento = document.getElementById("maintextarea").value;
-    const sessionName = getQueryParam('sesion'); // Get the session name
+        const nombreProcedimiento = document.getElementById("procedureName").value;
+        const lineasProcedimiento = document.getElementById("maintextarea").value;
+        const nombreSesion = getQueryParam('sesion'); // Obtener el nombre de la sesión
 
-    // Check if the maintextarea is empty
-    if (lineasProcedimiento.trim() === "") {
-        swal({
-            title: 'Error',
-            text: 'Debe ingresar un valor para guardar el procedimiento.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-        return; // Don't proceed if the textarea is empty
-    }
-
-    // Check if the procedure name is valid
-    if (!isValidProcedureName(nombreProcedimiento)) {
-        swal({
-            title: 'El nombre del procedimiento no es válido.',
-            text: 'Debe empezar con letra minúscula y no contener espacios.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-        return; // Don't proceed if the procedure name is not valid
-    }
-
-    // Create an object with the correct field names
-    const procedureData = {
-        line: lineasProcedimiento,
-        procedureName: nombreProcedimiento,
-        nombreUsuario: sessionName
-    };
-
-    // Send the data as JSON
-    fetch("/api/procedimientos", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(procedureData),
-    })
-    .then((response) => {
-        if (response.status === 200) {
+        // Comprobar si el área de texto principal está vacía
+        if (lineasProcedimiento.trim() === "") {
             swal({
-                title: 'Éxito',
-                text: 'Procedimiento guardado correctamente',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                // Additional actions if needed
-            });
-        } else if (response.status === 409) {
-            swal({
-                title: 'Ya existe un procedimiento con este nombre para el usuario actual.',
-                text: '',
+                title: 'Error',
+                text: 'Debes ingresar un valor para guardar el procedimiento.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-        } else {
-            throw new Error("Network response was not ok");
+            return; // No continuar si el área de texto está vacía
         }
-    })
-    .catch((error) => {
-        console.error("Error saving procedure:", error);
-        swal({
-            title: 'Error',
-            text: 'Ha ocurrido un error al guardar el procedimiento.',
-            icon: 'error',
-            confirmButtonText: 'OK'
+
+        // Comprobar si el nombre del procedimiento es válido
+        if (!isValidProcedureName(nombreProcedimiento)) {
+            swal({
+                title: 'El nombre del procedimiento no es válido.',
+                text: 'Debe comenzar con letra minúscula y no contener espacios.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return; // No continuar si el nombre del procedimiento no es válido
+        }
+
+        // Crear un objeto con los nombres de campo correctos
+        const datosProcedimiento = {
+            line: lineasProcedimiento,
+            procedureName: nombreProcedimiento,
+            nombreUsuario: nombreSesion
+        };
+
+        // Enviar los datos como JSON
+        fetch("/api/procedimientos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(datosProcedimiento),
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                swal({
+                    title: 'Éxito',
+                    text: 'Procedimiento guardado correctamente',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Acciones adicionales si es necesario
+                });
+            } else if (response.status === 409) {
+                swal({
+                    title: 'Ya existe un procedimiento con este nombre para el usuario actual.',
+                    text: '',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                throw new Error("La respuesta de la red no fue exitosa");
+            }
+        })
+        .catch((error) => {
+            swal({
+                title: 'Error',
+                text: 'Ha ocurrido un error al guardar el procedimiento.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         });
     });
-});
 </script>
 
 </body>

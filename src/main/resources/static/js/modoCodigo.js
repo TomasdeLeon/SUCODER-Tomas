@@ -30,18 +30,18 @@ function getQueryParam(name) {
   const modo = urlParams.get('modo');
 
   // Get the session name from the query parameter
-  const sessionName = getQueryParam('sesion');
+  const nombreSesion = getQueryParam('sesion');
 
   if (modo) {
     const modoMensaje = document.getElementById('modoMensaje');
     if (modo === 'Ejercicio') {
-      const userNameElement = document.getElementById('userName');
-      userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
+      const userNameElement = document.getElementById('nombreUsuario');
+      userNameElement.innerHTML = nombreSesion ? `<i class='bx bxs-user'></i> ${nombreSesion}` : 'Usuario Desconocido';
 
       modoMensaje.innerHTML = '<i class="bx bx-dumbbell"></i> Modo Ejercicio';
     } else if (modo === 'Libre') {
-      const userNameElement = document.getElementById('userName');
-      userNameElement.innerHTML = sessionName ? `<i class='bx bxs-user'></i> ${sessionName}` : 'Usuario Desconocido';
+      const userNameElement = document.getElementById('nombreUsuario');
+      userNameElement.innerHTML = nombreSesion ? `<i class='bx bxs-user'></i> ${nombreSesion}` : 'Usuario Desconocido';
 
       modoMensaje.innerHTML = '<i class="bx bx-compass"></i> Modo Libre';
     }
@@ -54,8 +54,8 @@ function getQueryParam(name) {
   const solucionButtonDiv = document.getElementById('solucionButtonDiv');
 
   if (modo === 'Ejercicio') {
-    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
-    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
+    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}&exerciseName=${encodeURIComponent(exerciseName)}&exerciseDescription=${encodeURIComponent(exerciseDescription)}`;
 
     // Show the "Mostrar Solución" button
     solucionButtonDiv.style.display = 'block';
@@ -63,8 +63,8 @@ function getQueryParam(name) {
     // Add a line break after the "Mostrar Solución" button
     solucionButtonDiv.insertAdjacentHTML('afterend', '<br><br>');
   } else {
-    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}`;
-    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(sessionName)}`;
+    procedimientoLink = `procedimiento.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}`;
+    codigoLink = `codigo.html?modo=${modo}&sesion=${encodeURIComponent(nombreSesion)}`;
 
     // Hide the "Ver Letra" button with id 'verLetraButton'
     verLetraButton.style.display = 'none';

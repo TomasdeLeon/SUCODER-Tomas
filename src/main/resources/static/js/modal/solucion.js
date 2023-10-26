@@ -1,19 +1,19 @@
-// Function to retrieve and display the exercise solution
-    function mostrarSolucion() {
-        // Replace this with the actual exercise solution
-        const exerciseSolution = "// Replace this with the exercise solution\n";
+// Función para obtener y mostrar la solución del ejercicio
+function mostrarSolucion() {
+    // Reemplaza esto con la solución real del ejercicio
+    const solucionEjercicio = "// Reemplaza esto con la solución del ejercicio\n";
 
-        // Get the current content of the maintextarea
-        const mainTextarea = document.getElementById('maintextarea');
-        const currentContent = mainTextarea.value;
+    // Obtén el contenido actual del área de texto principal
+    const mainTextarea = document.getElementById('maintextarea');
+    const contenidoActual = mainTextarea.value;
 
-        // Combine the current content and exercise solution
-        const newContent = `${currentContent}\n${exerciseSolution}`;
+    // Combina el contenido actual con la solución del ejercicio
+    const nuevoContenido = `${contenidoActual}\n${solucionEjercicio}`;
 
-        // Set the updated content in the textarea
-        mainTextarea.value = newContent;
-    }
+    // Establece el contenido actualizado en el área de texto
+    mainTextarea.value = nuevoContenido;
+}
 
-    // Attach an event listener to the "Mostrar Solución" button
-    const mostrarSolucionButton = document.getElementById('mostrarSolucionButton');
-    mostrarSolucionButton.addEventListener('click', mostrarSolucion);
+// Adjunta un event listener al botón "Mostrar Solución"
+const botonMostrarSolucion = document.getElementById('mostrarSolucionButton');
+botonMostrarSolucion.addEventListener('click', mostrarSolucion);
