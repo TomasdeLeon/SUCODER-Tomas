@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProcedimientoRepositorio extends JpaRepository<Procedimiento, Long> {
 
     // Agregar un método de consulta personalizado para obtener procedimientos por nombre y usuario
-    Procedimiento obtenerProcedimientoPorNombreYUsuario(String nombreProcedimiento, String nombreUsuario);
+    Procedimiento findByProcedureNameAndNombreUsuario(String nombreProcedimiento, String nombreUsuario);
 }
