@@ -97,7 +97,7 @@ function saveWhileCondition() {
   // Obtener los valores seleccionados en el modal "MIENTRAS"
   const attribute1WhileValue = document.getElementById('attribute1While').value;
   const attribute2WhileValue = document.getElementById('attribute2While').value;
-  const comparisonOperation2Value = document.getElementById('comparisonOperation2').value;
+  const comparisonOperation2Value = document.getElementById('operacionComparacion2').value;
 
   // Obtener el mensaje del modal "Imprimir Mensaje"
   const messageWhileValue = document.getElementById('messageWhile').value;

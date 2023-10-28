@@ -22,8 +22,8 @@ public class ProcedimientoServicio {
     }
 
     public Procedimiento obtenerProcedimientoPorNombreYUsuario(String nombreProcedimiento, String nombreUsuario) {
-        // Find the procedure by name and user
-        return procedimientoRepositorio.findByProcedureNameAndNombreUsuario(nombreProcedimiento, nombreUsuario);
+        // Busca el procedimineto por el nombre y el nombre de usuario
+        return procedimientoRepositorio.obtenerProcedimientoPorNombreYUsuario(nombreProcedimiento, nombreUsuario);
     }
 
 }
