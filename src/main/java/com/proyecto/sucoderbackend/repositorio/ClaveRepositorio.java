@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClaveRepositorio extends JpaRepository<Clave, Long> {
 
-    // Aquí puedes definir métodos de consulta personalizados
+
 }

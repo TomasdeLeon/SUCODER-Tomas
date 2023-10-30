@@ -239,8 +239,8 @@ int numero2 = 4;
                             </div><br>
                             <div class="modal-body">
                                 <div class="true_message">
-                                    <label for="trueConditionStatements" style="color: white;">Mensaje si es Verdadero:</label>
-                                    <input type="text" id="trueConditionStatements" name="trueConditionStatements" required>
+                                    <label for="condicionVerdadera" style="color: white;">Mensaje si es Verdadero:</label>
+                                    <input type="text" id="condicionVerdadera" name="condicionVerdadera" required>
                                 </div>
                             </div><br>
                             <div class="modal-footer">
@@ -261,8 +261,8 @@ int numero2 = 4;
                             </div><br>
                             <div class="modal-body">
                                 <div class="false_message">
-                                    <label for="falseConditionStatements" style="color: white;">Mensaje si es Falso:</label>
-                                    <input type="text" id="falseConditionStatements" name="falseConditionStatements" required>
+                                    <label for="condicionFalsa" style="color: white;">Mensaje si es Falso:</label>
+                                    <input type="text" id="condicionFalsa" name="condicionFalsa" required>
                                 </div>
                             </div><br>
                             <div class="modal-footer">
@@ -538,7 +538,7 @@ public void mostrarMensaje()
                                 </div>
                             </div><br>
                             <div class="modal-footer">
-                                <button type="button" class="button" style="background: #fff;" onclick="saveComment()">Guardar Comentario</button>
+                                <button id="guardarComentarioBtn" type="button" class="button" style="background: #fff;">Guardar Comentario</button>
                             </div>
                         </div>
                     </div>

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EjercicioRepositorio extends JpaRepository<Ejercicio, Long> {
 
-    // Aquí puedes definir métodos de consulta personalizados
 }
