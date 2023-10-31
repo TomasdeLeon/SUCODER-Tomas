@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ProcedimientoRepositorio extends JpaRepository<Procedimiento, Long> {
 
-    // Metodo de consulta para obtener procedimineto por nombre de porcedimineto y nombre de usuario
+    // Metodo de consulta para obtener procedimineto por nombre de procedimineto y nombre de usuario
     Procedimiento findByProcedureNameAndNombreUsuario(String nombreProcedimiento, String nombreUsuario);
 }

@@ -16,10 +16,12 @@ public class EjercicioServicio {
         this.ejercicioRepositorio = ejercicioRepositorio;
     }
 
+    //metodo para obtener todos los ejercicios
     public List<Ejercicio> obtenerTodosLosEjercicios() {
         return ejercicioRepositorio.findAll();
     }
 
+    //metodo para guardar ejercicio
     public Ejercicio guardarEjercicio(Ejercicio ejercicio) {
         return ejercicioRepositorio.save(ejercicio);
     }

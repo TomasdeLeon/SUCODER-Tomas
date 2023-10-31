@@ -17,12 +17,13 @@ public class ProcedimientoServicio {
         this.procedimientoRepositorio = procedimientoRepositorio;
     }
 
+    //Guardar procedimiento
     public void guardarProcedimiento(Procedimiento procedimiento) {
         procedimientoRepositorio.save(procedimiento);
     }
 
+    // Busca el procedimiento por el nombre y el nombre de usuario
     public Procedimiento obtenerProcedimientoPorNombreYUsuario(String nombreProcedimiento, String nombreUsuario) {
-        // Busca el procedimineto por el nombre y el nombre de usuario
         return procedimientoRepositorio.findByProcedureNameAndNombreUsuario(nombreProcedimiento, nombreUsuario);
     }
 

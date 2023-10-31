@@ -19,8 +19,11 @@ public class ClaveControlador {
     }
 
     @PostMapping("/validarClave")
+
     public ResponseEntity<String> validarClave(@RequestBody Map<String, String> requestBody) {
+        // trae el password ingresado por el usuario
         String claveProporcionada = requestBody.get("password");
+        //chequeo si la clave es valida
         boolean esClaveValida = claveServicio.validarClave(claveProporcionada);
 
         if (esClaveValida) {

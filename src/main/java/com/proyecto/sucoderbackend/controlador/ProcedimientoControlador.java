@@ -28,14 +28,14 @@ public class ProcedimientoControlador {
             String procedureName = procedimiento.getProcedureName();
             String nombreUsuario = procedimiento.getNombreUsuario();
 
-            // Check if a procedure with the same name exists for the user
+            // Verificar si un procedimiento con el mismo nombre existe para el usuario
             Procedimiento existingProcedure = procedimientoServicio.obtenerProcedimientoPorNombreYUsuario(procedureName, nombreUsuario);
 
             if (existingProcedure != null) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("A procedure with this name already exists for the current user.");
             }
 
-            // No procedure with this name exists, save the new procedure
+            // No existe procedimiento con este nombre, guaradr el nuevo procedimiento
             procedimientoServicio.guardarProcedimiento(procedimiento);
             return ResponseEntity.ok("Procedimiento saved successfully!");
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class ProcedimientoControlador {
             String nombreProcedimiento = datosSolicitud.get("nombre_procedimiento");
             String nombreUsuario = datosSolicitud.get("nombre_usuario");
 
-            // Comprobar si el procedimiento existe para el usuario proporcionado
+            // Comprobar si el procedimiento existe para el usuario
             Procedimiento procedimiento = procedimientoServicio.obtenerProcedimientoPorNombreYUsuario(nombreProcedimiento, nombreUsuario);
 
             if (procedimiento != null) {

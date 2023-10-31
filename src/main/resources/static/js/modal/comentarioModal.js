@@ -1,7 +1,7 @@
-// Función para crear código para el componente COMENTARIO
+// Función para crear código COMENTARIO
 function crearCodigoComentario(mensajeComentario) {
 
-  // Construir el código para el componente COMENTARIO
+  // Construir el código COMENTARIO
   const codigoComentario = `// ${mensajeComentario}`;
   return codigoComentario;
 }

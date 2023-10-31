@@ -31,16 +31,17 @@ public class ClaveServicio {
         }
     }
 
+    //validar la clave
     public boolean validarClave(String contraseñaProporcionada) {
 
-        // Obtener la contraseña almacenada en la base de datos (modificar esta lógica según la configuración real de tu base de datos)
+        // Obtener la contraseña almacenada en la base de datos
         Clave claveAlmacenada = claveRepositorio.findById(1L).orElse(null);
 
         if (claveAlmacenada != null) {
             // Comparar las contraseñas después de recortar espacios en blanco
             return passwordEncoder.matches(contraseñaProporcionada, claveAlmacenada.getPassword());
         } else {
-            // Manejar el caso en el que no se encuentra una contraseña almacenada (por ejemplo, devolver false)
+            // Manejar el caso en el que no se encuentra una contraseña almacenada
             return false;
         }
     }

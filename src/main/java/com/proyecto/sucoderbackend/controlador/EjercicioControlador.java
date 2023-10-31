@@ -21,12 +21,14 @@ public class EjercicioControlador {
 
     @GetMapping("/ejercicios")
     public List<Ejercicio> obtenerEjercicios() {
+        //obtener ejercicios
         return ejercicioServicio.obtenerTodosLosEjercicios();
     }
 
     @PostMapping("/subirEjercicios")
     public ResponseEntity<String> subirEjercicios(@RequestBody Ejercicio ejercicio) {
         try {
+            //guardar ejercicio
             ejercicioServicio.guardarEjercicio(ejercicio);
             return ResponseEntity.ok("¡Ejercicio subido exitosamente!");
         } catch (Exception e) {
